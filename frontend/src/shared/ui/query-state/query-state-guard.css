@@ -1,0 +1,72 @@
+﻿.qs-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 48px 20px;
+  text-align: center;
+  color: var(--text-soft);
+}
+
+.qs-error-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  background: var(--danger-subtle);
+  color: var(--danger);
+  display: grid;
+  place-items: center;
+  font-size: 1.2rem;
+}
+
+.qs-error-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0;
+}
+
+.qs-error-message {
+  font-size: 0.8rem;
+  color: var(--text-soft);
+  margin: 0;
+  max-width: 360px;
+  line-height: 1.5;
+}
+
+.qs-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 48px 20px;
+  text-align: center;
+}
+
+.qs-empty-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-soft);
+  color: var(--text-muted);
+  display: grid;
+  place-items: center;
+}
+
+.qs-empty-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-soft);
+  margin: 0;
+}
+
+.qs-empty-description {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin: 0;
+  max-width: 320px;
+  line-height: 1.5;
+}
+

@@ -1,0 +1,12 @@
+version: '3.9'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        API_UPSTREAM: http://host.docker.internal:3000
+    ports:
+      - '8080:80'
+

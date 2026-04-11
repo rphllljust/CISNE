@@ -1,0 +1,42 @@
+﻿.select {
+  display: grid;
+  gap: 5px;
+}
+
+.select label {
+  font-size: 0.78rem;
+  color: var(--text-soft);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.select select {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text);
+  padding: 9px 12px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+  appearance: auto;
+}
+
+.select select:hover:not(:disabled) {
+  border-color: var(--text-muted);
+}
+
+.select select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(15, 98, 254, 0.12);
+}
+
+.select-error {
+  margin: 0;
+  color: var(--danger);
+  font-size: 0.74rem;
+}
+

@@ -1,0 +1,80 @@
+﻿.alert {
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+}
+
+.alert-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-xs);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.alert-content {
+  min-width: 0;
+  flex: 1;
+}
+
+.alert-title {
+  margin: 0 0 2px;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.alert-message {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.alert-action {
+  flex-shrink: 0;
+  align-self: center;
+}
+
+.alert-info {
+  background: var(--info-subtle);
+  border-color: color-mix(in srgb, var(--info) 30%, var(--border));
+  color: var(--info-text);
+}
+
+.alert-info .alert-icon {
+  background: color-mix(in srgb, var(--info) 16%, transparent);
+}
+
+.alert-success {
+  background: var(--success-subtle);
+  border-color: color-mix(in srgb, var(--success) 30%, var(--border));
+  color: var(--success-text);
+}
+
+.alert-success .alert-icon {
+  background: color-mix(in srgb, var(--success) 14%, transparent);
+}
+
+.alert-warning {
+  background: var(--warning-subtle);
+  border-color: color-mix(in srgb, var(--warning) 30%, var(--border));
+  color: var(--warning-text);
+}
+
+.alert-warning .alert-icon {
+  background: color-mix(in srgb, var(--warning) 14%, transparent);
+}
+
+.alert-danger {
+  background: var(--danger-subtle);
+  border-color: color-mix(in srgb, var(--danger) 30%, var(--border));
+  color: var(--danger-text);
+}
+
+.alert-danger .alert-icon {
+  background: color-mix(in srgb, var(--danger) 14%, transparent);
+}
+
