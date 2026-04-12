@@ -14,6 +14,7 @@
  */
 
 import { Injectable } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 
 import { PrismaService } from '../../../../infrastructure/prisma/prisma.service';
 
@@ -59,12 +60,12 @@ export class AutomationMetricsService {
         where: { confirmationStatus: 'CONFIRMED', ...this.buildScheduleDateFilter(filter) }
       }),
       this.prisma.schedule.count({ where: this.buildScheduleDateFilter(filter) }),
-      this.prisma.$queryRaw<Array<{ sourceType: string; count: bigint; avgConfidence: number }>>`
-        SELECT "sourceType", COUNT(*) as count, AVG("overallConfidence") as "avgConfidence"
-        FROM "DocumentExtraction"
-        ${filter?.startDate ? this.prisma.$queryRaw`WHERE "createdAt" >= ${new Date(filter.startDate)}` : this.prisma.$queryRaw``}
-        GROUP BY "sourceType"
-      `
+      this.prisma.documentExtraction.groupBy({
+        by: ['sourceType'],
+        where: dateFilter as Prisma.DocumentExtractionWhereInput,
+        _count: { _all: true },
+        _avg: { overallConfidence: true }
+      })
     ]);
 
     // Taxa de Automação
@@ -94,13 +95,11 @@ export class AutomationMetricsService {
       totalManualCorrections: manualCorrections,
       lowConfidenceExtractions: lowConfidenceCount,
       anomalies,
-      bySourceType: (sourceTypeStats as Array<{ sourceType: string; count: bigint; avgConfidence: number }>).map(
-        (row) => ({
-          sourceType: row.sourceType,
-          count: Number(row.count),
-          avgConfidence: Math.round(Number(row.avgConfidence) * 100) / 100
-        })
-      )
+      bySourceType: sourceTypeStats.map((row) => ({
+        sourceType: row.sourceType,
+        count: row._count._all,
+        avgConfidence: Math.round(Number(row._avg.overallConfidence ?? 0) * 100) / 100
+      }))
     };
   }
 
