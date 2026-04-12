@@ -17,6 +17,7 @@
   // Invoices
   invoices: '/invoices',
   invoiceNew: '/invoices/new',
+  invoicePrint: '/invoices/:id/print',
   // Assets
   assets: '/assets',
   assetNew: '/assets/new',

@@ -14,6 +14,7 @@ import { PageLoader } from '@/shared/ui/page-loader';
 const InvoicesListPage = lazy(() => import('@/pages/invoices/list/invoices-list.page').then((m) => ({ default: m.InvoicesListPage })));
 const InvoiceDetailPage = lazy(() => import('@/pages/invoices/detail/invoice-detail.page').then((m) => ({ default: m.InvoiceDetailPage })));
 const EmitInvoicePage = lazy(() => import('@/pages/invoices/emit/emit-invoice.page').then((m) => ({ default: m.EmitInvoicePage })));
+const InvoicePrintPage = lazy(() => import('@/pages/invoices/print/invoice-print.page').then((m) => ({ default: m.InvoicePrintPage })));
 const AssetsListPage = lazy(() => import('@/pages/assets/list/assets-list.page').then((m) => ({ default: m.AssetsListPage })));
 const AssetDetailPage = lazy(() => import('@/pages/assets/detail/asset-detail.page').then((m) => ({ default: m.AssetDetailPage })));
 const SuppliersListPage = lazy(() => import('@/pages/suppliers/list/suppliers-list.page').then((m) => ({ default: m.SuppliersListPage })));
@@ -219,6 +220,10 @@ export const appRouter = createBrowserRouter([
           {
             path: `${appRoutes.invoices}/:id`,
             element: <Lazy><InvoiceDetailPage /></Lazy>
+          },
+          {
+            path: appRoutes.invoicePrint,
+            element: <Lazy><InvoicePrintPage /></Lazy>
           },
           // Assets
           {

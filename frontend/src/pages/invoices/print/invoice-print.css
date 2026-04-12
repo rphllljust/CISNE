@@ -1,0 +1,67 @@
+.invoice-print-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  background: var(--surface);
+  min-height: 100vh;
+}
+
+.invoice-print-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: var(--surface-raised);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  position: sticky;
+  top: 20px;
+  z-index: 10;
+}
+
+.invoice-print-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.invoice-print-container {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+/* Print styles */
+@media print {
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    background: white;
+  }
+
+  .invoice-print-page {
+    padding: 0;
+    gap: 0;
+    background: white;
+  }
+
+  .invoice-print-container {
+    box-shadow: none;
+    border-radius: 0;
+    page-break-inside: avoid;
+  }
+
+  /* Força o tamanho correto da página */
+  @page {
+    margin: 10mm;
+    size: A4;
+  }
+}

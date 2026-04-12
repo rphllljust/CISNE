@@ -86,6 +86,13 @@ export function InvoiceDetailPage(): React.JSX.Element {
               label={statusLabel[invoice.status]}
               tone={statusTone[invoice.status]}
             />
+            {invoice.status === 'ISSUED' && (
+              <Link to={`/invoices/${id}/print`}>
+                <Button variant="secondary" size="sm">
+                  🖨️ Imprimir NFS-e
+                </Button>
+              </Link>
+            )}
             {invoice.status !== 'CANCELLED' && (
               <Button variant="danger" size="sm" onClick={() => setShowCancel(true)}>
                 Cancelar Nota Fiscal

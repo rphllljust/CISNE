@@ -1,0 +1,499 @@
+.nfse-container {
+  background: white;
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  padding: 40px;
+  max-width: 900px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ============================================================================
+   HEADER
+   ============================================================================ */
+
+.nfse-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.nfse-header-left {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.nfse-company-logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-soft));
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  color: white;
+  font-weight: 700;
+  font-size: 1.4rem;
+}
+
+.nfse-company-name {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 3px;
+}
+
+.nfse-company-taxid {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-soft);
+  font-family: var(--font-mono);
+}
+
+.nfse-company-registration {
+  margin: 3px 0 0;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.nfse-header-right {
+  display: flex;
+  gap: 30px;
+  justify-content: flex-end;
+}
+
+.nfse-invoice-number,
+.nfse-invoice-series,
+.nfse-rps {
+  text-align: center;
+}
+
+.nfse-invoice-number .nfse-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: -0.02em;
+}
+
+.nfse-invoice-series .nfse-value,
+.nfse-rps .nfse-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.nfse-label {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.nfse-value {
+  display: block;
+}
+
+/* ============================================================================
+   DIVIDERS
+   ============================================================================ */
+
+.nfse-divider {
+  height: 2px;
+  background: linear-gradient(90deg, var(--border), transparent);
+  margin: 24px 0;
+}
+
+/* ============================================================================
+   SECTIONS
+   ============================================================================ */
+
+.nfse-section-title {
+  margin: 0 0 16px 0;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--primary);
+  border-bottom: 2px solid var(--primary);
+  padding-bottom: 10px;
+}
+
+/* ============================================================================
+   CLIENT SECTION
+   ============================================================================ */
+
+.nfse-client-section {
+  display: grid;
+  grid-template-columns: 1fr 250px;
+  gap: 30px;
+  margin-bottom: 24px;
+}
+
+.nfse-client-main {
+  flex: 1;
+}
+
+.nfse-client-info {
+  background: var(--surface-soft);
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.nfse-info-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.nfse-info-row:last-child {
+  margin-bottom: 0;
+}
+
+.nfse-info-col {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nfse-info-col.full {
+  grid-column: 1 / -1;
+}
+
+.nfse-value-text {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+/* ============================================================================
+   DATES SECTION
+   ============================================================================ */
+
+.nfse-dates-section {
+  background: linear-gradient(135deg, var(--primary-subtle), var(--surface-soft));
+  padding: 16px;
+  border-radius: 8px;
+  border-left: 4px solid var(--primary);
+}
+
+.nfse-dates-section .nfse-section-title {
+  margin-bottom: 12px;
+  border: none;
+  padding-bottom: 0;
+}
+
+.nfse-date-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.nfse-date-item:last-child {
+  margin-bottom: 0;
+}
+
+.nfse-date-value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary);
+  font-family: var(--font-mono);
+}
+
+/* ============================================================================
+   COMPANY SECTION
+   ============================================================================ */
+
+.nfse-company-section {
+  background: var(--surface-raised);
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+
+.nfse-company-info {
+  margin-top: 12px;
+}
+
+/* ============================================================================
+   SERVICE DESCRIPTION
+   ============================================================================ */
+
+.nfse-service-description {
+  background: var(--surface-soft);
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.nfse-description-text {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+/* ============================================================================
+   TABLE
+   ============================================================================ */
+
+.nfse-items-section {
+  margin-bottom: 20px;
+  overflow-x: auto;
+}
+
+.nfse-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.nfse-table-header {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: white;
+}
+
+.nfse-table-header tr th {
+  padding: 12px 16px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: none;
+}
+
+.nfse-table-body tr {
+  border-bottom: 1px solid var(--border-subtle);
+  transition: background-color 0.2s ease;
+}
+
+.nfse-table-body tr:hover {
+  background-color: var(--surface-soft);
+}
+
+.nfse-table-body tr:last-child {
+  border-bottom: 2px solid var(--border);
+}
+
+.nfse-table-body tr td {
+  padding: 12px 16px;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+/* ============================================================================
+   FINANCIAL SUMMARY
+   ============================================================================ */
+
+.nfse-financial-summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+.nfse-summary-left {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.nfse-notes-box,
+.nfse-bank-box {
+  background: var(--surface-soft);
+  padding: 16px;
+  border-radius: 8px;
+  border-left: 4px solid var(--primary);
+}
+
+.nfse-notes-title,
+.nfse-bank-title {
+  margin: 0 0 8px 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--primary);
+}
+
+.nfse-notes-text {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-soft);
+  line-height: 1.5;
+}
+
+.nfse-bank-info {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.nfse-bank-info div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nfse-bank-info .nfse-label {
+  margin-bottom: 0;
+}
+
+.nfse-summary-right {
+  background: linear-gradient(135deg, var(--primary-subtle), var(--surface-soft));
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.nfse-summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.nfse-summary-label {
+  font-weight: 500;
+  color: var(--text-soft);
+}
+
+.nfse-summary-value {
+  font-weight: 600;
+  color: var(--text);
+  font-family: var(--font-mono);
+}
+
+.nfse-total-row {
+  border-top: 2px solid var(--border);
+  padding-top: 12px;
+  margin-top: 8px;
+  font-size: 1rem;
+}
+
+.nfse-total-row .nfse-summary-label {
+  font-weight: 700;
+  color: var(--primary);
+  font-size: 1rem;
+}
+
+.nfse-summary-value-total {
+  font-weight: 700;
+  color: var(--primary);
+  font-size: 1.2rem;
+  font-family: var(--font-mono);
+}
+
+/* ============================================================================
+   FOOTER
+   ============================================================================ */
+
+.nfse-footer {
+  text-align: center;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.nfse-footer-text {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.nfse-footer-text:first-child {
+  margin-bottom: 6px;
+}
+
+/* ============================================================================
+   PRINT STYLES
+   ============================================================================ */
+
+@media print {
+  .nfse-container {
+    padding: 0;
+    max-width: 100%;
+    background: white;
+  }
+
+  .nfse-header {
+    margin-bottom: 16px;
+  }
+
+  .nfse-divider {
+    margin: 12px 0;
+  }
+
+  .nfse-client-section {
+    gap: 20px;
+    margin-bottom: 16px;
+  }
+
+  .nfse-company-section {
+    margin-bottom: 16px;
+  }
+
+  .nfse-service-description {
+    margin-bottom: 12px;
+  }
+
+  .nfse-items-section {
+    margin-bottom: 12px;
+  }
+
+  .nfse-financial-summary {
+    gap: 20px;
+    margin-bottom: 12px;
+  }
+
+  .nfse-footer {
+    margin-top: 20px;
+    padding-top: 12px;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+/* ============================================================================
+   RESPONSIVE
+   ============================================================================ */
+
+@media (max-width: 900px) {
+  .nfse-container {
+    padding: 24px;
+  }
+
+  .nfse-header {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .nfse-header-right {
+    justify-content: flex-start;
+  }
+
+  .nfse-client-section {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .nfse-financial-summary {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
