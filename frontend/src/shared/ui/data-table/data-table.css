@@ -1,14 +1,14 @@
 ﻿.table-wrapper {
   overflow: auto;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-xs);
+  border-radius: 12px;
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
 .table {
   width: 100%;
   border-collapse: collapse;
-  background: var(--surface);
+  background: linear-gradient(135deg, var(--surface-raised) 0%, var(--surface) 100%);
 }
 
 .table-caption {
@@ -24,22 +24,23 @@
   position: sticky;
   top: 0;
   z-index: 1;
+  border-bottom: 2px solid var(--border-subtle);
 }
 
 .table th {
-  padding: 10px 14px;
+  padding: 12px 14px;
   text-align: left;
-  border-bottom: 1px solid var(--border);
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
   color: var(--text-muted);
   white-space: nowrap;
+  background: linear-gradient(135deg, transparent 0%, rgba(59, 130, 246, 0.02) 100%);
 }
 
 .table td {
-  padding: 11px 14px;
+  padding: 12px 14px;
   text-align: left;
   border-bottom: 1px solid var(--border-subtle);
   vertical-align: middle;
@@ -52,11 +53,15 @@
 }
 
 .table tbody tr {
-  transition: background var(--transition-fast);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .table tbody tr:hover td {
-  background: var(--surface-soft);
+  background: linear-gradient(90deg, rgba(59, 130, 246, 0.04) 0%, rgba(59, 130, 246, 0.02) 100%);
+}
+
+.table-row-clickable:hover {
+  background: linear-gradient(90deg, rgba(59, 130, 246, 0.04) 0%, rgba(59, 130, 246, 0.02) 100%);
 }
 
 .table-row-clickable {

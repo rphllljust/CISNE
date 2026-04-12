@@ -1,4 +1,4 @@
-﻿import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
 import type { UserRole } from '@/entities/auth/types';
 import { useAuthStore } from '@/features/auth/model';
@@ -16,7 +16,7 @@ export function ProtectedRoute({ roles, permission }: ProtectedRouteProps): Reac
   const hasPermission = useAuthStore((state) => state.hasPermission);
 
   if (status === 'loading') {
-    return <div className="app-loading">Loading session...</div>;
+    return <div className="app-loading">Carregando sessao...</div>;
   }
 
   if (status === 'unauthenticated') {

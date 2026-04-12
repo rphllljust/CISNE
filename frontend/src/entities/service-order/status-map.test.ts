@@ -1,9 +1,15 @@
 ﻿import { serviceOrderStatusLabel, serviceOrderStatusTone } from './status-map';
 
-describe('serviceOrderStatus maps', () => {
-  it('should have mapped labels and tones for critical statuses', () => {
-    expect(serviceOrderStatusLabel.OPEN).toBe('Open');
-    expect(serviceOrderStatusLabel.COMPLETED).toBe('Completed');
+describe('serviceOrderStatusLabel', () => {
+  it('maps backend status to readable labels', () => {
+    expect(serviceOrderStatusLabel.OPEN).toBe('Aberto');
+    expect(serviceOrderStatusLabel.COMPLETED).toBe('Concluido');
+  });
+});
+
+describe('serviceOrderStatusTone', () => {
+  it('maps status to alert tone', () => {
     expect(serviceOrderStatusTone.CANCELED).toBe('red');
+    expect(serviceOrderStatusTone.COMPLETED).toBe('green');
   });
 });

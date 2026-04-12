@@ -26,20 +26,20 @@ export function DashboardPage(): React.JSX.Element {
   return (
     <section className="page-grid">
       <PageHeader
-        eyebrow="Operations"
-        breadcrumbs={<Breadcrumbs items={[{ label: 'Dashboard', to: appRoutes.dashboard }]} />}
-        title="Operational Dashboard"
-        subtitle="Real-time KPI visibility for service execution, SLA and team productivity."
+        eyebrow="Operacoes"
+        breadcrumbs={<Breadcrumbs items={[{ label: 'Painel', to: appRoutes.dashboard }]} />}
+        title="Painel Operacional"
+        subtitle="Visao em tempo real de KPI de execucao de servicos, SLA e produtividade das equipes."
         actions={
           <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
             <Input type="date" value={startDate} onChange={(event) => setStartDate(event.target.value)} />
             <Input type="date" value={endDate} onChange={(event) => setEndDate(event.target.value)} />
             <Button variant="secondary" onClick={() => { setStartDate(''); setEndDate(''); }}>
-              Clear
+              Limpar
             </Button>
             {overviewQuery.isError ? (
               <Button size="sm" onClick={() => void overviewQuery.refetch()}>
-                Retry
+                Tentar novamente
               </Button>
             ) : null}
           </div>
@@ -54,11 +54,11 @@ export function DashboardPage(): React.JSX.Element {
       ) : overviewQuery.isError ? (
         <Alert
           variant="danger"
-          title="Dashboard unavailable"
+          title="Painel indisponivel"
           message={getApiErrorMessage(overviewQuery.error)}
           action={
             <Button variant="secondary" size="sm" onClick={() => void overviewQuery.refetch()}>
-              Try again
+              Tentar novamente
             </Button>
           }
         />
@@ -74,4 +74,3 @@ export function DashboardPage(): React.JSX.Element {
     </section>
   );
 }
-

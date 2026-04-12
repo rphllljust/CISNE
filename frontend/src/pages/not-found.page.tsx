@@ -1,4 +1,4 @@
-﻿import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { appRoutes } from '@/shared/constants/routes';
 import { Button } from '@/shared/ui';
@@ -16,10 +16,10 @@ export function NotFoundPage(): React.JSX.Element {
         </p>
         <div className="not-found-actions">
           <Link to={appRoutes.dashboard}>
-            <Button>Back to dashboard</Button>
+            <Button>Voltar ao painel</Button>
           </Link>
           <Link to={appRoutes.serviceOrders}>
-            <Button variant="secondary">Open service orders</Button>
+            <Button variant="secondary">Abrir ordens de serviço</Button>
           </Link>
         </div>
       </div>

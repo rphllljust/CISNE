@@ -1,4 +1,4 @@
-﻿import { zodResolver } from '@hookform/resolvers/zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
@@ -132,13 +132,13 @@ export function EditServiceOrderPage(): React.JSX.Element {
   if (serviceOrderQuery.isError || !serviceOrderQuery.data) {
     return (
       <section className="page-grid">
-        <PageHeader title="Edit Service Order" subtitle="Unable to load service order details." />
+        <PageHeader title="Editar Ordem de Servico" subtitle="Nao foi possivel carregar os detalhes da ordem de servico." />
         <Alert
           variant="danger"
           message={getApiErrorMessage(serviceOrderQuery.error)}
           action={
             <Button variant="secondary" size="sm" onClick={() => void navigate(-1)}>
-              Back
+              Voltar
             </Button>
           }
         />
@@ -147,8 +147,8 @@ export function EditServiceOrderPage(): React.JSX.Element {
   }
 
   const breadcrumbs = [
-    { label: 'Dashboard', to: appRoutes.dashboard },
-    { label: 'Service Orders', to: appRoutes.serviceOrders },
+    { label: 'Painel', to: appRoutes.dashboard },
+    { label: 'Ordens de Servico', to: appRoutes.serviceOrders },
     { label: `OS #${serviceOrderQuery.data.orderNumber}`, to: `${appRoutes.serviceOrders}/${id}` },
     { label: 'Edit' }
   ];
@@ -163,10 +163,10 @@ export function EditServiceOrderPage(): React.JSX.Element {
         actions={
           <div style={{ display: 'flex', gap: 8 }}>
             <Button variant="secondary" onClick={() => void navigate(-1)}>
-              Cancel
+              Cancelar
             </Button>
             <Button disabled={updateMutation.isPending} onClick={() => void handleSubmit((v) => updateMutation.mutate(v))()}>
-              {updateMutation.isPending ? 'Saving...' : 'Save changes'}
+              {updateMutation.isPending ? 'Salvando...' : 'Salvar alterações'}
             </Button>
           </div>
         }
@@ -201,8 +201,8 @@ export function EditServiceOrderPage(): React.JSX.Element {
           </div>
 
           <div className="inline-form">
-            <Input type="datetime-local" label="Scheduled start" {...register('scheduledStartAt')} />
-            <Input type="datetime-local" label="Scheduled end" {...register('scheduledEndAt')} />
+            <Input type="datetime-local" label="Inicio agendado" {...register('scheduledStartAt')} />
+            <Input type="datetime-local" label="Fim agendado" {...register('scheduledEndAt')} />
           </div>
 
           <div className="inline-form">
@@ -222,10 +222,10 @@ export function EditServiceOrderPage(): React.JSX.Element {
 
           <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8 }}>
             <Button variant="secondary" onClick={() => void navigate(-1)}>
-              Cancel
+              Cancelar
             </Button>
             <Button type="submit" disabled={updateMutation.isPending}>
-              {updateMutation.isPending ? 'Saving...' : 'Save changes'}
+              {updateMutation.isPending ? 'Salvando...' : 'Salvar alterações'}
             </Button>
           </div>
         </form>

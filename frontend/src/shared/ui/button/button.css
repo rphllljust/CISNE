@@ -4,24 +4,23 @@
   justify-content: center;
   gap: 6px;
   border: 1px solid transparent;
-  border-radius: var(--radius-sm);
-  padding: 9px 16px;
+  border-radius: 8px;
+  padding: 10px 16px;
   cursor: pointer;
   font-weight: 600;
   font-size: 0.845rem;
-  letter-spacing: 0.01em;
-  transition:
-    background var(--transition-fast),
-    border-color var(--transition-fast),
-    box-shadow var(--transition-fast),
-    opacity var(--transition-fast),
-    transform var(--transition-fast);
+  letter-spacing: 0.5px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   white-space: nowrap;
   line-height: 1;
 }
 
+.btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
 .btn:active:not(:disabled) {
-  transform: translateY(1px);
+  transform: translateY(0);
 }
 
 .btn:disabled {
@@ -38,7 +37,7 @@
 
 .btn-primary:hover:not(:disabled) {
   background: var(--primary-hover);
-  box-shadow: 0 2px 8px rgba(15, 98, 254, 0.35);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.35);
 }
 
 .btn-primary:focus-visible {
@@ -48,15 +47,16 @@
 
 /* â”€â”€â”€ Secondary â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .btn-secondary {
-  border-color: var(--border);
-  background: var(--surface);
+  border-color: var(--border-subtle);
+  background: linear-gradient(135deg, var(--surface-raised) 0%, var(--surface) 100%);
   color: var(--text);
-  box-shadow: var(--shadow-xs);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
 .btn-secondary:hover:not(:disabled) {
-  border-color: var(--text-muted);
+  border-color: var(--primary);
   background: var(--surface-soft);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
 }
 
 /* â”€â”€â”€ Danger â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */

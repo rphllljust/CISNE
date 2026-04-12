@@ -7,14 +7,21 @@ type RetryableRequestConfig = AxiosRequestConfig & { _retry?: boolean };
 
 const authFreePaths = ['/auth/login', '/auth/refresh', '/auth/forgot-password', '/auth/reset-password'];
 
+const defaultHeaders = {
+  'Content-Type': 'application/json; charset=utf-8',
+  'Accept-Language': 'pt-BR,pt;q=0.9'
+};
+
 export const publicClient = axios.create({
   baseURL: env.apiBaseUrl,
-  timeout: env.apiTimeoutMs
+  timeout: env.apiTimeoutMs,
+  headers: defaultHeaders
 });
 
 export const httpClient = axios.create({
   baseURL: env.apiBaseUrl,
-  timeout: env.apiTimeoutMs
+  timeout: env.apiTimeoutMs,
+  headers: defaultHeaders
 });
 
 let refreshPromise: Promise<string | null> | null = null;
@@ -94,5 +101,3 @@ httpClient.interceptors.response.use(
     return httpClient(originalRequest);
   }
 );
-
-

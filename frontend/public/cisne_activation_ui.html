@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CISNE - Ativacao Guiada</title>
+    <style>
+      :root {
+        --bg: #0b1324;
+        --card: #121c33;
+        --line: #1f2c4d;
+        --text: #e8efff;
+        --muted: #9fb0d8;
+        --ok: #16a34a;
+        --danger: #dc2626;
+        --brand: #2563eb;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: "Segoe UI", sans-serif;
+        background: radial-gradient(circle at top, #1b2d57 0%, var(--bg) 50%);
+        color: var(--text);
+      }
+      .wrap {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 28px 16px 40px;
+      }
+      h1 {
+        margin: 0 0 8px;
+        font-size: 30px;
+      }
+      .sub {
+        color: var(--muted);
+        margin-bottom: 24px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 14px;
+      }
+      .card {
+        background: color-mix(in srgb, var(--card) 93%, black);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 14px;
+      }
+      .step {
+        color: var(--brand);
+        font-size: 13px;
+        font-weight: 700;
+      }
+      .title {
+        margin: 6px 0 8px;
+        font-weight: 700;
+      }
+      .desc {
+        color: var(--muted);
+        font-size: 14px;
+        margin: 0;
+      }
+      .actions {
+        margin-top: 22px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      button {
+        border: 0;
+        border-radius: 10px;
+        background: var(--brand);
+        color: white;
+        padding: 10px 14px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      button.secondary {
+        background: #334155;
+      }
+      #status {
+        margin-top: 14px;
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 1px solid var(--line);
+        background: #0f1b31;
+        font-size: 14px;
+      }
+      .ok {
+        color: var(--ok);
+      }
+      .danger {
+        color: var(--danger);
+      }
+      pre {
+        margin-top: 14px;
+        border-radius: 12px;
+        border: 1px solid var(--line);
+        background: #0a1020;
+        padding: 12px;
+        max-height: 320px;
+        overflow: auto;
+        color: #d6e5ff;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <h1>Ativacao CISNE</h1>
+      <p class="sub">Fluxo guiado para validar e ativar os modulos do sistema sem alterar o que ja esta implantado.</p>
+
+      <section class="grid">
+        <article class="card">
+          <div class="step">PASSO 1</div>
+          <div class="title">Validar scripts</div>
+          <p class="desc">Confere se o activator esta carregado e pronto para uso.</p>
+        </article>
+        <article class="card">
+          <div class="step">PASSO 2</div>
+          <div class="title">Ativar sistema</div>
+          <p class="desc">Inicializa os modulos e deixa API global disponivel.</p>
+        </article>
+        <article class="card">
+          <div class="step">PASSO 3</div>
+          <div class="title">Rodar testes</div>
+          <p class="desc">Executa verificacoes de modulos, SLA e permissoes.</p>
+        </article>
+        <article class="card">
+          <div class="step">PASSO 4</div>
+          <div class="title">Concluir</div>
+          <p class="desc">Salva status local de ativacao concluida.</p>
+        </article>
+      </section>
+
+      <div class="actions">
+        <button id="btn-check">1. Verificar</button>
+        <button id="btn-activate">2. Ativar</button>
+        <button id="btn-test">3. Testar</button>
+        <button id="btn-finish" class="secondary">4. Concluir</button>
+      </div>
+
+      <div id="status">Aguardando execucao.</div>
+      <pre id="log"></pre>
+    </main>
+
+    <script src="/cisne_platform_activator.js"></script>
+    <script src="/cisne_activation_prompt.js"></script>
+    <script>
+      (function () {
+        var log = document.getElementById('log');
+        var status = document.getElementById('status');
+
+        function setStatus(message, ok) {
+          status.innerHTML = '<span class="' + (ok ? 'ok' : 'danger') + '">' + message + '</span>';
+        }
+
+        function print(data) {
+          log.textContent = JSON.stringify(data, null, 2);
+        }
+
+        document.getElementById('btn-check').addEventListener('click', function () {
+          if (!window.cisneActivator) {
+            setStatus('Activator nao encontrado.', false);
+            return;
+          }
+          setStatus('Activator carregado com sucesso.', true);
+          print(window.cisneActivator.getSystemStatus());
+        });
+
+        document.getElementById('btn-activate').addEventListener('click', function () {
+          try {
+            var prompt = new window.CISNEActivationPrompt();
+            var activated = prompt.activate();
+            setStatus('Sistema ativado.', true);
+            print(activated);
+          } catch (error) {
+            setStatus(error.message, false);
+          }
+        });
+
+        document.getElementById('btn-test').addEventListener('click', function () {
+          try {
+            var prompt = new window.CISNEActivationPrompt();
+            var report = prompt.runTests();
+            setStatus('Testes: ' + report.passed + '/' + report.total, report.passed === report.total);
+            print(report);
+          } catch (error) {
+            setStatus(error.message, false);
+          }
+        });
+
+        document.getElementById('btn-finish').addEventListener('click', function () {
+          window.localStorage.setItem('cisne.activation.completed_at', new Date().toISOString());
+          setStatus('Ativacao concluida e registrada localmente.', true);
+          print({
+            completedAt: window.localStorage.getItem('cisne.activation.completed_at'),
+            status: window.cisneActivator ? window.cisneActivator.getSystemStatus() : null
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>

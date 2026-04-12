@@ -13,17 +13,17 @@ export function ProfilePage(): React.JSX.Element {
   const userQuery = useUserById(currentUser?.sub ?? '');
 
   const breadcrumbs = [
-    { label: 'Dashboard', to: appRoutes.dashboard },
-    { label: 'Profile' }
+    { label: 'Painel', to: appRoutes.dashboard },
+    { label: 'Perfil' }
   ];
 
   return (
     <section className="page-grid">
       <PageHeader
-        eyebrow="Account"
+        eyebrow="Conta"
         breadcrumbs={<Breadcrumbs items={breadcrumbs} />}
-        title="User Profile"
-        subtitle="Personal details, role assignment and security context."
+        title="Perfil do Usuario"
+        subtitle="Dados pessoais, perfil de acesso e contexto de seguranca."
       />
 
       {userQuery.isLoading ? (
@@ -34,11 +34,11 @@ export function ProfilePage(): React.JSX.Element {
       ) : userQuery.isError ? (
         <Alert
           variant="danger"
-          title="Profile unavailable"
+          title="Perfil indisponivel"
           message={getApiErrorMessage(userQuery.error)}
           action={
             <Button variant="secondary" size="sm" onClick={() => void userQuery.refetch()}>
-              Retry
+              Tentar novamente
             </Button>
           }
         />
@@ -54,56 +54,56 @@ export function ProfilePage(): React.JSX.Element {
                 <p className="profile-email">{userQuery.data.email}</p>
               </div>
               <StatusBadge
-                label={userQuery.data.status === 'ACTIVE' ? 'Active' : 'Inactive'}
+                label={userQuery.data.status === 'ACTIVE' ? 'Ativo' : 'Inativo'}
                 tone={userQuery.data.status === 'ACTIVE' ? 'green' : 'gray'}
               />
             </div>
           </Card>
 
           <div className="profile-grid">
-            <Card title="Contact and Organization">
+            <Card title="Contato e Organizacao">
               <div className="detail-fields">
                 <div className="detail-field">
-                  <span className="detail-field-label">Email</span>
+                  <span className="detail-field-label">E-mail</span>
                   <span className="detail-field-value detail-field-value-inline">
                     <Mail size={14} />
                     {userQuery.data.email}
                   </span>
                 </div>
                 <div className="detail-field">
-                  <span className="detail-field-label">Phone</span>
+                  <span className="detail-field-label">Telefone</span>
                   <span className="detail-field-value detail-field-value-inline">
                     <Phone size={14} />
-                    {userQuery.data.phone || 'Not informed'}
+                    {userQuery.data.phone || 'Nao informado'}
                   </span>
                 </div>
                 <div className="detail-field">
-                  <span className="detail-field-label">Role</span>
+                  <span className="detail-field-label">Perfil</span>
                   <span className="detail-field-value detail-field-value-inline">
                     <ShieldCheck size={14} />
                     {userQuery.data.roles.join(', ')}
                   </span>
                 </div>
                 <div className="detail-field">
-                  <span className="detail-field-label">Department</span>
+                  <span className="detail-field-label">Departamento</span>
                   <span className="detail-field-value detail-field-value-inline">
                     <Building2 size={14} />
-                    {userQuery.data.department || 'Not assigned'}
+                    {userQuery.data.department || 'Nao atribuido'}
                   </span>
                 </div>
                 <div className="detail-field">
-                  <span className="detail-field-label">Job title</span>
-                  <span className="detail-field-value">{userQuery.data.jobTitle || 'Not assigned'}</span>
+                  <span className="detail-field-label">Cargo</span>
+                  <span className="detail-field-value">{userQuery.data.jobTitle || 'Nao atribuido'}</span>
                 </div>
               </div>
             </Card>
 
-            <Card title="Teams and Access">
+            <Card title="Equipes e Acesso">
               <div className="page-grid">
                 {userQuery.data.teamIds.length === 0 ? (
                   <EmptyState
-                    title="No team linked"
-                    description="The user is active but has no linked operation team yet."
+                    title="Nenhuma equipe vinculada"
+                    description="O usuario esta ativo, mas ainda nao possui equipe operacional vinculada."
                     icon={<Users size={18} />}
                   />
                 ) : (
@@ -118,16 +118,15 @@ export function ProfilePage(): React.JSX.Element {
 
                 <Alert
                   variant="info"
-                  message="Permission and role changes are managed in Users and Teams."
+                  message="Alteracoes de permissoes e perfis sao gerenciadas em Usuarios e Equipes."
                 />
               </div>
             </Card>
           </div>
         </>
       ) : (
-        <EmptyState title="No profile data" description="Unable to load current user details." />
+        <EmptyState title="Sem dados de perfil" description="Nao foi possivel carregar os dados do usuario atual." />
       )}
     </section>
   );
 }
-

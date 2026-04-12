@@ -1,4 +1,4 @@
-﻿/* eslint-disable react-refresh/only-export-components */
+/* eslint-disable react-refresh/only-export-components */
 
 import { lazy, Suspense } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
@@ -10,6 +10,19 @@ import { PublicOnlyRoute } from './public-only-route';
 import { appRoutes } from '@/shared/constants/routes';
 import { ErrorBoundary } from '@/shared/ui/error-boundary';
 import { PageLoader } from '@/shared/ui/page-loader';
+
+const InvoicesListPage = lazy(() => import('@/pages/invoices/list/invoices-list.page').then((m) => ({ default: m.InvoicesListPage })));
+const InvoiceDetailPage = lazy(() => import('@/pages/invoices/detail/invoice-detail.page').then((m) => ({ default: m.InvoiceDetailPage })));
+const EmitInvoicePage = lazy(() => import('@/pages/invoices/emit/emit-invoice.page').then((m) => ({ default: m.EmitInvoicePage })));
+const AssetsListPage = lazy(() => import('@/pages/assets/list/assets-list.page').then((m) => ({ default: m.AssetsListPage })));
+const AssetDetailPage = lazy(() => import('@/pages/assets/detail/asset-detail.page').then((m) => ({ default: m.AssetDetailPage })));
+const SuppliersListPage = lazy(() => import('@/pages/suppliers/list/suppliers-list.page').then((m) => ({ default: m.SuppliersListPage })));
+const SupplierDetailPage = lazy(() => import('@/pages/suppliers/detail/supplier-detail.page').then((m) => ({ default: m.SupplierDetailPage })));
+const ProblemsListPage = lazy(() => import('@/pages/itsm/problems/problems-list.page').then((m) => ({ default: m.ProblemsListPage })));
+const ChangesListPage = lazy(() => import('@/pages/itsm/changes/changes-list.page').then((m) => ({ default: m.ChangesListPage })));
+const KnowledgeBaseListPage = lazy(() => import('@/pages/knowledge-base/list/knowledge-base-list.page').then((m) => ({ default: m.KnowledgeBaseListPage })));
+const ArticleDetailPage = lazy(() => import('@/pages/knowledge-base/detail/article-detail.page').then((m) => ({ default: m.ArticleDetailPage })));
+const CreateArticlePage = lazy(() => import('@/pages/knowledge-base/create/create-article.page').then((m) => ({ default: m.CreateArticlePage })));
 
 const LoginPage = lazy(() => import('@/pages/auth/login/login.page').then((m) => ({ default: m.LoginPage })));
 const ForgotPasswordPage = lazy(() => import('@/pages/auth/forgot-password/forgot-password.page').then((m) => ({ default: m.ForgotPasswordPage })));
@@ -193,6 +206,59 @@ export const appRouter = createBrowserRouter([
                 <ProfilePage />
               </Lazy>
             )
+          },
+          // Invoices
+          {
+            path: appRoutes.invoices,
+            element: <Lazy><InvoicesListPage /></Lazy>
+          },
+          {
+            path: appRoutes.invoiceNew,
+            element: <Lazy><EmitInvoicePage /></Lazy>
+          },
+          {
+            path: `${appRoutes.invoices}/:id`,
+            element: <Lazy><InvoiceDetailPage /></Lazy>
+          },
+          // Assets
+          {
+            path: appRoutes.assets,
+            element: <Lazy><AssetsListPage /></Lazy>
+          },
+          {
+            path: `${appRoutes.assets}/:id`,
+            element: <Lazy><AssetDetailPage /></Lazy>
+          },
+          // Suppliers
+          {
+            path: appRoutes.suppliers,
+            element: <Lazy><SuppliersListPage /></Lazy>
+          },
+          {
+            path: `${appRoutes.suppliers}/:id`,
+            element: <Lazy><SupplierDetailPage /></Lazy>
+          },
+          // ITSM
+          {
+            path: appRoutes.itsmProblems,
+            element: <Lazy><ProblemsListPage /></Lazy>
+          },
+          {
+            path: appRoutes.itsmChanges,
+            element: <Lazy><ChangesListPage /></Lazy>
+          },
+          // Knowledge Base
+          {
+            path: appRoutes.knowledgeBase,
+            element: <Lazy><KnowledgeBaseListPage /></Lazy>
+          },
+          {
+            path: appRoutes.knowledgeBaseNew,
+            element: <Lazy><CreateArticlePage /></Lazy>
+          },
+          {
+            path: `${appRoutes.knowledgeBase}/:id`,
+            element: <Lazy><ArticleDetailPage /></Lazy>
           },
           {
             path: '*',

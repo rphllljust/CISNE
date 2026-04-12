@@ -1,4 +1,4 @@
-﻿import { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { useAuditLogs } from '@/features/audit/api/audit.api';
 import { getApiErrorMessage } from '@/shared/lib/api-error';
@@ -54,8 +54,8 @@ export function AuditPage(): React.JSX.Element {
         breadcrumbs={
           <Breadcrumbs
             items={[
-              { label: 'Dashboard', to: appRoutes.dashboard },
-              { label: 'Audit' }
+              { label: 'Painel', to: appRoutes.dashboard },
+              { label: 'Auditoria' }
             ]}
           />
         }
@@ -66,7 +66,7 @@ export function AuditPage(): React.JSX.Element {
       <FilterBar
         actions={
           <Button variant="secondary" onClick={() => { setResource(''); setAction(''); setPage(1); }}>
-            Clear
+            Limpar
           </Button>
         }
       >
@@ -80,7 +80,7 @@ export function AuditPage(): React.JSX.Element {
           message={getApiErrorMessage(auditQuery.error)}
           action={
             <Button variant="secondary" size="sm" onClick={() => void auditQuery.refetch()}>
-              Retry
+              Tentar novamente
             </Button>
           }
         />
@@ -90,7 +90,7 @@ export function AuditPage(): React.JSX.Element {
         rows={rows}
         rowKey={(row) => row.id}
         loading={auditQuery.isLoading}
-        emptyMessage="No audit entry found."
+        emptyMessage="Nenhum registro de auditoria encontrado."
         columns={[
           {
             key: 'createdAt',

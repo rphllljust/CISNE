@@ -36,8 +36,8 @@ export function NotificationsPage(): React.JSX.Element {
         breadcrumbs={
           <Breadcrumbs
             items={[
-              { label: 'Dashboard', to: appRoutes.dashboard },
-              { label: 'Notifications' }
+              { label: 'Painel', to: appRoutes.dashboard },
+              { label: 'Notificacoes' }
             ]}
           />
         }
@@ -59,11 +59,11 @@ export function NotificationsPage(): React.JSX.Element {
       ) : notificationsQuery.isError ? (
         <Alert
           variant="danger"
-          title="Notifications unavailable"
+          title="NotificaÃ§Ãµes indisponÃ­veis"
           message={getApiErrorMessage(notificationsQuery.error)}
           action={
             <Button variant="secondary" size="sm" onClick={() => void notificationsQuery.refetch()}>
-              Retry
+              Tentar novamente
             </Button>
           }
         />
@@ -72,7 +72,7 @@ export function NotificationsPage(): React.JSX.Element {
           {items.length === 0 ? (
             <EmptyState
               icon={<Bell size={18} />}
-              title="No notifications"
+              title="Sem notificacoes"
               description="New operation alerts will appear here."
             />
           ) : (
@@ -109,4 +109,5 @@ export function NotificationsPage(): React.JSX.Element {
     </section>
   );
 }
+
 

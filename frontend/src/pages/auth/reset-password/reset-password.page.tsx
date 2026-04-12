@@ -33,21 +33,21 @@ export function ResetPasswordPage(): React.JSX.Element {
         </div>
 
         <h1 className="auth-brand-heading">
-          New password,
+          Nova senha,
           <br />
-          <span>secure access.</span>
+          <span>acesso seguro.</span>
         </h1>
 
         <p className="auth-brand-description">
-          Define a strong password for your account to restore secure access to the platform.
+          Defina uma senha forte para restaurar o acesso seguro a plataforma.
         </p>
       </div>
 
       <div className="auth-form-panel">
         <div className="auth-card">
           <div className="auth-card-header">
-            <h1>Reset password</h1>
-            <p className="auth-subtitle">Enter the reset token and your new password.</p>
+            <h1>Redefinir senha</h1>
+            <p className="auth-subtitle">Informe o token de redefinicao e a nova senha.</p>
           </div>
 
           <form
@@ -56,20 +56,20 @@ export function ResetPasswordPage(): React.JSX.Element {
               void handleSubmit((values) => mutation.mutate(values))(event);
             }}
           >
-            <Input label="Reset token" error={errors.token?.message} {...register('token')} />
+            <Input label="Token de redefinicao" error={errors.token?.message} {...register('token')} />
 
-            <Input type="password" label="New password" placeholder="NewPassword@123" error={errors.newPassword?.message} {...register('newPassword')} />
+            <Input type="password" label="Nova senha" placeholder="NovaSenha@123" error={errors.newPassword?.message} {...register('newPassword')} />
 
-            {mutation.isSuccess ? <p className="auth-feedback auth-feedback-success">Password reset completed successfully.</p> : null}
+            {mutation.isSuccess ? <p className="auth-feedback auth-feedback-success">Redefinicao de senha concluida com sucesso.</p> : null}
 
             {mutation.error ? <p className="auth-feedback auth-feedback-error">{getApiErrorMessage(mutation.error)}</p> : null}
 
             <Button type="submit" disabled={mutation.isPending}>
-              {mutation.isPending ? 'Saving...' : 'Save new password'}
+              {mutation.isPending ? 'Salvando...' : 'Salvar nova senha'}
             </Button>
 
             <div className="auth-links">
-              <Link to={appRoutes.login}>Back to login</Link>
+              <Link to={appRoutes.login}>Voltar para login</Link>
             </div>
           </form>
         </div>

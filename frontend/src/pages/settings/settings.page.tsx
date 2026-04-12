@@ -1,4 +1,4 @@
-﻿import { Bell, Clock, FileText, Shield, Tag } from 'lucide-react';
+import { Bell, Clock, FileText, Shield, Tag } from 'lucide-react';
 
 import { appRoutes } from '@/shared/constants/routes';
 import { Alert, Breadcrumbs, Card, PageHeader } from '@/shared/ui';
@@ -58,8 +58,8 @@ export function SettingsPage(): React.JSX.Element {
         breadcrumbs={
           <Breadcrumbs
             items={[
-              { label: 'Dashboard', to: appRoutes.dashboard },
-              { label: 'Settings' }
+              { label: 'Painel', to: appRoutes.dashboard },
+              { label: 'Configura??es' }
             ]}
           />
         }
@@ -67,7 +67,7 @@ export function SettingsPage(): React.JSX.Element {
         subtitle="Governance rules, operation preferences and configurable reference data."
       />
 
-      <Alert variant="info" message="Settings are managed with audit trail and permission checks by role." />
+      <Alert variant="info" message="As configurações são gerenciadas com trilha de auditoria e validação de permissões por perfil." />
 
       <Card title="Core platform modules" subtitle="Central parameters for operational governance">
         <div style={{ marginTop: 4 }}>

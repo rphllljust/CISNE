@@ -17,12 +17,12 @@ interface KpiCardConfig {
 }
 
 const cardMap: KpiCardConfig[] = [
-  { key: 'totalOpen', label: 'Open Orders', description: 'Awaiting triage', icon: Circle, tone: 'blue' },
-  { key: 'totalInProgress', label: 'In Progress', description: 'Execution in field', icon: Clock, tone: 'amber' },
-  { key: 'totalCompleted', label: 'Completed', description: 'Closed in current period', icon: CheckCircle2, tone: 'green' },
-  { key: 'totalOverdue', label: 'Overdue', description: 'Operational risk', icon: AlertTriangle, tone: 'red' },
-  { key: 'slaComplied', label: 'SLA Met', description: 'Within target window', icon: Shield, tone: 'teal' },
-  { key: 'slaViolated', label: 'SLA Violated', description: 'Outside target window', icon: ShieldOff, tone: 'orange' }
+  { key: 'totalOpen', label: 'Ordens Abertas', description: 'Aguardando triagem', icon: Circle, tone: 'blue' },
+  { key: 'totalInProgress', label: 'Em Andamento', description: 'Execucao em campo', icon: Clock, tone: 'amber' },
+  { key: 'totalCompleted', label: 'Concluido', description: 'Encerradas no periodo atual', icon: CheckCircle2, tone: 'green' },
+  { key: 'totalOverdue', label: 'Atrasadas', description: 'Risco operacional', icon: AlertTriangle, tone: 'red' },
+  { key: 'slaComplied', label: 'SLA cumprido', description: 'Dentro da meta', icon: Shield, tone: 'teal' },
+  { key: 'slaViolated', label: 'SLA violado', description: 'Fora da meta', icon: ShieldOff, tone: 'orange' }
 ];
 
 export function KpiCards({ cards }: KpiCardsProps): React.JSX.Element {
@@ -46,4 +46,5 @@ export function KpiCards({ cards }: KpiCardsProps): React.JSX.Element {
     </div>
   );
 }
+
 

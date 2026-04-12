@@ -23,9 +23,9 @@ export function QueryStateGuard({
   isError,
   isEmpty = false,
   onRetry,
-  errorMessage = 'Unable to load data. Please try again.',
-  emptyTitle = 'No records found',
-  emptyDescription = 'There are no items to show with current filters.',
+  errorMessage = 'Nao foi possivel carregar os dados. Tente novamente.',
+  emptyTitle = 'Nenhum registro encontrado',
+  emptyDescription = 'Nao ha itens para exibir com os filtros atuais.',
   loadingRows = 3,
   loadingHeight = 56,
   children
@@ -46,11 +46,11 @@ export function QueryStateGuard({
         <div className="qs-error-icon">
           <AlertCircle size={18} />
         </div>
-        <p className="qs-error-title">Loading failed</p>
+        <p className="qs-error-title">Falha no carregamento</p>
         <p className="qs-error-message">{errorMessage}</p>
         {onRetry ? (
           <Button variant="secondary" onClick={onRetry}>
-            Try again
+            Tentar novamente
           </Button>
         ) : null}
       </div>
@@ -71,4 +71,3 @@ export function QueryStateGuard({
 
   return <>{children}</>;
 }
-

@@ -1,4 +1,4 @@
-﻿import { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { serviceOrderStatusLabel, serviceOrderStatusTone } from '@/entities/service-order/status-map';
@@ -60,7 +60,7 @@ export function ServiceOrdersListPage(): React.JSX.Element {
   const rows = serviceOrdersQuery.data?.items ?? [];
   const meta = serviceOrdersQuery.data?.meta;
 
-  function handleClear(): void {
+  function handleLimpar(): void {
     setSearch('');
     setStatus('');
     setPriority('');
@@ -74,16 +74,16 @@ export function ServiceOrdersListPage(): React.JSX.Element {
         breadcrumbs={
           <Breadcrumbs
             items={[
-              { label: 'Dashboard', to: appRoutes.dashboard },
-              { label: 'Service Orders' }
+              { label: 'Painel', to: appRoutes.dashboard },
+              { label: 'Ordens de Servico' }
             ]}
           />
         }
-        title="Service Orders"
+        title="Ordens de Servico"
         subtitle="Operational command center with advanced filtering, SLA context and status control."
         actions={
           <Link to={appRoutes.serviceOrderNew}>
-            <Button>New Service Order</Button>
+            <Button>Nova Ordem de Servico</Button>
           </Link>
         }
       />
@@ -91,8 +91,8 @@ export function ServiceOrdersListPage(): React.JSX.Element {
       <FilterBar
         actions={
           <>
-            <Button variant="secondary" onClick={handleClear}>
-              Clear
+            <Button variant="secondary" onClick={handleLimpar}>
+              Limpar
             </Button>
             <Button onClick={() => setPage(1)}>Apply filters</Button>
           </>
@@ -101,7 +101,7 @@ export function ServiceOrdersListPage(): React.JSX.Element {
         <Input
           value={search}
           onChange={(event) => setSearch(event.target.value)}
-          label="Search"
+          label="Buscar"
           placeholder="Order title, description or ID"
         />
         <Select
@@ -109,7 +109,7 @@ export function ServiceOrdersListPage(): React.JSX.Element {
           value={status}
           onChange={(event) => setStatus(event.target.value)}
           options={[
-            { value: '', label: 'All statuses' },
+            { value: '', label: 'Todos os status' },
             ...Object.entries(serviceOrderStatusLabel).map(([value, label]) => ({ value, label }))
           ]}
         />
@@ -118,7 +118,7 @@ export function ServiceOrdersListPage(): React.JSX.Element {
           value={priority}
           onChange={(event) => setPriority(event.target.value)}
           options={[
-            { value: '', label: 'All priorities' },
+            { value: '', label: 'Todas as prioridades' },
             { value: 'LOW', label: 'Low' },
             { value: 'MEDIUM', label: 'Medium' },
             { value: 'HIGH', label: 'High' },
@@ -136,11 +136,11 @@ export function ServiceOrdersListPage(): React.JSX.Element {
       ) : serviceOrdersQuery.isError ? (
         <Alert
           variant="danger"
-          title="Unable to load service orders"
+          title="Nao foi possivel carregar as ordens de servico"
           message={getApiErrorMessage(serviceOrdersQuery.error)}
           action={
             <Button variant="secondary" size="sm" onClick={() => void serviceOrdersQuery.refetch()}>
-              Retry
+              Tentar novamente
             </Button>
           }
         />
@@ -150,7 +150,7 @@ export function ServiceOrdersListPage(): React.JSX.Element {
           rowKey={(row) => row.id}
           onRowClick={(row) => void navigate(`${appRoutes.serviceOrders}/${row.id}`)}
           caption="Click a row to open the order timeline and actions."
-          emptyMessage="No service order found for the selected filters."
+          emptyMessage="Nenhuma ordem de servico encontrada para os filtros selecionados."
           columns={[
             {
               key: 'orderNumber',
@@ -217,7 +217,7 @@ export function ServiceOrdersListPage(): React.JSX.Element {
                 <div className="table-actions" style={{ justifyContent: 'flex-end' }}>
                   <Link to={`${appRoutes.serviceOrders}/${row.id}`} onClick={(event) => event.stopPropagation()}>
                     <Button size="sm" variant="secondary">
-                      View
+                      Ver
                     </Button>
                   </Link>
                   <Link to={`${appRoutes.serviceOrders}/${row.id}/edit`} onClick={(event) => event.stopPropagation()}>

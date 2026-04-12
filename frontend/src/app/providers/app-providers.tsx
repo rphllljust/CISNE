@@ -1,7 +1,7 @@
-﻿import { QueryClientProvider } from '@tanstack/react-query';
+import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-import { ToastViewport } from '@/shared/ui/toast';
+import { ToastVerport } from '@/shared/ui/toast';
 
 import { queryClient } from './query-client';
 import { SessionBootstrap } from './session-bootstrap';
@@ -17,7 +17,7 @@ export function AppProviders({ children }: AppProvidersProps): React.JSX.Element
       <ThemeSyncProvider>
         <SessionBootstrap>{children}</SessionBootstrap>
       </ThemeSyncProvider>
-      <ToastViewport />
+      <ToastVerport />
       {import.meta.env.DEV ? <ReactQueryDevtools initialIsOpen={false} /> : null}
     </QueryClientProvider>
   );

@@ -44,17 +44,17 @@ export class ErrorBoundary extends Component<Props, State> {
           <div className="error-boundary-icon" aria-hidden="true">
             <AlertTriangle size={22} />
           </div>
-          <h2 className="error-boundary-title">Unexpected error</h2>
+          <h2 className="error-boundary-title">Erro inesperado</h2>
           <p className="error-boundary-description">
-            This screen failed to render. You can retry now or return to dashboard.
+            Esta tela falhou ao renderizar. Voce pode tentar novamente ou voltar ao painel.
           </p>
           {this.state.error ? <code className="error-boundary-code">{this.state.error.message}</code> : null}
           <div className="error-boundary-actions">
             <Button variant="secondary" onClick={this.handleReset}>
-              Try again
+              Tentar novamente
             </Button>
             <Button onClick={() => { window.location.href = '/'; }}>
-              Go to dashboard
+              Ir para o painel
             </Button>
           </div>
         </div>
@@ -62,4 +62,3 @@ export class ErrorBoundary extends Component<Props, State> {
     );
   }
 }
-

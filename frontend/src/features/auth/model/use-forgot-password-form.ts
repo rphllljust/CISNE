@@ -6,7 +6,7 @@ import { z } from 'zod';
 import { authApi } from '@/features/auth/api/auth.api';
 
 const forgotPasswordSchema = z.object({
-  email: z.string().email('Provide a valid email.')
+  email: z.string().email('Informe um e-mail valido.')
 });
 
 export type ForgotPasswordValues = z.infer<typeof forgotPasswordSchema>;
@@ -28,3 +28,4 @@ export function useForgotPasswordForm() {
     mutation
   };
 }
+

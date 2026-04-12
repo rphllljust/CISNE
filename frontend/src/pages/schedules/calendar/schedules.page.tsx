@@ -41,30 +41,29 @@ export function SchedulesPage(): React.JSX.Element {
   return (
     <section className="page-grid">
       <PageHeader
-        eyebrow="Field Operations"
+        eyebrow="Operacoes de Campo"
         breadcrumbs={
           <Breadcrumbs
             items={[
-              { label: 'Dashboard', to: appRoutes.dashboard },
-              { label: 'Scheduling' }
+              { label: 'Painel', to: appRoutes.dashboard },
+              { label: 'Agenda' }
             ]}
           />
         }
-        title="Operational scheduling"
-        subtitle="Daily, weekly and monthly workload planning for technicians and teams."
+        title="Agenda operacional"
+        subtitle="Planejamento diario, semanal e mensal das cargas de tecnicos e equipes."
       />
 
-      <Alert variant="info" message="Calendar grid integration is prepared for FullCalendar timeline and conflict policies." />
+      <Alert variant="info" message="A grade de calendario esta pronta para integracao com FullCalendar e politicas de conflito." />
 
-      <Card title="Scheduling capabilities" subtitle="Production-ready foundations for route and visit management">
+      <Card title="Recursos de agendamento" subtitle="Base pronta para producao para gestao de rotas e visitas">
         <div style={{ display: 'grid', gap: 14, marginTop: 6 }}>
-          <CapabilityItem icon={<CalendarClock size={15} />} title="Rescheduling with history" description="Every date change keeps immutable trail and ownership context." />
-          <CapabilityItem icon={<CheckCircle2 size={15} />} title="Visit confirmation" description="Service confirmation by technician with operation timestamp." />
-          <CapabilityItem icon={<Timer size={15} />} title="Check-in and check-out" description="Field execution timestamps to measure cycle time and delay." />
-          <CapabilityItem icon={<Route size={15} />} title="Route and attendance windows" description="Planned time windows aligned to SLA and regional workload." />
+          <CapabilityItem icon={<CalendarClock size={15} />} title="Reagendamento com historico" description="Toda alteracao de data mantem trilha imutavel e contexto de responsavel." />
+          <CapabilityItem icon={<CheckCircle2 size={15} />} title="Confirmacao de visita" description="Confirmacao do atendimento pelo tecnico com carimbo de tempo." />
+          <CapabilityItem icon={<Timer size={15} />} title="Check-in e check-out" description="Registros de execucao em campo para medir ciclo e atrasos." />
+          <CapabilityItem icon={<Route size={15} />} title="Janelas de rota e atendimento" description="Janelas planejadas alinhadas ao SLA e a carga regional." />
         </div>
       </Card>
     </section>
   );
 }
-

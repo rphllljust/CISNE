@@ -17,6 +17,7 @@ import { ClientsModule } from './modules/clients/clients.module';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { DispatchModule } from './modules/dispatch/dispatch.module';
 import { HealthModule } from './modules/health/health.module';
+import { InvoicesModule } from './modules/invoices/invoices.module';
 import { ItsmModule } from './modules/itsm/itsm.module';
 import { KnowledgeBaseModule } from './modules/knowledge-base/knowledge-base.module';
 import { NotificationsModule } from './modules/notifications/notifications.module';
@@ -72,6 +73,7 @@ import { WebhooksModule } from './modules/webhooks/webhooks.module';
     SuppliersModule,
     ServiceOrdersModule,
     DispatchModule,
+    InvoicesModule,
     DashboardModule,
     ReportsModule,
     NotificationsModule,

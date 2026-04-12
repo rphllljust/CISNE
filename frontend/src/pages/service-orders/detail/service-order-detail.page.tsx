@@ -1,4 +1,4 @@
-﻿import { useState } from 'react';
+import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { ArrowRight } from 'lucide-react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
@@ -58,7 +58,7 @@ export function ServiceOrderDetailPage(): React.JSX.Element {
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: queryKeys.serviceOrderById(id) });
       await queryClient.invalidateQueries({ queryKey: ['service-orders'] });
-      pushToast({ type: 'success', message: 'Status updated successfully.' });
+      pushToast({ type: 'success', message: 'Status atualizado com sucesso.' });
       setDrawerOpen(false);
     },
     onError: (error) => {
@@ -81,13 +81,13 @@ export function ServiceOrderDetailPage(): React.JSX.Element {
   if (serviceOrderQuery.isError || !serviceOrderQuery.data) {
     return (
       <section className="page-grid">
-        <PageHeader title="Service Order" subtitle="Unable to load service order data." />
+        <PageHeader title="Service Order" subtitle="Nao foi possivel carregar os dados da ordem de servico." />
         <Alert
           variant="danger"
           message={getApiErrorMessage(serviceOrderQuery.error)}
           action={
             <Button variant="secondary" onClick={() => void navigate(-1)}>
-              Back
+              Voltar
             </Button>
           }
         />
@@ -104,8 +104,8 @@ export function ServiceOrderDetailPage(): React.JSX.Element {
         breadcrumbs={
           <Breadcrumbs
             items={[
-              { label: 'Dashboard', to: appRoutes.dashboard },
-              { label: 'Service Orders', to: appRoutes.serviceOrders },
+              { label: 'Painel', to: appRoutes.dashboard },
+              { label: 'Ordens de Servico', to: appRoutes.serviceOrders },
               { label: `OS #${order.orderNumber}` }
             ]}
           />
@@ -119,7 +119,7 @@ export function ServiceOrderDetailPage(): React.JSX.Element {
               <Button>Edit</Button>
             </Link>
             <Button variant="secondary" onClick={() => void navigate(-1)}>
-              Back
+              Voltar
             </Button>
           </div>
         }
@@ -160,7 +160,7 @@ export function ServiceOrderDetailPage(): React.JSX.Element {
                 <span className="detail-field-value">{formatDateTime(order.slaDueAt) || '-'}</span>
               </div>
               <div className="detail-field">
-                <span className="detail-field-label">Completed at</span>
+                <span className="detail-field-label">Concluída em</span>
                 <span className="detail-field-value">{formatDateTime(order.completedAt) || '-'}</span>
               </div>
             </div>
@@ -173,10 +173,10 @@ export function ServiceOrderDetailPage(): React.JSX.Element {
             </div>
           </Card>
 
-          <Card title="Status Timeline" subtitle="Immutable transition history for this service order.">
+          <Card title="Linha do tempo de status" subtitle="Historico imutavel de transicoes desta ordem de servico.">
             <div className="timeline">
               {order.statusHistory.length === 0 ? (
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>No status transition recorded.</p>
+                <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>Nenhuma transicao de status registrada.</p>
               ) : (
                 order.statusHistory.map((item) => (
                   <article key={item.id} className="timeline-item">
@@ -205,7 +205,7 @@ export function ServiceOrderDetailPage(): React.JSX.Element {
 
         <Card title="Order Actions" subtitle="Context actions for this operational flow.">
           <div className="page-grid">
-            <Button onClick={() => setDrawerOpen(true)}>Open status drawer</Button>
+            <Button onClick={() => setDrawerOpen(true)}>Abrir painel de status</Button>
             <Link to={`${appRoutes.serviceOrders}/${id}/edit`}>
               <Button variant="secondary" style={{ width: '100%' }}>
                 Edit order details
@@ -218,7 +218,7 @@ export function ServiceOrderDetailPage(): React.JSX.Element {
       <Drawer
         open={drawerOpen}
         onClose={() => setDrawerOpen(false)}
-        title="Status transition"
+        title="Transicao de status"
         subtitle="Apply the next valid transition based on backend business rules."
         footer={
           <Button variant="secondary" onClick={() => setDrawerOpen(false)}>
@@ -259,7 +259,7 @@ function ServiceOrderTransitionActions({
     return (
       <Alert
         variant={transitionsQuery.isError ? 'danger' : 'warning'}
-        message={transitionsQuery.isError ? 'Failed to load transitions.' : 'No transition available for current status.'}
+        message={transitionsQuery.isError ? 'Falha ao carregar as transicoes.' : 'Nenhuma transicao disponivel para o status atual.'}
       />
     );
   }

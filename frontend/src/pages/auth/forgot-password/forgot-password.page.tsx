@@ -30,21 +30,21 @@ export function ForgotPasswordPage(): React.JSX.Element {
         </div>
 
         <h1 className="auth-brand-heading">
-          Recover
+          Recupere
           <br />
-          <span>your access.</span>
+          <span>seu acesso.</span>
         </h1>
 
         <p className="auth-brand-description">
-          Provide your corporate email. We will send secure instructions to reset your password.
+          Informe seu e-mail corporativo. Enviaremos instrucoes seguras para redefinir sua senha.
         </p>
       </div>
 
       <div className="auth-form-panel">
         <div className="auth-card">
           <div className="auth-card-header">
-            <h1>Recover password</h1>
-            <p className="auth-subtitle">Enter your login email to receive reset instructions.</p>
+            <h1>Recuperar senha</h1>
+            <p className="auth-subtitle">Digite seu e-mail de login para receber as instrucoes de redefinicao.</p>
           </div>
 
           <form
@@ -53,18 +53,18 @@ export function ForgotPasswordPage(): React.JSX.Element {
               void handleSubmit((values) => mutation.mutate(values))(event);
             }}
           >
-            <Input label="Email" type="email" placeholder="your.email@company.com" error={errors.email?.message} {...register('email')} />
+            <Input label="E-mail" type="email" placeholder="seu.email@empresa.com" error={errors.email?.message} {...register('email')} />
 
             {mutation.isSuccess ? <p className="auth-feedback auth-feedback-success">{mutation.data.message}</p> : null}
 
             {mutation.error ? <p className="auth-feedback auth-feedback-error">{getApiErrorMessage(mutation.error)}</p> : null}
 
             <Button type="submit" disabled={mutation.isPending}>
-              {mutation.isPending ? 'Sending...' : 'Send instructions'}
+              {mutation.isPending ? 'Enviando...' : 'Enviar instrucoes'}
             </Button>
 
             <div className="auth-links">
-              <Link to={appRoutes.login}>Back to login</Link>
+              <Link to={appRoutes.login}>Voltar para login</Link>
             </div>
           </form>
         </div>

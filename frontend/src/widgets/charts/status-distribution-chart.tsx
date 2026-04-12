@@ -1,4 +1,4 @@
-﻿import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 import type { DashboardOverview } from '@/entities/dashboard/types';
 import { Card } from '@/shared/ui/card';
@@ -9,7 +9,7 @@ interface StatusChartProps {
 
 export function StatusDistributionChart({ data }: StatusChartProps): React.JSX.Element {
   return (
-    <Card title="Status distribution" subtitle="Current workload by service order stage">
+    <Card title="Distribuicao de status" subtitle="Carga atual por etapa da ordem de servico">
       <div style={{ width: '100%', height: 280, marginTop: 8 }}>
         <ResponsiveContainer>
           <BarChart data={data} barSize={32}>

@@ -19,6 +19,8 @@
     "prisma:migrate": "prisma migrate dev",
     "prisma:deploy": "prisma migrate deploy",
     "prisma:seed": "ts-node prisma/seed.ts",
+    "prisma:seed:10clients": "ts-node prisma/seed-10-clients.ts",
+    "admin:create": "ts-node scripts/create-admin.ts",
     "deploy:prod": "bash ./scripts/deploy/deploy.sh",
     "deploy:backup": "bash ./scripts/deploy/backup-postgres.sh",
     "deploy:restore": "bash ./scripts/deploy/restore-postgres.sh",

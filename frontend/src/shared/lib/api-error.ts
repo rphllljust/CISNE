@@ -10,17 +10,17 @@ export interface ApiErrorResponse {
 }
 
 const statusMessages: Record<number, string> = {
-  400: 'Invalid request.',
-  401: 'Session expired. Please login again.',
-  403: 'Access denied. You do not have permission for this action.',
-  404: 'Resource not found.',
-  409: 'Conflict: resource already exists.',
-  422: 'Validation failed. Please review submitted data.',
-  429: 'Too many requests. Please try again shortly.',
-  500: 'Internal server error. Please try again in a moment.',
-  502: 'Service unavailable. Please try again.',
-  503: 'Service temporarily unavailable.',
-  504: 'Request timeout. Check your network and retry.'
+  400: 'Requisicao invalida.',
+  401: 'Sessao expirada. Faca login novamente.',
+  403: 'Acesso negado. Voce nao tem permissao para esta acao.',
+  404: 'Recurso nao encontrado.',
+  409: 'Conflito: recurso ja existe.',
+  422: 'Validacao falhou. Revise os dados enviados.',
+  429: 'Muitas requisicoes. Tente novamente em instantes.',
+  500: 'Erro interno do servidor. Tente novamente em instantes.',
+  502: 'Servico indisponivel. Tente novamente.',
+  503: 'Servico temporariamente indisponivel.',
+  504: 'Tempo limite da requisicao. Verifique sua rede e tente novamente.'
 };
 
 export function getApiErrorStatus(error: unknown): number | null {
@@ -46,11 +46,11 @@ export function getApiErrorMessage(error: unknown): string {
     const code = (error as { code?: string }).code;
 
     if (code === 'ECONNABORTED') {
-      return 'Request timeout. Check your connection and try again.';
+      return 'Tempo limite da requisicao. Verifique sua conexao e tente novamente.';
     }
 
     if (code === 'ERR_NETWORK' || code === 'ECONNREFUSED') {
-      return 'Unable to reach server. Verify network and backend status.';
+      return 'Nao foi possivel acessar o servidor. Verifique a rede e o status do backend.';
     }
   }
 
@@ -79,6 +79,5 @@ export function getApiErrorMessage(error: unknown): string {
     return error.message;
   }
 
-  return 'Unexpected error. Please try again.';
+  return 'Erro inesperado. Tente novamente.';
 }
-

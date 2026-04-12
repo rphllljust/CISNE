@@ -27,11 +27,11 @@ function getInitials(name: string): string {
 
 const roleLabel: Record<string, string> = {
   SUPER_ADMIN: 'Super Admin',
-  OPERATIONS_MANAGER: 'Operations Manager',
+  OPERACOES_MANAGER: 'Gerente de Operacoes',
   SUPERVISOR: 'Supervisor',
-  TECHNICIAN: 'Technician',
-  ATTENDANT: 'Attendant',
-  CLIENT: 'Client'
+  TECHNICIAN: 'Tecnico',
+  ATTENDANT: 'Atendente',
+  CLIENT: 'Cliente'
 };
 
 function getPageTitle(pathname: string): string {
@@ -45,7 +45,7 @@ function getPageTitle(pathname: string): string {
 
   if (!match) {
     if (pathname === appRoutes.profile) {
-      return 'Profile';
+      return 'Perfil';
     }
 
     return env.appName;
@@ -78,15 +78,15 @@ export function AppShell({ children }: AppShellProps): React.JSX.Element {
           </div>
           <div className="sidebar-logo-text">
             <span className="sidebar-logo-name">{env.appName}</span>
-            <span className="sidebar-logo-version">Operations Suite</span>
+            <span className="sidebar-logo-version">Suite Operacional</span>
           </div>
-          <button className="sidebar-close" onClick={() => setSidebarOpen(false)} aria-label="Close menu">
+          <button className="sidebar-close" onClick={() => setSidebarOpen(false)} aria-label="Fechar menu">
             <X size={16} />
           </button>
         </div>
 
         <nav className="sidebar-nav scroll-soft">
-          {operationsItems.length > 0 ? <p className="sidebar-section-label">OPERATIONS</p> : null}
+          {operationsItems.length > 0 ? <p className="sidebar-section-label">OPERACOES</p> : null}
           {operationsItems.map((item) => {
             const Icon = item.icon;
             return (
@@ -135,7 +135,7 @@ export function AppShell({ children }: AppShellProps): React.JSX.Element {
             {initials}
           </div>
           <div className="sidebar-user-info">
-            <span className="sidebar-user-name">{user?.fullName ?? 'User'}</span>
+            <span className="sidebar-user-name">{user?.fullName ?? 'Usuario'}</span>
             <span className="sidebar-user-role">{primaryRole}</span>
           </div>
         </Link>
@@ -151,12 +151,12 @@ export function AppShell({ children }: AppShellProps): React.JSX.Element {
               variant="ghost"
               size="sm"
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              aria-label="Open menu"
+              aria-label="Abrir menu"
             >
               <Menu size={18} />
             </Button>
             <div className="topbar-context">
-              <span className="topbar-context-label">Current View</span>
+              <span className="topbar-context-label">Tela atual</span>
               <span className="topbar-context-title">{getPageTitle(location.pathname)}</span>
             </div>
           </div>
@@ -165,7 +165,7 @@ export function AppShell({ children }: AppShellProps): React.JSX.Element {
             <ToggleThemeButton />
             <Link to={appRoutes.profile} className="topbar-user topbar-user-link">
               <div className="topbar-user-info">
-                <span className="topbar-user-name">{user?.fullName ?? 'User'}</span>
+                <span className="topbar-user-name">{user?.fullName ?? 'Usuario'}</span>
                 <span className="topbar-user-role">{primaryRole}</span>
               </div>
               <div className="topbar-avatar" aria-hidden="true">
@@ -173,7 +173,7 @@ export function AppShell({ children }: AppShellProps): React.JSX.Element {
               </div>
             </Link>
             <Button variant="secondary" size="sm" onClick={() => void signOut()}>
-              Sign out
+              Sair
             </Button>
           </div>
         </header>
@@ -183,4 +183,5 @@ export function AppShell({ children }: AppShellProps): React.JSX.Element {
     </div>
   );
 }
+
 

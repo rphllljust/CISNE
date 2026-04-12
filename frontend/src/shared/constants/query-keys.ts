@@ -1,6 +1,9 @@
-﻿export const queryKeys = {
+export const queryKeys = {
   authMe: ['auth', 'me'] as const,
   dashboardOverview: (params: object) => ['dashboard', 'overview', params] as const,
+  reportsDashboard: (params: object) => ['reports', 'dashboard', params] as const,
+  reportsTechnicianEfficiency: (technicianId: string, params: object) =>
+    ['reports', 'technician-efficiency', technicianId, params] as const,
   serviceOrders: (params: object) => ['service-orders', params] as const,
   serviceOrderById: (id: string) => ['service-orders', id] as const,
   clients: (params: object) => ['clients', params] as const,
@@ -8,6 +11,17 @@
   users: (params: object) => ['users', params] as const,
   userById: (id: string) => ['users', id] as const,
   notifications: (params: object) => ['notifications', params] as const,
-  auditLogs: (params: object) => ['audit-logs', params] as const
+  auditLogs: (params: object) => ['audit-logs', params] as const,
+  invoices: (params: object) => ['invoices', params] as const,
+  invoiceById: (id: string) => ['invoices', id] as const,
+  assets: (params: object) => ['assets', params] as const,
+  assetById: (id: string) => ['assets', id] as const,
+  suppliers: (params: object) => ['suppliers', params] as const,
+  supplierById: (id: string) => ['suppliers', id] as const,
+  itsmProblems: (params: object) => ['itsm', 'problems', params] as const,
+  itsmProblemById: (id: string) => ['itsm', 'problems', id] as const,
+  itsmChanges: (params: object) => ['itsm', 'changes', params] as const,
+  itsmChangeById: (id: string) => ['itsm', 'changes', id] as const,
+  knowledgeBase: (params: object) => ['knowledge-base', params] as const,
+  knowledgeArticleById: (id: string) => ['knowledge-base', id] as const,
 };
-

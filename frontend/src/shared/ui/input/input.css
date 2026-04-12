@@ -4,23 +4,23 @@
 }
 
 .field label {
-  font-size: 0.78rem;
-  color: var(--text-soft);
+  font-size: 0.8rem;
+  color: var(--text-muted);
   font-weight: 600;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 2px;
 }
 
 .field input,
 .field textarea {
   width: 100%;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
   background: var(--surface);
   color: var(--text);
-  padding: 9px 12px;
-  transition:
-    border-color var(--transition-fast),
-    box-shadow var(--transition-fast);
+  padding: 10px 12px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   font-size: 0.875rem;
 }
 
@@ -31,14 +31,15 @@
 
 .field input:hover:not(:disabled),
 .field textarea:hover:not(:disabled) {
-  border-color: var(--text-muted);
+  border-color: var(--primary);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.06);
 }
 
 .field input:focus,
 .field textarea:focus {
   outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(15, 98, 254, 0.12);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
 .field input:disabled,

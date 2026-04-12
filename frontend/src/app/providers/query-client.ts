@@ -1,4 +1,4 @@
-﻿import { QueryCache, QueryClient } from '@tanstack/react-query';
+import { QueryCache, QueryClient } from '@tanstack/react-query';
 
 import { getApiErrorMessage, getApiErrorStatus, isNetworkOrTimeoutError } from '@/shared/lib/api-error';
 import { useToastStore } from '@/shared/ui/toast/toast.store';

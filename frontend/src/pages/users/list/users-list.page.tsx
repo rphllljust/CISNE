@@ -22,11 +22,11 @@ import '../../pages.css';
 
 const roleLabel: Record<UserRole, string> = {
   SUPER_ADMIN: 'Super Admin',
-  OPERATIONS_MANAGER: 'Operations Manager',
+  OPERATIONS_MANAGER: 'Gerente de Operacoes',
   SUPERVISOR: 'Supervisor',
-  TECHNICIAN: 'Technician',
-  ATTENDANT: 'Attendant',
-  CLIENT: 'Client'
+  TECHNICIAN: 'Tecnico',
+  ATTENDANT: 'Atendente',
+  CLIENT: 'Cliente'
 };
 
 function getInitials(name: string): string {
@@ -60,35 +60,35 @@ export function UsersListPage(): React.JSX.Element {
   return (
     <section className="page-grid">
       <PageHeader
-        eyebrow="Administration"
+        eyebrow="Administracao"
         breadcrumbs={
           <Breadcrumbs
             items={[
-              { label: 'Dashboard', to: appRoutes.dashboard },
-              { label: 'Users and Teams' }
+              { label: 'Painel', to: appRoutes.dashboard },
+              { label: 'Usuarios e Equipes' }
             ]}
           />
         }
-        title="Users and Teams"
-        subtitle="Manage role assignments, organizational structure and operational capacity."
+        title="Usuarios e Equipes"
+        subtitle="Gerencie perfis, estrutura organizacional e capacidade operacional."
       />
 
       <FilterBar
         actions={
           <Button variant="secondary" onClick={() => { setSearch(''); setStatus(''); setPage(1); }}>
-            Clear
+            Limpar
           </Button>
         }
       >
-        <Input label="Search" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Name or email" />
+        <Input label="Buscar" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Nome ou e-mail" />
         <Select
           label="Status"
           value={status}
           onChange={(event) => setStatus(event.target.value)}
           options={[
-            { value: '', label: 'All' },
-            { value: 'ACTIVE', label: 'Active' },
-            { value: 'INACTIVE', label: 'Inactive' }
+            { value: '', label: 'Todos' },
+            { value: 'ACTIVE', label: 'Ativo' },
+            { value: 'INACTIVE', label: 'Inativo' }
           ]}
         />
       </FilterBar>
@@ -99,7 +99,7 @@ export function UsersListPage(): React.JSX.Element {
           message={getApiErrorMessage(usersQuery.error)}
           action={
             <Button variant="secondary" size="sm" onClick={() => void usersQuery.refetch()}>
-              Retry
+              Tentar novamente
             </Button>
           }
         />
@@ -109,11 +109,11 @@ export function UsersListPage(): React.JSX.Element {
         rows={rows}
         rowKey={(row) => row.id}
         loading={usersQuery.isLoading}
-        emptyMessage="No user found for current filters."
+        emptyMessage="Nenhum usuario encontrado para os filtros atuais."
         columns={[
           {
             key: 'fullName',
-            title: 'User',
+            title: 'Usuario',
             render: (row) => (
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                 <div style={{
@@ -139,7 +139,7 @@ export function UsersListPage(): React.JSX.Element {
           },
           {
             key: 'jobTitle',
-            title: 'Role / Department',
+            title: 'Perfil / Departamento',
             render: (row) => (
               <div style={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
                 <span style={{ fontSize: '0.845rem' }}>{row.jobTitle || '-'}</span>
@@ -149,7 +149,7 @@ export function UsersListPage(): React.JSX.Element {
           },
           {
             key: 'roles',
-            title: 'Profiles',
+            title: 'Perfis',
             render: (row) => (
               <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
                 {row.roles.map((role: UserRole) => (
@@ -164,11 +164,11 @@ export function UsersListPage(): React.JSX.Element {
             key: 'status',
             title: 'Status',
             width: '110px',
-            render: (row) => <StatusBadge label={row.status === 'ACTIVE' ? 'Active' : 'Inactive'} tone={row.status === 'ACTIVE' ? 'green' : 'gray'} />
+            render: (row) => <StatusBadge label={row.status === 'ACTIVE' ? 'Ativo' : 'Inativo'} tone={row.status === 'ACTIVE' ? 'green' : 'gray'} />
           },
           {
             key: 'updatedAt',
-            title: 'Updated',
+            title: 'Atualizado',
             width: '150px',
             render: (row) => <span style={{ fontSize: '0.8rem', color: 'var(--text-soft)' }}>{formatDateTime(row.updatedAt)}</span>
           }
@@ -179,4 +179,3 @@ export function UsersListPage(): React.JSX.Element {
     </section>
   );
 }
-

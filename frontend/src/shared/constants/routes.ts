@@ -13,7 +13,24 @@
   notifications: '/notifications',
   audit: '/audit',
   settings: '/settings',
-  profile: '/profile'
+  profile: '/profile',
+  // Invoices
+  invoices: '/invoices',
+  invoiceNew: '/invoices/new',
+  // Assets
+  assets: '/assets',
+  assetNew: '/assets/new',
+  // Suppliers
+  suppliers: '/suppliers',
+  supplierNew: '/suppliers/new',
+  // ITSM
+  itsmProblems: '/itsm/problems',
+  itsmProblemNew: '/itsm/problems/new',
+  itsmChanges: '/itsm/changes',
+  itsmChangeNew: '/itsm/changes/new',
+  // Knowledge Base
+  knowledgeBase: '/knowledge-base',
+  knowledgeBaseNew: '/knowledge-base/new',
 } as const;
 
 

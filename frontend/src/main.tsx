@@ -7,6 +7,11 @@ import { ErrorBoundary } from '@/shared/ui/error-boundary';
 
 import '@/app/styles/index.css';
 
+console.log('✅ CSS PREMIUM MODULES LOADED - Premium design is active!');
+if (typeof window !== 'undefined') {
+  (window as any).__PREMIUM_CSS_LOADED = true;
+}
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ErrorBoundary>

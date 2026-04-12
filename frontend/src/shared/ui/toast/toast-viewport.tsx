@@ -1,4 +1,4 @@
-﻿import { CheckCircle, Info, X, XCircle } from 'lucide-react';
+import { CheckCircle, Info, X, XCircle } from 'lucide-react';
 
 import { useToastStore } from './toast.store';
 
@@ -16,7 +16,7 @@ const toastIconColor = {
   info: 'var(--primary)'
 };
 
-export function ToastViewport(): React.JSX.Element | null {
+export function ToastVerport(): React.JSX.Element | null {
   const items = useToastStore((state) => state.items);
   const remove = useToastStore((state) => state.remove);
 

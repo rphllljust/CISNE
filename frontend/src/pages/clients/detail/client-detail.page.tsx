@@ -1,4 +1,4 @@
-﻿import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import type { ClientAddress, ClientContract } from '@/entities/client/types';
 import { useClientById } from '@/features/clients/api/clients.api';
@@ -98,17 +98,17 @@ export function ClientDetailPage(): React.JSX.Element {
   if (clientQuery.isError || !clientQuery.data) {
     return (
       <section className="page-grid">
-        <PageHeader title="Client profile" subtitle="Unable to load client data." />
+        <PageHeader title="Perfil do cliente" subtitle="Nao foi possivel carregar os dados do cliente." />
         <Alert
           variant="danger"
           message={getApiErrorMessage(clientQuery.error)}
           action={
             <div style={{ display: 'flex', gap: 8 }}>
               <Button variant="secondary" onClick={() => void clientQuery.refetch()}>
-                Retry
+                Tentar novamente
               </Button>
               <Button variant="secondary" onClick={() => void navigate(-1)}>
-                Back
+                Voltar
               </Button>
             </div>
           }
@@ -126,8 +126,8 @@ export function ClientDetailPage(): React.JSX.Element {
         breadcrumbs={
           <Breadcrumbs
             items={[
-              { label: 'Dashboard', to: appRoutes.dashboard },
-              { label: 'Clients', to: appRoutes.clients },
+              { label: 'Painel', to: appRoutes.dashboard },
+              { label: 'Clientes', to: appRoutes.clients },
               { label: client.name }
             ]}
           />
@@ -138,7 +138,7 @@ export function ClientDetailPage(): React.JSX.Element {
           <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
             <StatusBadge label={client.active ? 'Active' : 'Inactive'} tone={client.active ? 'green' : 'gray'} />
             <Button variant="secondary" onClick={() => void navigate(-1)}>
-              Back
+              Voltar
             </Button>
           </div>
         }
@@ -146,14 +146,14 @@ export function ClientDetailPage(): React.JSX.Element {
 
       <div className="detail-grid">
         <div className="page-grid">
-          <Card title="Profile data">
+          <Card title="Dados do perfil">
             <div className="detail-fields">
               <div className="detail-field">
                 <span className="detail-field-label">Type</span>
                 <span className="detail-field-value">{client.type === 'INDIVIDUAL' ? 'Individual' : 'Business'}</span>
               </div>
               <div className="detail-field">
-                <span className="detail-field-label">Tax ID</span>
+                <span className="detail-field-label">Imposto ID</span>
                 <span className="detail-field-value" style={{ fontFamily: 'var(--font-mono)' }}>{client.taxId}</span>
               </div>
               {client.contactName ? (
@@ -215,15 +215,15 @@ export function ClientDetailPage(): React.JSX.Element {
           ) : null}
         </div>
 
-        <Card title="Contracts" subtitle={client.contracts.length > 0 ? `${client.contracts.length} linked contract(s)` : 'No contracts linked'}>
+        <Card title="Contracts" subtitle={client.contracts.length > 0 ? `${client.contracts.length} linked contract(s)` : 'Nenhum contrato vinculado'}>
           {client.contracts.length === 0 ? (
             <EmptyState
-              title="No contract linked"
+              title="Nenhum contrato vinculado"
               description="This client does not have active or historical contracts yet."
               action={
                 <Link to={appRoutes.clients}>
                   <Button variant="secondary" size="sm">
-                    Back to clients
+                    Voltar para clientes
                   </Button>
                 </Link>
               }

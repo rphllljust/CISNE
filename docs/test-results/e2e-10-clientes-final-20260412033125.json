@@ -1,0 +1,126 @@
+{
+  "generatedAt": "2026-04-12T03:31:25.415Z",
+  "environment": "https://cisne-production.up.railway.app/api/v1",
+  "totals": {
+    "clients": 10,
+    "orders": 10,
+    "completedOrders": 10
+  },
+  "invoiceCheck": {
+    "available": false,
+    "status": 404,
+    "detail": "Nenhum endpoint nativo de emissao de nota encontrado em /invoices"
+  },
+  "flow": [
+    {
+      "orderNumber": 5,
+      "serviceOrderId": "3bcb1037-4a1e-4893-bbcf-ea7c22174050",
+      "status": "COMPLETED",
+      "completedAt": "2026-04-12T04:06:12.328Z",
+      "clientId": "93dac2bd-6e79-44de-bf5c-ed1109e98cfb",
+      "clientName": "Cliente Teste E2E-20260412032911-02",
+      "contractId": "8a0454d2-e7c1-487b-be97-02d4579bcc84",
+      "contractCode": "CTR-E2E-20260412032911-02",
+      "contractStatus": "ACTIVE"
+    },
+    {
+      "orderNumber": 6,
+      "serviceOrderId": "7c624abd-0aa5-46aa-9b8d-128cee0b5da7",
+      "status": "COMPLETED",
+      "completedAt": "2026-04-12T04:07:13.842Z",
+      "clientId": "eaf32a19-add7-4d16-8e28-3edf95ea8820",
+      "clientName": "Cliente Teste E2E-20260412032911-03",
+      "contractId": "aab50771-abf4-4500-8a89-119ed1f6dbf2",
+      "contractCode": "CTR-E2E-20260412032911-03",
+      "contractStatus": "ACTIVE"
+    },
+    {
+      "orderNumber": 7,
+      "serviceOrderId": "258583af-4b84-4701-bced-d2c67c08e36d",
+      "status": "COMPLETED",
+      "completedAt": "2026-04-12T04:08:15.406Z",
+      "clientId": "09f4a348-c91a-403f-8529-91ed893b4bc8",
+      "clientName": "Cliente Teste E2E-20260412032911-04",
+      "contractId": "3d6b954d-3a8e-4250-9138-0e84812ead7f",
+      "contractCode": "CTR-E2E-20260412032911-04",
+      "contractStatus": "ACTIVE"
+    },
+    {
+      "orderNumber": 8,
+      "serviceOrderId": "2b933cc7-ea5d-4a04-950e-2b3d72f9a0c2",
+      "status": "COMPLETED",
+      "completedAt": "2026-04-12T04:09:16.989Z",
+      "clientId": "2aabf0fb-9aca-4d20-856e-66f2d5c04f3e",
+      "clientName": "Cliente Teste E2E-20260412032911-05",
+      "contractId": "1479eefc-b4b6-4c5d-bb84-0d835cbcc184",
+      "contractCode": "CTR-E2E-20260412032911-05",
+      "contractStatus": "ACTIVE"
+    },
+    {
+      "orderNumber": 9,
+      "serviceOrderId": "7026a60f-242e-400e-958c-fc93db80b5d2",
+      "status": "COMPLETED",
+      "completedAt": "2026-04-12T04:10:18.569Z",
+      "clientId": "dda6bed5-a829-418d-9054-093518579112",
+      "clientName": "Cliente Teste E2E-20260412032911-06",
+      "contractId": "23622cb4-ca35-4772-9379-94db1afd4223",
+      "contractCode": "CTR-E2E-20260412032911-06",
+      "contractStatus": "ACTIVE"
+    },
+    {
+      "orderNumber": 10,
+      "serviceOrderId": "b1c92121-bec2-4793-80ee-ef2428166190",
+      "status": "COMPLETED",
+      "completedAt": "2026-04-12T04:11:20.099Z",
+      "clientId": "d1dbaacc-7616-4303-9f2b-6d6318f93323",
+      "clientName": "Cliente Teste E2E-20260412032911-07",
+      "contractId": "4e9be114-91d5-472b-bb5f-812ee9e03944",
+      "contractCode": "CTR-E2E-20260412032911-07",
+      "contractStatus": "ACTIVE"
+    },
+    {
+      "orderNumber": 11,
+      "serviceOrderId": "61910f42-cc6d-4300-92cf-e70b204e7f48",
+      "status": "COMPLETED",
+      "completedAt": "2026-04-12T04:12:21.538Z",
+      "clientId": "69b5a2af-5bba-4c1b-b2e4-98441158531f",
+      "clientName": "Cliente Teste E2E-20260412032911-08",
+      "contractId": "83d95ef9-cc27-4c3e-bd30-e13ad9ed69e5",
+      "contractCode": "CTR-E2E-20260412032911-08",
+      "contractStatus": "ACTIVE"
+    },
+    {
+      "orderNumber": 12,
+      "serviceOrderId": "c6b916cf-b7f8-4da0-9e55-5f1cd2926408",
+      "status": "COMPLETED",
+      "completedAt": "2026-04-12T04:13:22.931Z",
+      "clientId": "ea872a59-6b5f-46d9-a667-14c07bd991c2",
+      "clientName": "Cliente Teste E2E-20260412032911-09",
+      "contractId": "e8e130ec-fc4b-4c53-83c9-32243c798fdc",
+      "contractCode": "CTR-E2E-20260412032911-09",
+      "contractStatus": "ACTIVE"
+    },
+    {
+      "orderNumber": 13,
+      "serviceOrderId": "0e5a1a02-d63b-41f6-80f5-2621222de310",
+      "status": "COMPLETED",
+      "completedAt": "2026-04-12T04:14:24.615Z",
+      "clientId": "52b8371a-605b-4d09-b007-f9ed1e79e9f3",
+      "clientName": "Cliente Teste E2E-20260412032911-10",
+      "contractId": "55cfd972-1c09-487c-80b3-f4ab3682baa6",
+      "contractCode": "CTR-E2E-20260412032911-10",
+      "contractStatus": "ACTIVE"
+    },
+    {
+      "orderNumber": 14,
+      "serviceOrderId": "e22a41d9-b9e4-4dea-9763-8710857b5ccd",
+      "status": "COMPLETED",
+      "completedAt": "2026-04-12T03:54:58.964Z",
+      "clientId": "6473894c-30a2-423b-afcc-1e34394a8aa7",
+      "clientName": "Cliente Teste E2E-REC-20260412032958",
+      "contractId": "3d035e04-c192-4e48-9543-811d4fa80925",
+      "contractCode": "CTR-E2E-REC-20260412032958",
+      "contractStatus": "ACTIVE"
+    }
+  ]
+}

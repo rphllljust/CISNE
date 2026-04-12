@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CISNE - Demo de Integracao</title>
+    <style>
+      :root {
+        --bg: #070f1d;
+        --panel: #101a30;
+        --line: #253657;
+        --text: #ecf3ff;
+        --muted: #a1b4db;
+        --brand: #0ea5e9;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: linear-gradient(180deg, #111d3b, var(--bg));
+        color: var(--text);
+        font-family: "Segoe UI", sans-serif;
+      }
+      .layout {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 20px 14px 38px;
+      }
+      h1 {
+        margin: 0;
+      }
+      p {
+        color: var(--muted);
+      }
+      .row {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 14px;
+      }
+      .panel {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 14px;
+      }
+      .buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      button {
+        background: #1e3a8a;
+        color: white;
+        border: 0;
+        border-radius: 10px;
+        padding: 9px 12px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      .muted {
+        color: var(--muted);
+      }
+      pre {
+        margin: 8px 0 0;
+        background: #060d1b;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 10px;
+        max-height: 360px;
+        overflow: auto;
+      }
+      .grid {
+        display: grid;
+        gap: 14px;
+      }
+      select {
+        width: 100%;
+        padding: 8px;
+        border-radius: 9px;
+        border: 1px solid var(--line);
+        background: #0b1427;
+        color: var(--text);
+      }
+      @media (max-width: 900px) {
+        .row {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="layout">
+      <h1>Demo de Integracao CISNE</h1>
+      <p>Use os botoes abaixo para validar os modulos ativos e acompanhar os eventos em tempo real.</p>
+
+      <section class="row">
+        <div class="grid">
+          <article class="panel">
+            <h3>Acoes do Sistema</h3>
+            <div class="buttons">
+              <button data-action="create-order">Criar Ordem</button>
+              <button data-action="view-dashboard">Dashboard</button>
+              <button data-action="generate-report">Gerar Relatorio</button>
+              <button data-action="sla-settings">Configurar SLA</button>
+              <button data-action="permission-settings">Permissoes</button>
+              <button data-action="notification-settings">Notificacoes</button>
+            </div>
+          </article>
+
+          <article class="panel">
+            <h3>Status</h3>
+            <div id="status" class="muted">Carregando...</div>
+            <pre id="status-json"></pre>
+          </article>
+        </div>
+
+        <div class="grid">
+          <article class="panel">
+            <h3>Perfil Ativo</h3>
+            <label for="role" class="muted">Papel</label>
+            <select id="role">
+              <option>Visualizador</option>
+              <option>Analista Tecnico</option>
+              <option>Gerente de Operacoes</option>
+              <option>Super Admin</option>
+            </select>
+            <div class="buttons" style="margin-top: 10px;">
+              <button id="btn-apply-role">Aplicar papel</button>
+              <button id="btn-refresh">Atualizar status</button>
+            </div>
+          </article>
+
+          <article class="panel">
+            <h3>Eventos</h3>
+            <pre id="events"></pre>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <script src="/cisne_platform_activator.js"></script>
+    <script>
+      (function () {
+        var eventsEl = document.getElementById('events');
+        var statusEl = document.getElementById('status');
+        var statusJsonEl = document.getElementById('status-json');
+        var roleEl = document.getElementById('role');
+
+        function writeStatus() {
+          if (!window.cisneActivator) {
+            statusEl.textContent = 'Activator indisponivel.';
+            return;
+          }
+          var status = window.cisneActivator.getSystemStatus();
+          statusEl.textContent = 'Ativo: ' + status.user.name + ' (' + status.user.role + ')';
+          statusJsonEl.textContent = JSON.stringify(status, null, 2);
+          roleEl.value = status.user.role;
+        }
+
+        function pushEvent(eventName, payload) {
+          var stamp = new Date().toLocaleTimeString('pt-BR');
+          var line = '[' + stamp + '] ' + eventName + ' -> ' + JSON.stringify(payload);
+          eventsEl.textContent = line + '\n' + eventsEl.textContent;
+        }
+
+        function bindEvent(eventName) {
+          window.cisneActivator.on(eventName, function (payload) {
+            pushEvent(eventName, payload);
+            writeStatus();
+          });
+        }
+
+        if (!window.cisneActivator) {
+          statusEl.textContent = 'Nao foi possivel carregar o activator.';
+          return;
+        }
+
+        [
+          'event-order-created',
+          'event-dashboard-opened',
+          'event-report-generated',
+          'event-sla-settings-opened',
+          'event-permissions-opened',
+          'event-notification-settings-opened',
+          'event-user-updated'
+        ].forEach(bindEvent);
+
+        document.getElementById('btn-apply-role').addEventListener('click', function () {
+          window.cisneActivator.updateActiveUser({
+            role: roleEl.value,
+            name: 'Usuario Demo ' + roleEl.value
+          });
+        });
+
+        document.getElementById('btn-refresh').addEventListener('click', writeStatus);
+        writeStatus();
+      })();
+    </script>
+  </body>
+</html>

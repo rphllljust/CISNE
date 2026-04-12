@@ -1,4 +1,4 @@
-﻿import { useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import type { ServiceOrder } from '@/entities/service-order/types';
 import { httpClient } from '@/shared/api/http-client';

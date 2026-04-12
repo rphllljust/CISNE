@@ -26,7 +26,7 @@ export function LoginPage(): React.JSX.Element {
 
   useEffect(() => {
     if (mutation.isSuccess) {
-      pushToast({ type: 'success', message: 'Session started successfully.' });
+      pushToast({ type: 'success', message: 'Sessao iniciada com sucesso.' });
       void navigate(params.get('redirectTo') ?? appRoutes.dashboard, { replace: true });
     }
   }, [mutation.isSuccess, navigate, params, pushToast]);
@@ -42,21 +42,21 @@ export function LoginPage(): React.JSX.Element {
         </div>
 
         <h1 className="auth-brand-heading">
-          Service operations
+          Operacoes de servico
           <br />
-          <span>in real time.</span>
+          <span>em tempo real.</span>
         </h1>
 
         <p className="auth-brand-description">
-          Centralized platform for service orders, team execution tracking, SLA governance and managerial analytics.
+          Plataforma centralizada para ordens de servico, acompanhamento de execucao das equipes, governanca de SLA e analise gerencial.
         </p>
 
         <div className="auth-brand-features">
           {[
-            'Operational control across every service order',
-            'SLA visibility with proactive alerts',
-            'Full traceability with immutable audit events',
-            'Role-based access by operation profile'
+            'Controle operacional em todas as ordens de servico',
+            'Visibilidade de SLA com alertas proativos',
+            'Rastreabilidade completa com eventos de auditoria imutaveis',
+            'Acesso por perfil de operacao'
           ].map((feature) => (
             <div key={feature} className="auth-brand-feature">
               <span className="auth-brand-feature-dot" />
@@ -69,8 +69,8 @@ export function LoginPage(): React.JSX.Element {
       <div className="auth-form-panel">
         <div className="auth-card">
           <div className="auth-card-header">
-            <h1>Sign in</h1>
-            <p className="auth-subtitle">Use your corporate credentials to access OMS.</p>
+            <h1>Entrar</h1>
+            <p className="auth-subtitle">Use suas credenciais corporativas para acessar o sistema.</p>
           </div>
 
           <form
@@ -79,18 +79,18 @@ export function LoginPage(): React.JSX.Element {
               void handleSubmit((values) => mutation.mutate(values))(event);
             }}
           >
-            <Input label="Email" type="email" placeholder="your.email@company.com" error={errors.email?.message} {...register('email')} />
+            <Input label="E-mail" type="email" placeholder="seu.email@empresa.com" error={errors.email?.message} {...register('email')} />
 
-            <Input label="Password" type="password" placeholder="********" error={errors.password?.message} {...register('password')} />
+            <Input label="Senha" type="password" placeholder="********" error={errors.password?.message} {...register('password')} />
 
             {mutation.error ? <p className="auth-feedback auth-feedback-error">{getApiErrorMessage(mutation.error)}</p> : null}
 
             <Button type="submit" disabled={mutation.isPending}>
-              {mutation.isPending ? 'Signing in...' : 'Sign in'}
+              {mutation.isPending ? 'Entrando...' : 'Entrar'}
             </Button>
 
             <div className="auth-links">
-              <Link to={appRoutes.forgotPassword}>Forgot password</Link>
+              <Link to={appRoutes.forgotPassword}>Esqueci a senha</Link>
               <span>v1.0.0</span>
             </div>
           </form>
@@ -99,4 +99,3 @@ export function LoginPage(): React.JSX.Element {
     </main>
   );
 }
-

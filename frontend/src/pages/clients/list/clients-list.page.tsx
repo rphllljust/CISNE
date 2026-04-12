@@ -1,4 +1,4 @@
-﻿import { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { useClients } from '@/features/clients/api/clients.api';
@@ -39,7 +39,7 @@ export function ClientsListPage(): React.JSX.Element {
   const rows = clientsQuery.data?.items ?? [];
   const meta = clientsQuery.data?.meta;
 
-  function handleClear(): void {
+  function handleLimpar(): void {
     setSearch('');
     setActive('');
     setPage(1);
@@ -52,24 +52,24 @@ export function ClientsListPage(): React.JSX.Element {
         breadcrumbs={
           <Breadcrumbs
             items={[
-              { label: 'Dashboard', to: appRoutes.dashboard },
-              { label: 'Clients' }
+              { label: 'Painel', to: appRoutes.dashboard },
+              { label: 'Clientes' }
             ]}
           />
         }
-        title="Clients"
-        subtitle="Manage customer profiles, contacts and contract history for operation planning."
+        title="Clientes"
+        subtitle="Gerencie perfis de clientes, contatos e historico de contratos para planejamento operacional."
       />
 
       <FilterBar
         actions={
-          <Button variant="secondary" onClick={handleClear}>
-            Clear
+          <Button variant="secondary" onClick={handleLimpar}>
+            Limpar
           </Button>
         }
       >
         <Input
-          label="Search"
+          label="Buscar"
           value={search}
           onChange={(event) => setSearch(event.target.value)}
           placeholder="Name, tax ID or main contact"
@@ -92,7 +92,7 @@ export function ClientsListPage(): React.JSX.Element {
           message={getApiErrorMessage(clientsQuery.error)}
           action={
             <Button variant="secondary" size="sm" onClick={() => void clientsQuery.refetch()}>
-              Retry
+              Tentar novamente
             </Button>
           }
         />
@@ -102,7 +102,7 @@ export function ClientsListPage(): React.JSX.Element {
         rows={rows}
         rowKey={(row) => row.id}
         loading={clientsQuery.isLoading}
-        emptyMessage="No client found for current filters."
+        emptyMessage="Nenhum cliente encontrado para os filtros atuais."
         columns={[
           {
             key: 'name',
@@ -115,7 +115,7 @@ export function ClientsListPage(): React.JSX.Element {
           },
           {
             key: 'taxId',
-            title: 'Tax ID',
+            title: 'Imposto ID',
             width: '140px',
             render: (row) => (
               <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--text-soft)' }}>{row.taxId || '-'}</span>

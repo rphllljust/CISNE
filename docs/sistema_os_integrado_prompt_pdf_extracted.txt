@@ -1,0 +1,644 @@
+
+
+--- PAGE 1 ---
+PROMPT: Sistema Integrado de Gestão de Ordens de Serviço
+1. Visão Geral do Sistema
+Você está desenvolvendo uma plataforma enterprise de gestão de Ordens de Serviço (OS)
+que centraliza todo o ﬂuxo operacional desde a abertura até o faturamento, com automação
+inteligente de agendamento e despacho.
+Objetivos Principais
+Automatizar 80%+ das tarefas operacionais
+Otimizar rotas e agendamentos com IA
+Integrar todos os módulos (CRM, ERP, ﬁnanceiro, contábil)
+Rastrear status em tempo real
+Gerar documentos (NF-e, laudos) automaticamente
+Fornecer dashboards com KPIs operacionais
+2. Fluxo Completo de OS
+2.1 Etapa 1: ABERTURA DA OS
+Inputs do usuário:
+Nome e contato do cliente
+Descrição do serviço/problema
+Endereço/localização
+Tipo de serviço (manutenção, instalação, reparo, consultoria)
+Prioridade (baixa, média, alta, emergência)
+Processamentos automatizados:
+Validação de dados contra base de clientes
+Determinação de cobertura geográﬁca
+Classiﬁcação automática do serviço
+Estimativa inicial de tempo/custo
+Criação de ID único com padrão: OS-{YYYY}{MM}{DD}-{SEQUENTIAL}
+Outputs:
+OS criada com status ABERTA
+Notiﬁcação ao cliente via SMS/Email
+Recomendação de técnicos disponíveis
+
+--- PAGE 2 ---
+2.2 Etapa 2: VALIDAÇÃO
+Veriﬁcações automáticas:
+Dados completos e válidos ✓
+Cliente ativo no sistema ✓
+Endereço dentro da cobertura de serviço ✓
+Técnicos disponíveis no período
+Materiais necessários em estoque
+Lógica de negócio:
+Outputs:
+Status atualizado
+Logs de validação
+Alertas para revisor (se necessário)
+2.3 Etapa 3: AGENDAMENTO INTELIGENTE
+Algoritmo de otimização:
+1. Coleta dados:
+Disponibilidade de técnicos (calendário integrado)
+Localização atual de cada técnico
+Skills/especialidades necessárias
+Tempo estimado do serviço
+Preferência do cliente
+2. Calcula slots:
+Agrupa OSs por proximidade geográﬁca
+Considera tempo de deslocamento (Google Maps API)
+IF dados_incompletos:
+STATUS = PENDENTE_INFORMACOES
+ENVIA_NOTIFICACAO(cliente)
+ELIF fora_cobertura:
+STATUS = REJEITADA
+MOTIVO = "Fora da área de cobertura"
+ELIF sem_tecnico_disponivel:
+AGENDA_ESPERA(data_futura)
+ELSE:
+STATUS = VALIDADA
+PASSA_PARA_AGENDAMENTO
+
+--- PAGE 3 ---
+Aloca buﬀers entre chamadas (15-30 min)
+Respeita turnos e jornadas
+3. Seleciona melhor combinação:
+Técnico mais próximo com skill necessário
+Menor tempo ocioso/deslocamento
+Menor impacto no SLA
+Preferência por agrupamento de clientes
+4. Sincroniza integrações:
+Google Calendar / Outlook do técnico
+WhatsApp Business (conﬁrmação automática)
+SMS com links de rastreamento
+Exemplo de saída:
+Notiﬁcações automáticas:
+✉  Email: Conﬁrmação para cliente
+📱  SMS: Link de rastreamento + hora prevista
+📞  Calendário: Inserido na agenda do técnico
+🔔  App: Notiﬁcação push com detalhes
+2.4 Etapa 4: DESPACHO E ROTEIRIZAÇÃO
+Otimizador de rotas (TSP - Traveling Salesman Problem):
+Calcula melhor sequência para múltiplas OSs
+Reduz tempo total de deslocamento em até 40%
+Considera trânsito em tempo real (Google Maps)
+Adapta rotas dinamicamente se nova OS chegar
+json
+{
+"os_id":"OS-20250411-0487",
+"tecnico_id":"TEC-042",
+"tecnico_nome":"Carlos Silva",
+"data_agendado":"2025-04-14T10:30:00",
+"duracao_estimada":90,
+"endereco":"Rua X, 123, Porto Velho",
+"rota_numero":"R-042-14ABR",
+"distancia_km":3.2,
+"tempo_deslocamento_min":12,
+"janela_confirmada":true
+}
+
+--- PAGE 4 ---
+Informações enviadas ao técnico:
+Rota otimizada com waypoints
+Endereços + telefones dos clientes
+Histórico de cada OS (ocorrências anteriores)
+Materiais necessários conﬁrmados
+Fotos/contextos de trabalhos anteriores
+App Mobile do Técnico (oﬄine-ﬁrst):
+Check-in com GPS ao chegar
+Captura de fotos e observações
+Formulário de ocorrência dinâmico
+Assinatura do cliente (digital)
+Sincronização automática ao reconectar
+Status durante despacho:
+DESPACHO_REALIZADO → Técnico recebeu
+TECNICO_A_CAMINHO → Saiu do ponto anterior
+TECNICO_NO_LOCAL → GPS dentro de 50m
+EM_ATENDIMENTO → Check-in conﬁrmado
+2.5 Etapa 5: EXECUÇÃO DO SERVIÇO
+Captura de dados em tempo real:
+Check-in automático com geolocalização
+Foto inicial do local/problema
+Campos dinâmicos conforme tipo de serviço
+Registro de materiais utilizados
+Tempo efetivo de execução
+Assinatura digital do cliente
+Validações durante execução:
+Se serviço diferente do esperado → solicita aprovação
+Se material falta → alerta gerente
+Se tempo excede limite → justiﬁcativa
+Se cliente ausente → reagenda
+Exemplo de formulário (JSON schema):
+
+--- PAGE 5 ---
+2.6 Etapa 6: FECHAMENTO
+Geração automática de documentos:
+1. Laudo Técnico:
+Preenchido pelo app do técnico
+Fotos integradas
+Observações e recomendações
+Assinado digitalmente
+2. Comprovante de Serviço:
+Data/hora de execução
+Técnico responsável
+Materiais utilizados
+Valor cobrado
+json
+{
+"tipo_servico":"MANUTENCAO_PREVENTIVA",
+"campos":[
+{
+"id":"foto_inicial",
+"tipo":"imagem",
+"obrigatorio":true,
+"label":"Foto do equipamento"
+},
+{
+"id":"descricao_problema",
+"tipo":"textarea",
+"obrigatorio":true,
+"label":"Descrição do problema encontrado"
+},
+{
+"id":"materiais",
+"tipo":"multi-select",
+"opcoes":["Óleo SAE 30","Filtro K12","Parafusos M8"],
+"label":"Materiais utilizados"
+},
+{
+"id":"assinatura_cliente",
+"tipo":"assinatura",
+"obrigatorio":true,
+"label":"Aceite do cliente"
+}
+]
+}
+
+--- PAGE 6 ---
+Assinatura do cliente
+3. Arquivo técnico:
+Armazenado no S3/Azure Blob
+Vinculado permanentemente à OS
+Acessível para consultas futuras
+Validações de fechamento:
+2.7 Etapa 7: GESTÃO DE MATERIAIS
+Registro automático de consumo:
+Materiais informados no app são registrados
+Estoque atualizado em tempo real
+Custo agregado à OS
+Lógica de estoque:
+Integração com ERP:
+Sincroniza estoque a cada 5 minutos
+Alertas de reposição automática
+Custo de goods sold (COGS) calculado
+2.8 Etapa 8: FATURAMENTO AUTOMÁTICO
+Cálculo de valor:
+IF not assinatura_cliente:
+ERRO: "Assinatura do cliente obrigatória"
+IF not foto_inicial OR not foto_final:
+AVISO: "Recomendado capturar fotos"
+IF tempo_execucao > tempo_esperado * 1.5:
+SOLICITA: "Justificativa para atraso"
+ELSE:
+STATUS = FECHADA
+PASSA_PARA_MATERIAIS
+FOR EACH material_utilizado:
+estoque[material].quantidade -= material.quantidade_usada
+IF estoque[material].quantidade < estoque[material].minimo:
+GERA_ALERTA("Repor " + material.nome)
+custo_total += material.quantidade_usada * material.preco_unitario
+
+--- PAGE 7 ---
+Geração de NF-e:
+XML conforme padrão SEFAZ
+Assinado digitalmente com certiﬁcado
+Transmitido automaticamente ao SEFAZ
+Número de controle gerado
+Exemplo de JSON para faturamento:
+VALOR_TOTAL = (
+VALOR_MAO_OBRA 
++ VALOR_MATERIAIS 
++ TAXA_DESLOCAMENTO 
+- DESCONTOS_CLIENTE 
+) * (1 + ALIQUOTA_IMPOSTO)
+VALOR_MAO_OBRA = 
+IF tipo_servico == "EMERGENCIA":
+tempo_horas * tarifa_hora * multiplicador_emergencia (2x)
+ELIF tipo_servico == "NOTURNO":
+tempo_horas * tarifa_hora * 1.5
+ELSE:
+tempo_horas * tarifa_hora
+ 
+json
+{
+"os_id":"OS-20250411-0487",
+"cliente_id":"CLI-001",
+"tipo_servico":"MANUTENCAO_PREVENTIVA",
+"data_execucao":"2025-04-14T10:30:00",
+"duracao_minutos":95,
+"valor_mao_obra":237.50,
+"materiais":[
+{"id":"MAT-001","descricao":"Óleo SAE 30","qtd":2,"preco_unit":45.00
+],
+"valor_materiais":90.00,
+"taxa_deslocamento":35.00,
+"subtotal":362.50,
+"imposto_pis":22.44,
+"imposto_cofins":103.31,
+"valor_total":488.25,
+"status_nfe":"TRANSMITIDA",
+"numero_nfe":"000123456789",
+"chave_nfe":"35250401234567000195550010001234567890123456"
+}
+
+--- PAGE 8 ---
+2.9 Etapa 9: INTEGRAÇÕES EXTERNAS
+Sincronizações bidirecionais:
+Sistema Dados Frequência Protocolo
+CRM Clientes, histórico Real-time REST API
+ERP Estoque, materiais 5 min Webhooks
+Financeiro Recebimentos Diário SFTP
+Contábil Valores NF-e Semanal XML
+Google Maps Geocodiﬁcação, rotas Real-time SDK
+Sefaz NF-e Real-time SOAP
+2.10 Etapa 10: DASHBOARDS E RELATÓRIOS
+KPIs em tempo real:
+Taxa de conclusão de OS por dia/semana/mês
+Tempo médio de atendimento
+Satisfação do cliente (NPS)
+Receita por técnico/serviço/cliente
+Eﬁciência de rotas (km percorrido vs OS)
+Taxa de retrabalho
+Margem por serviço
+Dashboards por perﬁl:
+1. Gerente Operacional:
+Mapa com técnicos em tempo real
+OSs por status
+Alertas críticos
+Taxa de SLA
+2. Financeiro:
+Faturamento acumulado
+Inadimplência
+Margem por cliente
+Projeções mensais
+3. Técnico:
+Próximas OSs
+
+--- PAGE 9 ---
+Rota do dia
+Histórico de cliente
+Status de chamados
+3. Arquitetura Técnica
+3.1 Stack Recomendado
+FRONTEND:
+├ ── React 18+ / Vue 3
+├ ── TailwindCSS / Material-UI
+├ ── React Query (state management)
+├ ── Mapbox GL (mapas)
+└── React Hook Form (formulários)
+MOBILE (Técnico):
+├ ── React Native / Flutter
+├ ── Offline-first (WatermelonDB)
+├ ── Camera nativa
+├ ── Geolocalização
+└── Background sync
+BACKEND:
+├ ── Node.js 18+ / Python FastAPI
+├ ── Express.js / Fastify
+├ ── TypeScript (type-safe)
+├ ── Arquitetura em camadas
+│  ├ ── Controllers (requisições)
+│  ├ ── Services (lógica)
+│  ├ ── Repositories (dados)
+│  └── Models (esquemas)
+└── Middleware (auth, logging)
+BANCO DE DADOS:
+├ ── PostgreSQL (relacional)
+│  ├ ── Tabelas: clientes, tecnico, os, materiais
+│  ├ ── Índices em campos de busca
+│  └── Triggers para audit
+├ ── Redis (cache + fila)
+│  ├ ── Sessões de usuário
+│  ├ ── Fila de processamento
+│  └── Cache de rotas
+└── Elasticsearch (busca avançada)
+FILAS & EVENTOS:
+├ ── Bull/RabbitMQ (processamento assíncrono)
+├ ── Webhooks (notificações)
+
+--- PAGE 10 ---
+3.2 Modelos de Dados (Database Schema)
+└── WebSockets (tempo real)
+INFRAESTRUTURA:
+├ ── Docker + Kubernetes
+├ ── AWS ECS / Azure Container Instances
+├ ── CI/CD: GitHub Actions / GitLab
+├ ── Monitoring: Datadog / New Relic
+├ ── Logging: ELK Stack
+└── Backup: S3 / Azure Backup
+sql
+
+--- PAGE 11 ---
+-- CLIENTES
+CREATETABLE clientes (
+  id UUID PRIMARYKEY,
+  nome VARCHAR(255)NOTNULL,
+  email VARCHAR(255)UNIQUE,
+  telefone VARCHAR(20),
+  cpf_cnpj VARCHAR(20)UNIQUE,
+  endereco_completo TEXT,
+  latitude DECIMAL(10,8),
+  longitude DECIMAL(11,8),
+  area_servico GEOMETRY,
+  tipo_cliente ENUM('PJ','PF'),
+statusENUM('ATIVO','INATIVO','BLOQUEADO'),
+  created_at TIMESTAMPDEFAULTNOW(),
+  updated_at TIMESTAMP,
+INDEX idx_cpf_cnpj (cpf_cnpj),
+INDEX idx_status (status)
+);
+-- TÉCNICOS
+CREATETABLE tecnicos (
+  id UUID PRIMARYKEY,
+  nome VARCHAR(255)NOTNULL,
+  email VARCHAR(255),
+  telefone VARCHAR(20),
+  skills JSON,
+  horario_inicio TIME,
+  horario_fim TIME,
+  velocidade_media_kmh DECIMAL(5,2)DEFAULT40,
+  locacao_atual GEOMETRY,
+  status_atual ENUM('DISPONIVEL','OCUPADO','PAUSA','OFFLINE'),
+  rating DECIMAL(3,2),
+  updated_at TIMESTAMPONUPDATECURRENT_TIMESTAMP
+);
+-- ORDENS DE SERVIÇO
+CREATETABLE ordens_servico (
+  id UUID PRIMARYKEY,
+  numero_os VARCHAR(20)UNIQUE,
+  cliente_id UUID REFERENCES clientes(id),
+  tecnico_id UUID REFERENCES tecnicos(id),
+  tipo_servico ENUM('MANUTENCAO','INSTALACAO','REPARO','CONSULTORIA'),
+  prioridade ENUM('BAIXA','MEDIA','ALTA','EMERGENCIA'),
+  descricao_problema TEXT,
+  endereco_completo TEXT,
+  latitude DECIMAL(10,8),
+  longitude DECIMAL(11,8),
+  data_abertura TIMESTAMPDEFAULTNOW(),
+  data_agendado DATETIME,
+  data_inicio DATETIME,
+
+--- PAGE 12 ---
+  data_fechamento DATETIME,
+  duracao_estimada_min INT,
+  duracao_real_min INT,
+statusENUM('ABERTA','VALIDADA','AGENDADA','DESPACHO_REALIZADO','TECNICO_
+'TECNICO_NO_LOCAL','EM_ATENDIMENTO','FECHADA','REJEITADA','CA
+  valor_mao_obra DECIMAL(10,2),
+  valor_materiais DECIMAL(10,2),
+  taxa_deslocamento DECIMAL(10,2),
+  valor_total DECIMAL(10,2),
+  nfe_numero VARCHAR(50),
+  nfe_chave VARCHAR(50),
+  nfe_status ENUM('NAO_GERADA','GERADA','TRANSMITIDA','AUTORIZADA','CANCELA
+  observacoes TEXT,
+  created_at TIMESTAMPDEFAULTNOW(),
+  updated_at TIMESTAMP,
+INDEX idx_cliente (cliente_id),
+INDEX idx_tecnico (tecnico_id),
+INDEX idx_status (status),
+INDEX idx_data_agendado (data_agendado)
+);
+-- MATERIAIS
+CREATETABLE materiais (
+  id UUID PRIMARYKEY,
+  descricao VARCHAR(255),
+  sku VARCHAR(50)UNIQUE,
+  preco_unitario DECIMAL(10,2),
+  quantidade_estoque INT,
+  quantidade_minima INT,
+  categoria VARCHAR(100),
+  fornecedor_id UUID,
+  created_at TIMESTAMP,
+  updated_at TIMESTAMP
+);
+-- CONSUMO DE MATERIAIS POR OS
+CREATETABLE os_materiais (
+  id UUID PRIMARYKEY,
+  os_id UUID REFERENCES ordens_servico(id),
+  material_id UUID REFERENCES materiais(id),
+  quantidade_utilizada INT,
+  preco_unitario DECIMAL(10,2),
+  total DECIMAL(10,2),
+  created_at TIMESTAMPDEFAULTNOW()
+);
+-- HISTÓRICO/AUDIT
+CREATETABLE auditoria (
+  id UUID PRIMARYKEY,
+  tabela VARCHAR(100),
+
+--- PAGE 13 ---
+3.3 Fluxo de API REST
+  registro_id UUID,
+  acao ENUM('INSERT','UPDATE','DELETE'),
+  dados_anterior JSON,
+  dados_novo JSON,
+  usuario_id UUID,
+timestampTIMESTAMPDEFAULTNOW(),
+INDEX idx_registro (tabela, registro_id)
+);
+POST /api/v1/ordens-servico
+├ ── Criar nova OS
+└── Validar entrada
+GET /api/v1/ordens-servico?status=AGENDADA&data_inicio=2025-04-14
+├ ── Listar OSs com filtros
+└── Paginação
+GET /api/v1/ordens-servico/{id}
+└── Detalhes completos da OS
+PATCH /api/v1/ordens-servico/{id}/agendar
+├ ── Agendar OS automaticamente
+└── Retorna técnico, data, horário
+POST /api/v1/ordens-servico/{id}/despacho
+├ ── Marca como despachada
+└── Envia para app do técnico
+POST /api/v1/ordens-servico/{id}/iniciar-atendimento
+├ ── Check-in do técnico
+└── Inicia contagem de tempo
+POST /api/v1/ordens-servico/{id}/finalizar
+├ ── Fecha a OS
+├ ── Gera laudo
+└── Calcula faturamento
+POST /api/v1/ordens-servico/{id}/gerar-nfe
+├ ── Cria NF-e
+├ ── Assina digitalmente
+└── Transmite ao Sefaz
+GET /api/v1/relatorios/dashboard?periodo=2025-04
+├ ── KPIs do período
+└── Retorna JSON com métricas
+
+--- PAGE 14 ---
+3.4 Automações com Webhooks
+4. Segurança & Conformidade
+4.1 Autenticação & Autorização
+OAuth 2.0 + JWT (tokens com 15 min de validade)
+Role-Based Access Control (RBAC)
+MFA (autenticação multifator) para gerentes
+Audit log de todas as ações
+4.2 Proteção de Dados
+Criptograﬁa TLS 1.3 em trânsito
+Dados sensíveis criptografados em repouso
+GET /api/v1/relatorios/tecnico/{id}/eficiencia
+├ ── Eficiência, taxa SLA, receita
+└── Análise de performance
+POST /api/v1/tecnicos/{id}/locacao-atual
+├ ── Atualiza GPS do técnico
+└── Real-time para mapas
+javascript
+// Quando OS é criada
+WEBHOOK:POSThttps://seu-crm.com/webhooks/os-criada
+payload:{ os_id, cliente_id, descricao, data_abertura }
+// Quando OS é agendada
+WEBHOOK:POSThttps://seu-calendrio.com/webhooks/agendamento
+payload:{ tecnico_id, data, hora, endereco, cliente_telefone }
+// Quando técnico inicia atendimento
+WEBHOOK:POSThttps://seu-sistema.com/webhooks/inicio-atendimento
+payload:{ os_id, tecnico_id, latitude, longitude, timestamp }
+// Quando OS é finalizada
+WEBHOOK:POSThttps://seu-erp.com/webhooks/os-finalizada
+payload:{ os_id, valor, materiais, tempo_execucao, status }
+// Quando NF-e é autorizada
+WEBHOOK:POSThttps://seu-financeiro.com/webhooks/nfe-autorizada
+payload:{ os_id, nfe_numero, nfe_chave, valor_total }
+
+--- PAGE 15 ---
+LGPD: consentimento, direito ao esquecimento
+Backup automático diário com retenção de 90 dias
+4.3 Conformidade
+NF-e conforme padrão SEFAZ
+Tributação automática por estado
+Retenção legal de documentos (5+ anos)
+5. Escalabilidade & Performance
+5.1 Otimizações
+Cache em Redis (TTL: 5 min para rotas, 30 min para clientes)
+Índices de banco em campos de ﬁltro
+Busca Elasticsearch para histórico de OSs
+Compressão de imagens no app mobile (JPEG 70%)
+5.2 Capacidade
+Suportar 10k+ OSs/dia
+Processamento de rota em <2s
+API response <500ms no p95
+SMS/Email em <5 segundos
+5.3 Monitoramento
+Alertas para latência >1s
+Alertas para erro rate >1%
+Dashboard de uptime 99.9%
+Logs centralizados (ELK)
+6. Métricas de Sucesso
+Métrica Meta
+Taxa de automação de agendamento >85%
+Tempo de agendamento <5 minutos
+Taxa de SLA (OS fechada no dia agendado) >92%
+Tempo médio de execução (vs estimado) ±15%
+
+--- PAGE 16 ---
+Métrica Meta
+Taxa de retrabalho <3%
+Satisfação do cliente (CSAT) >85%
+Uptime do sistema 99.9%
+Tempo de gerar NF-e <30 segundos
+7. Roadmap de Implementação
+Fase 1 (Semanas 1-4)
+ Backend: Modelo de dados, CRUD básico
+ Frontend: Formulário de abertura de OS
+ Integração com Google Maps (geocodiﬁcação)
+ Autenticação básica
+Fase 2 (Semanas 5-8)
+ Algoritmo de agendamento
+ App mobile básico
+ Sincronização de calendário
+ Check-in com GPS
+Fase 3 (Semanas 9-12)
+ Geração de NF-e
+ Dashboards
+ Integrações (CRM, ERP)
+ Webhooks
+Fase 4 (Semanas 13+)
+ IA para previsões
+ Otimização de rotas avançada
+ Mobile avançado (oﬄine sync)
+ Analytics e ML
+8. Estrutura de Pastas do Projeto
+projeto-os/
+├ ── backend/
+│   ├ ── src/
+│   │   ├ ── controllers/
+│   │   ├ ── services/
+
+--- PAGE 17 ---
+9. Comandos para Inicializar
+│   │   ├ ── repositories/
+│   │   ├ ── models/
+│   │   ├ ── middleware/
+│   │   ├ ── utils/
+│   │   └── config/
+│   ├ ── tests/
+│   ├ ── migrations/
+│   └── package.json
+├ ── frontend/
+│   ├ ── src/
+│   │   ├ ── components/
+│   │   ├ ── pages/
+│   │   ├ ── hooks/
+│   │   ├ ── services/
+│   │   ├ ── store/
+│   │   └── styles/
+│   ├ ── public/
+│   └── package.json
+├ ── mobile/
+│   ├ ── src/
+│   ├ ── assets/
+│   └── package.json
+├ ── docs/
+│   ├ ── API.md
+│   ├ ── DEPLOYMENT.md
+│   └── ARCHITECTURE.md
+├ ── docker-compose.yml
+├ ── .github/workflows/
+└── README.md
+bash
+
+--- PAGE 18 ---
+10. Contato & Suporte
+Para dúvidas, contribuições ou sugestões, abra uma issue no repositório ou entre em
+contato com a equipe de desenvolvimento.
+Versão: 1.0.0
+Última atualização: Abril 2025
+Mantido por: [Seu Time]
+# Clone do repositório
+git clone https://github.com/seu-usuario/projeto-os.git
+cd projeto-os
+# Backend
+cd backend
+npminstall
+cp .env.example .env
+npm run migrate
+npm run dev
+# Frontend (em outro terminal)
+cd../frontend
+npminstall
+npm run dev
+# Mobile
+cd../mobile
+npminstall
+npm start
+# Docker (produção)
+docker-compose up -d

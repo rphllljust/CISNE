@@ -1,4 +1,4 @@
-﻿export interface DashboardCards {
+export interface DashboardCards {
   totalOpen: number;
   totalInProgress: number;
   totalCompleted: number;
