@@ -11,7 +11,7 @@
  */
 
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Priority } from '@prisma/client';
+import { Prisma, Priority } from '@prisma/client';
 
 import { PrismaService } from '../../../../infrastructure/prisma/prisma.service';
 import { AuditService } from '../../../audit/application/services/audit.service';
@@ -129,13 +129,13 @@ export class DocumentExtractionService {
       data: {
         sourceType: dto.sourceType,
         rawContent: raw.slice(0, 5000),
-        extractedData: extracted as Record<string, unknown>,
-        fieldValidations: validations as unknown as import('@prisma/client').Prisma.InputJsonValue,
+        extractedData: this.toInputJson(extracted),
+        fieldValidations: this.toInputJson(validations),
         overallConfidence,
         isComplete: missing.length === 0,
         missingFields: missing,
         warnings,
-        mappedData: mapped as import('@prisma/client').Prisma.InputJsonValue,
+        mappedData: this.toInputJson(mapped),
         resolvedClientId,
         serviceOrderId: dto.serviceOrderId,
         createdById: actor.sub
@@ -181,7 +181,7 @@ export class DocumentExtractionService {
     }
 
     const merged = {
-      ...(record.extractedData as Record<string, unknown>),
+      ...this.asRecord(record.extractedData),
       ...dto.corrections
     };
     const validations = this.validateFields(merged as ExtractedFields);
@@ -194,12 +194,12 @@ export class DocumentExtractionService {
     await this.prisma.documentExtraction.update({
       where: { id: dto.extractionId },
       data: {
-        extractedData: merged,
-        fieldValidations: validations as unknown as import('@prisma/client').Prisma.InputJsonValue,
+        extractedData: this.toInputJson(merged),
+        fieldValidations: this.toInputJson(validations),
         overallConfidence,
         isComplete: missing.length === 0,
         missingFields: missing,
-        mappedData: mapped as import('@prisma/client').Prisma.InputJsonValue,
+        mappedData: this.toInputJson(mapped),
         manuallyCorrectd: true,
         correctedById: actor.sub,
         correctedAt: new Date()
@@ -267,7 +267,7 @@ export class DocumentExtractionService {
           where: {
             active: true,
             OR: [
-              { category: { contains: category, mode: 'insensitive' } },
+              { subcategory: { contains: category, mode: 'insensitive' } },
               { name: { contains: category, mode: 'insensitive' } }
             ]
           }
@@ -296,13 +296,13 @@ export class DocumentExtractionService {
       data: {
         sourceType: dto.sourceType,
         rawContent: raw.slice(0, 5000),
-        extractedData: extracted as Record<string, unknown>,
-        fieldValidations: validations as unknown as import('@prisma/client').Prisma.InputJsonValue,
+        extractedData: this.toInputJson(extracted),
+        fieldValidations: this.toInputJson(validations),
         overallConfidence,
         isComplete: missing.length === 0,
         missingFields: missing,
         warnings: this.buildWarnings(validations),
-        mappedData: this.mapToServiceOrderData(extracted, clientId) as import('@prisma/client').Prisma.InputJsonValue,
+        mappedData: this.toInputJson(this.mapToServiceOrderData(extracted, clientId)),
         resolvedClientId: clientId,
         createdById: actor.sub,
         autoProcessed: true
@@ -666,5 +666,16 @@ export class DocumentExtractionService {
 
   private computeSlaDeadline(hours: number): Date {
     return new Date(Date.now() + hours * 3600000);
+  }
+
+  private toInputJson(value: unknown): Prisma.InputJsonValue {
+    return JSON.parse(JSON.stringify(value)) as Prisma.InputJsonValue;
+  }
+
+  private asRecord(value: Prisma.JsonValue | null): Record<string, unknown> {
+    if (value && typeof value === 'object' && !Array.isArray(value)) {
+      return value as Record<string, unknown>;
+    }
+    return {};
   }
 }

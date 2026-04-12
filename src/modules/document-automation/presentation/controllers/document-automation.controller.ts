@@ -10,9 +10,9 @@ import {
   UseGuards
 } from '@nestjs/common';
 
-import { JwtAuthGuard } from '../../../../modules/auth/presentation/guards/jwt-auth.guard';
-import { Roles } from '../../../../modules/auth/presentation/decorators/roles.decorator';
-import { RolesGuard } from '../../../../modules/auth/presentation/guards/roles.guard';
+import { Roles } from '../../../../common/decorators/roles.decorator';
+import { JwtAuthGuard } from '../../../../common/guards/jwt-auth.guard';
+import { RolesGuard } from '../../../../common/guards/roles.guard';
 import type { JwtUserPayload } from '../../../auth/domain/interfaces/jwt-user-payload.interface';
 import {
   BudgetApprovalDto,
@@ -39,7 +39,10 @@ export class DocumentAutomationController {
   /** Extrair dados de um documento (PDF/imagem/e-mail/formulário) */
   @Post('document-automation/extract')
   @Roles('SUPER_ADMIN', 'OPERATIONS_MANAGER', 'SUPERVISOR', 'ATTENDANT')
-  extractDocument(@Body() dto: ExtractDocumentDto, @Request() req: { user: JwtUserPayload }) {
+  extractDocument(
+    @Body() dto: ExtractDocumentDto,
+    @Request() req: { user: JwtUserPayload }
+  ): Promise<unknown> {
     return this.extractionService.extractDocument(dto, req.user);
   }
 
@@ -50,7 +53,7 @@ export class DocumentAutomationController {
     @Param('id') id: string,
     @Body() dto: CorrectExtractionDto,
     @Request() req: { user: JwtUserPayload }
-  ) {
+  ): Promise<unknown> {
     dto.extractionId = id;
     return this.extractionService.correctExtraction(dto, req.user);
   }
@@ -58,7 +61,7 @@ export class DocumentAutomationController {
   /** Listar extrações (supervisor revisa baixa confiança - MÓDULO 6) */
   @Get('document-automation/extractions')
   @Roles('SUPER_ADMIN', 'OPERATIONS_MANAGER', 'SUPERVISOR')
-  listExtractions(@Query() query: ListExtractionsQueryDto) {
+  listExtractions(@Query() query: ListExtractionsQueryDto): Promise<unknown> {
     return this.extractionService.listExtractions(query);
   }
 
@@ -70,7 +73,7 @@ export class DocumentAutomationController {
   processAndCreate(
     @Body() dto: ProcessDocumentAndCreateOsDto,
     @Request() req: { user: JwtUserPayload }
-  ) {
+  ): Promise<unknown> {
     return this.extractionService.processAndCreateServiceOrder(dto, req.user);
   }
 
@@ -79,7 +82,7 @@ export class DocumentAutomationController {
   /** Listar OSs com orçamento pendente de aprovação */
   @Get('document-automation/budget-approvals/pending')
   @Roles('SUPER_ADMIN', 'OPERATIONS_MANAGER', 'SUPERVISOR')
-  listPendingApprovals(@Query('page') page?: string, @Query('limit') limit?: string) {
+  listPendingApprovals(@Query('page') page?: string, @Query('limit') limit?: string): Promise<unknown> {
     return this.budgetApprovalService.listPendingApprovals(
       page ? parseInt(page, 10) : 1,
       limit ? parseInt(limit, 10) : 20
@@ -89,7 +92,10 @@ export class DocumentAutomationController {
   /** Aprovar ou rejeitar orçamento (gerente) */
   @Post('document-automation/budget-approvals')
   @Roles('SUPER_ADMIN', 'OPERATIONS_MANAGER')
-  processBudgetApproval(@Body() dto: BudgetApprovalDto, @Request() req: { user: JwtUserPayload }) {
+  processBudgetApproval(
+    @Body() dto: BudgetApprovalDto,
+    @Request() req: { user: JwtUserPayload }
+  ): Promise<unknown> {
     return this.budgetApprovalService.processApproval(dto, req.user);
   }
 
@@ -101,21 +107,21 @@ export class DocumentAutomationController {
   getMetricsDashboard(
     @Query('startDate') startDate?: string,
     @Query('endDate') endDate?: string
-  ) {
+  ): Promise<unknown> {
     return this.metricsService.getAutomationDashboard({ startDate, endDate });
   }
 
   /** Série temporal de taxa de automação */
   @Get('document-automation/metrics/time-series')
   @Roles('SUPER_ADMIN', 'OPERATIONS_MANAGER', 'SUPERVISOR')
-  getTimeSeries(@Query('days') days?: string) {
+  getTimeSeries(@Query('days') days?: string): Promise<unknown> {
     return this.metricsService.getAutomationRateTimeSeries(days ? parseInt(days, 10) : 30);
   }
 
   /** Log de auditoria de extrações (MÓDULO 7.2) */
   @Get('document-automation/metrics/audit-log')
   @Roles('SUPER_ADMIN', 'OPERATIONS_MANAGER', 'SUPERVISOR')
-  getAuditLog(@Query('page') page?: string, @Query('limit') limit?: string) {
+  getAuditLog(@Query('page') page?: string, @Query('limit') limit?: string): Promise<unknown> {
     return this.metricsService.getExtractionAuditLog(
       page ? parseInt(page, 10) : 1,
       limit ? parseInt(limit, 10) : 50

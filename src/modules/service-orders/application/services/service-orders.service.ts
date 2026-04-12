@@ -1195,7 +1195,7 @@ export class ServiceOrdersService {
           event: 'EM_ANDAMENTO',
           params: {
             os: String(so.orderNumber),
-            valor: so.estimatedValue ? String(so.estimatedValue) : '0,00'
+            valor: '0,00'
           }
         },
         [ServiceOrderStatus.COMPLETED]: {
@@ -1205,7 +1205,7 @@ export class ServiceOrdersService {
             tempo: so.completedAt && so.openedAt
               ? `${Math.round((new Date(so.completedAt).getTime() - new Date(so.openedAt).getTime()) / 60000)} min`
               : '-',
-            valor: so.estimatedValue ? String(so.estimatedValue) : '0,00'
+            valor: '0,00'
           }
         }
       };

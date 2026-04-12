@@ -28,11 +28,11 @@ export enum ExtractionFieldStatus {
 
 export class ExtractDocumentDto {
   @IsEnum(DocumentSourceType)
-  sourceType: DocumentSourceType;
+  sourceType!: DocumentSourceType;
 
   /** Base64 encoded content OR plain text for EMAIL/FORM */
   @IsString()
-  content: string;
+  content!: string;
 
   /** Optional: service order ID to link extraction to existing OS */
   @IsOptional()
@@ -47,18 +47,18 @@ export class ExtractDocumentDto {
 
 export class CorrectExtractionDto {
   @IsString()
-  extractionId: string;
+  extractionId!: string;
 
   @IsObject()
-  corrections: Record<string, string | number | null>;
+  corrections!: Record<string, string | number | null>;
 }
 
 export class ProcessDocumentAndCreateOsDto {
   @IsEnum(DocumentSourceType)
-  sourceType: DocumentSourceType;
+  sourceType!: DocumentSourceType;
 
   @IsString()
-  content: string;
+  content!: string;
 
   /** If provided, skip extraction for these fields and use supplied values */
   @IsOptional()
@@ -73,10 +73,10 @@ export class ProcessDocumentAndCreateOsDto {
 
 export class BudgetApprovalDto {
   @IsString()
-  serviceOrderId: string;
+  serviceOrderId!: string;
 
   @IsEnum(['APPROVED', 'REJECTED'])
-  decision: 'APPROVED' | 'REJECTED';
+  decision!: 'APPROVED' | 'REJECTED';
 
   @IsOptional()
   @IsString()

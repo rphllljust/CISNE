@@ -130,10 +130,7 @@ export class NotificationsService {
         status: 'PENDING',
         title: input.type,
         message: input.message,
-        payload: {
-          ...(input.payload as Prisma.InputJsonValue | undefined),
-          phone: input.phone
-        } as Prisma.InputJsonValue
+        payload: this.buildChannelPayload(input.payload, { phone: input.phone })
       }
     });
 
@@ -165,10 +162,7 @@ export class NotificationsService {
         status: 'PENDING',
         title: input.type,
         message: input.message,
-        payload: {
-          ...(input.payload as Prisma.InputJsonValue | undefined),
-          phone: input.phone
-        } as Prisma.InputJsonValue
+        payload: this.buildChannelPayload(input.payload, { phone: input.phone })
       }
     });
 
@@ -245,5 +239,12 @@ export class NotificationsService {
       this.logger.error(`Falha ao enviar SMS para ${phone}: ${(err as Error).message}`);
       return false;
     }
+  }
+
+  private buildChannelPayload(
+    payload: Record<string, unknown> | undefined,
+    extra: Record<string, unknown>
+  ): Prisma.InputJsonValue {
+    return JSON.parse(JSON.stringify({ ...(payload ?? {}), ...extra })) as Prisma.InputJsonValue;
   }
 }
