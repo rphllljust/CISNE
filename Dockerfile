@@ -28,5 +28,5 @@ COPY --chown=node:node --from=builder /app/node_modules ./node_modules
 COPY --chown=node:node --from=builder /app/dist ./dist
 COPY --chown=node:node --from=builder /app/prisma ./prisma
 EXPOSE 3000
-# Roda migração antes de iniciar (Railway: Postgres já está up quando container inicia)
-CMD ["sh", "-c", "npx prisma migrate deploy && node dist/main.js"]
+# Sincroniza schema com o banco e inicia o servidor
+CMD ["sh", "-c", "npx prisma db push --skip-generate && node dist/main.js"]
