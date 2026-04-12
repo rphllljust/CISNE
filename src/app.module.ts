@@ -9,14 +9,23 @@ import { RolesGuard } from './common/guards/roles.guard';
 import { RequestLoggingInterceptor } from './common/interceptors/request-logging.interceptor';
 import { validateEnv } from './config/env.validation';
 import { PrismaModule } from './infrastructure/prisma/prisma.module';
+import { AssetsModule } from './modules/assets/assets.module';
+import { DocumentAutomationModule } from './modules/document-automation/document-automation.module';
 import { AuditModule } from './modules/audit/audit.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { ClientsModule } from './modules/clients/clients.module';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
+import { DispatchModule } from './modules/dispatch/dispatch.module';
 import { HealthModule } from './modules/health/health.module';
+import { ItsmModule } from './modules/itsm/itsm.module';
+import { KnowledgeBaseModule } from './modules/knowledge-base/knowledge-base.module';
 import { NotificationsModule } from './modules/notifications/notifications.module';
+import { PortalModule } from './modules/portal/portal.module';
+import { ReportsModule } from './modules/reports/reports.module';
 import { ServiceOrdersModule } from './modules/service-orders/service-orders.module';
+import { SuppliersModule } from './modules/suppliers/suppliers.module';
 import { UsersModule } from './modules/users/users.module';
+import { WebhooksModule } from './modules/webhooks/webhooks.module';
 
 @Module({
   imports: [
@@ -59,9 +68,18 @@ import { UsersModule } from './modules/users/users.module';
     AuthModule,
     UsersModule,
     ClientsModule,
+    AssetsModule,
+    SuppliersModule,
     ServiceOrdersModule,
+    DispatchModule,
     DashboardModule,
-    NotificationsModule
+    ReportsModule,
+    NotificationsModule,
+    KnowledgeBaseModule,
+    ItsmModule,
+    WebhooksModule,
+    PortalModule,
+    DocumentAutomationModule
   ],
   providers: [
     {

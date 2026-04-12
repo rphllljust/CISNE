@@ -9,12 +9,12 @@ const authFreePaths = ['/auth/login', '/auth/refresh', '/auth/forgot-password', 
 
 export const publicClient = axios.create({
   baseURL: env.apiBaseUrl,
-  timeout: 20_000
+  timeout: env.apiTimeoutMs
 });
 
 export const httpClient = axios.create({
   baseURL: env.apiBaseUrl,
-  timeout: 20_000
+  timeout: env.apiTimeoutMs
 });
 
 let refreshPromise: Promise<string | null> | null = null;

@@ -19,6 +19,16 @@ import { CreateServiceOrderDto } from '../../application/dto/create-service-orde
 import { FieldCheckDto } from '../../application/dto/field-check.dto';
 import { ListServiceOrdersQueryDto } from '../../application/dto/list-service-orders-query.dto';
 import { ScheduleServiceOrderDto } from '../../application/dto/schedule-service-order.dto';
+import {
+  CreateServiceOrderClassificationRuleDto,
+  CreateServiceOrderTemplateDto,
+  CreateWorkflowTransitionDto,
+  ListDynamicFieldSchemaQueryDto,
+  ListServiceOrderClassificationRuleQueryDto,
+  ListServiceOrderTemplateQueryDto,
+  ListWorkflowTransitionQueryDto,
+  UpsertDynamicFieldSchemaDto
+} from '../../application/dto/service-order-config.dto';
 import { TransitionServiceOrderStatusDto } from '../../application/dto/transition-service-order-status.dto';
 import { UpdateServiceOrderDto } from '../../application/dto/update-service-order.dto';
 import { ServiceOrdersService } from '../../application/services/service-orders.service';
@@ -46,11 +56,114 @@ export class ServiceOrdersController {
     return this.serviceOrdersService.findAll(query);
   }
 
-  @Get(':id')
-  @Roles('SUPER_ADMIN', 'OPERATIONS_MANAGER', 'SUPERVISOR', 'TECHNICIAN', 'ATTENDANT', 'CLIENT')
-  @ApiOperation({ summary: 'Detalhe de uma ordem de servico' })
-  async findById(@Param('id', ParseUUIDPipe) id: string): Promise<unknown> {
-    return this.serviceOrdersService.findById(id);
+  @Get('meta/allowed-transitions/:status')
+  @Roles('SUPER_ADMIN', 'OPERATIONS_MANAGER', 'SUPERVISOR', 'TECHNICIAN', 'ATTENDANT')
+  @ApiOperation({ summary: 'Consulta transicoes permitidas para um status atual' })
+  async getAllowedTransitions(
+    @Param('status', new ParseEnumPipe(ServiceOrderStatus)) status: ServiceOrderStatus,
+    @Query('serviceTypeId') serviceTypeId?: string
+  ): Promise<{
+    status: ServiceOrderStatus;
+    serviceTypeId?: string;
+    allowedTransitions: ServiceOrderStatus[];
+    actions: Array<{
+      fromStatus: ServiceOrderStatus;
+      toStatus: ServiceOrderStatus;
+      actionLabel: string;
+      autoAssign: boolean;
+      startSlaTimer: boolean;
+      triageAlertMinutes: number | null;
+      source: 'CONFIGURED' | 'DEFAULT';
+    }>;
+  }> {
+    const [allowedTransitions, actions] = await Promise.all([
+      this.serviceOrdersService.getAllowedTransitions(status, serviceTypeId),
+      this.serviceOrdersService.getWorkflowActions(status, serviceTypeId)
+    ]);
+
+    return {
+      status,
+      serviceTypeId,
+      allowedTransitions,
+      actions
+    };
+  }
+
+  @Post('templates')
+  @Roles('SUPER_ADMIN', 'OPERATIONS_MANAGER')
+  @ApiOperation({ summary: 'Cria template de OS para abertura rapida com dados pre-preenchidos' })
+  async createTemplate(
+    @Body() dto: CreateServiceOrderTemplateDto,
+    @CurrentUser() actor: JwtUserPayload
+  ): Promise<unknown> {
+    return this.serviceOrdersService.createTemplate(dto, actor);
+  }
+
+  @Get('templates')
+  @Roles('SUPER_ADMIN', 'OPERATIONS_MANAGER', 'SUPERVISOR', 'ATTENDANT')
+  @ApiOperation({ summary: 'Lista templates de OS' })
+  async listTemplates(@Query() query: ListServiceOrderTemplateQueryDto): Promise<unknown> {
+    return this.serviceOrdersService.listTemplates(query);
+  }
+
+  @Post('classification-rules')
+  @Roles('SUPER_ADMIN', 'OPERATIONS_MANAGER')
+  @ApiOperation({ summary: 'Cria regra de classificacao automatica de OS' })
+  async createClassificationRule(
+    @Body() dto: CreateServiceOrderClassificationRuleDto,
+    @CurrentUser() actor: JwtUserPayload
+  ): Promise<unknown> {
+    return this.serviceOrdersService.createClassificationRule(dto, actor);
+  }
+
+  @Get('classification-rules')
+  @Roles('SUPER_ADMIN', 'OPERATIONS_MANAGER', 'SUPERVISOR')
+  @ApiOperation({ summary: 'Lista regras de classificacao automatica de OS' })
+  async listClassificationRules(
+    @Query() query: ListServiceOrderClassificationRuleQueryDto
+  ): Promise<unknown> {
+    return this.serviceOrdersService.listClassificationRules(query);
+  }
+
+  @Post('workflow-transitions')
+  @Roles('SUPER_ADMIN', 'OPERATIONS_MANAGER')
+  @ApiOperation({ summary: 'Cria transicao configuravel do workflow de OS' })
+  async createWorkflowTransition(
+    @Body() dto: CreateWorkflowTransitionDto,
+    @CurrentUser() actor: JwtUserPayload
+  ): Promise<unknown> {
+    return this.serviceOrdersService.createWorkflowTransition(dto, actor);
+  }
+
+  @Get('workflow-transitions')
+  @Roles('SUPER_ADMIN', 'OPERATIONS_MANAGER', 'SUPERVISOR')
+  @ApiOperation({ summary: 'Lista transicoes configuradas do workflow de OS' })
+  async listWorkflowTransitions(@Query() query: ListWorkflowTransitionQueryDto): Promise<unknown> {
+    return this.serviceOrdersService.listWorkflowTransitions(query);
+  }
+
+  @Post('dynamic-field-schemas')
+  @Roles('SUPER_ADMIN', 'OPERATIONS_MANAGER')
+  @ApiOperation({ summary: 'Cria ou atualiza esquema de campo dinamico por tipo de servico' })
+  async upsertDynamicFieldSchema(
+    @Body() dto: UpsertDynamicFieldSchemaDto,
+    @CurrentUser() actor: JwtUserPayload
+  ): Promise<unknown> {
+    return this.serviceOrdersService.upsertDynamicFieldSchema(dto, actor);
+  }
+
+  @Get('dynamic-field-schemas')
+  @Roles('SUPER_ADMIN', 'OPERATIONS_MANAGER', 'SUPERVISOR', 'ATTENDANT')
+  @ApiOperation({ summary: 'Lista esquemas de campos dinamicos por tipo de servico' })
+  async listDynamicFieldSchemas(@Query() query: ListDynamicFieldSchemaQueryDto): Promise<unknown> {
+    return this.serviceOrdersService.listDynamicFieldSchemas(query);
+  }
+
+  @Get(':id/context')
+  @Roles('SUPER_ADMIN', 'OPERATIONS_MANAGER', 'SUPERVISOR', 'TECHNICIAN', 'ATTENDANT')
+  @ApiOperation({ summary: 'Contexto operacional da OS (hierarquia, ativos e campos dinamicos)' })
+  async findContext(@Param('id', ParseUUIDPipe) id: string): Promise<unknown> {
+    return this.serviceOrdersService.findContextById(id);
   }
 
   @Patch(':id')
@@ -108,15 +221,10 @@ export class ServiceOrdersController {
     return this.serviceOrdersService.registerCheckOut(id, dto, actor);
   }
 
-  @Get('meta/allowed-transitions/:status')
-  @Roles('SUPER_ADMIN', 'OPERATIONS_MANAGER', 'SUPERVISOR', 'TECHNICIAN', 'ATTENDANT')
-  @ApiOperation({ summary: 'Consulta transicoes permitidas para um status atual' })
-  getAllowedTransitions(
-    @Param('status', new ParseEnumPipe(ServiceOrderStatus)) status: ServiceOrderStatus
-  ): { status: ServiceOrderStatus; allowedTransitions: ServiceOrderStatus[] } {
-    return {
-      status,
-      allowedTransitions: this.serviceOrdersService.getAllowedTransitions(status)
-    };
+  @Get(':id')
+  @Roles('SUPER_ADMIN', 'OPERATIONS_MANAGER', 'SUPERVISOR', 'TECHNICIAN', 'ATTENDANT', 'CLIENT')
+  @ApiOperation({ summary: 'Detalhe de uma ordem de servico' })
+  async findById(@Param('id', ParseUUIDPipe) id: string): Promise<unknown> {
+    return this.serviceOrdersService.findById(id);
   }
 }

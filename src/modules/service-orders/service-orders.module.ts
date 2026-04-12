@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 
 import { REPOSITORY_TOKENS } from '../../common/constants/injection-tokens';
 import { NotificationsModule } from '../notifications/notifications.module';
+import { WebhooksModule } from '../webhooks/webhooks.module';
 
 import { ServiceOrdersService } from './application/services/service-orders.service';
 import { TransitionServiceOrderStatusUseCase } from './application/use-cases/transition-service-order-status.use-case';
@@ -10,7 +11,7 @@ import { PrismaServiceOrdersRepository } from './infrastructure/repositories/pri
 import { ServiceOrdersController } from './presentation/controllers/service-orders.controller';
 
 @Module({
-  imports: [NotificationsModule],
+  imports: [NotificationsModule, WebhooksModule],
   controllers: [ServiceOrdersController],
   providers: [
     ServiceOrdersService,
