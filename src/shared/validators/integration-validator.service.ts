@@ -1,5 +1,6 @@
 import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
-import { PrismaClient } from '@prisma/client';
+
+import { PrismaService } from '../../infrastructure/prisma/prisma.service';
 
 /**
  * Serviço centralizado de validação de integridade referencial
@@ -7,7 +8,7 @@ import { PrismaClient } from '@prisma/client';
  */
 @Injectable()
 export class IntegrationValidatorService {
-  constructor(private readonly prisma: PrismaClient) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   /**
    * Validar se Cliente é válido para operação
@@ -35,8 +36,7 @@ export class IntegrationValidatorService {
     const serviceType = await this.prisma.serviceType.findFirst({
       where: {
         id: serviceTypeId,
-        active: true,
-        deletedAt: null
+        active: true
       }
     });
 
@@ -77,8 +77,7 @@ export class IntegrationValidatorService {
       where: {
         userId: technicianId,
         teamId: teamId,
-        active: true,
-        deletedAt: null
+        active: true
       },
       include: { user: true, team: true }
     });
@@ -110,8 +109,7 @@ export class IntegrationValidatorService {
     const team = await this.prisma.team.findFirst({
       where: {
         id: teamId,
-        active: true,
-        deletedAt: null
+        active: true
       }
     });
 
@@ -132,8 +130,7 @@ export class IntegrationValidatorService {
     const address = await this.prisma.address.findFirst({
       where: {
         id: addressId,
-        clientId: clientId,
-        deletedAt: null
+        clientId: clientId
       }
     });
 
@@ -156,7 +153,6 @@ export class IntegrationValidatorService {
       where: {
         id: contractId,
         status: 'ACTIVE',
-        deletedAt: null,
         ...(clientId && { clientId })
       }
     });
@@ -176,8 +172,7 @@ export class IntegrationValidatorService {
     const sla = await this.prisma.sLA.findFirst({
       where: {
         id: slaId,
-        active: true,
-        deletedAt: null
+        active: true
       }
     });
 
@@ -290,17 +285,22 @@ export class IntegrationValidatorService {
       );
     }
 
-    return serviceOrder;
+    return {
+      estimatedValue: serviceOrder.estimatedValue
+        ? Number(serviceOrder.estimatedValue.toString())
+        : null,
+      clientId: serviceOrder.clientId,
+      status: serviceOrder.status
+    };
   }
 
   /**
    * Validar se Invoice já existe para ServiceOrder
    */
   async validateInvoiceNotExists(serviceOrderId: string): Promise<void> {
-    const existingInvoice = await this.prisma.invoice.findFirst({
+    const existingInvoice = await this.prisma.invoice.findUnique({
       where: {
-        serviceOrderId: serviceOrderId,
-        deletedAt: null
+        serviceOrderId: serviceOrderId
       }
     });
 
@@ -324,8 +324,7 @@ export class IntegrationValidatorService {
       where: {
         id: contractId,
         clientId: clientId,
-        status: 'ACTIVE',
-        deletedAt: null
+        status: 'ACTIVE'
       }
     });
 
@@ -396,8 +395,7 @@ export class IntegrationValidatorService {
       const teamMember = await this.prisma.teamMember.findFirst({
         where: {
           userId: technicianId,
-          active: true,
-          deletedAt: null
+          active: true
         }
       });
 
