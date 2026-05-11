@@ -23,13 +23,13 @@ import '../../pages.css';
 const statusLabel: Record<InvoiceStatus, string> = {
   DRAFT: 'Rascunho',
   ISSUED: 'Emitida',
-  CANCELLED: 'Cancelada'
+  CANCELED: 'Cancelada'
 };
 
 const statusTone: Record<InvoiceStatus, string> = {
   DRAFT: 'gray',
   ISSUED: 'green',
-  CANCELLED: 'red'
+  CANCELED: 'red'
 };
 
 function formatCurrency(value: number): string {
@@ -93,7 +93,7 @@ export function InvoicesListPage(): React.JSX.Element {
             { value: '', label: 'Todos os status' },
             { value: 'DRAFT', label: 'Rascunho' },
             { value: 'ISSUED', label: 'Emitida' },
-            { value: 'CANCELLED', label: 'Cancelada' }
+            { value: 'CANCELED', label: 'Cancelada' }
           ]}
         />
       </FilterBar>
@@ -149,12 +149,12 @@ export function InvoicesListPage(): React.JSX.Element {
             ) : <span style={{ color: 'var(--text-muted)' }}>-</span>
           },
           {
-            key: 'total',
+            key: 'netAmount',
             title: 'Total',
             width: '120px',
             align: 'right',
             render: (row) => (
-              <span style={{ fontWeight: 600, fontSize: '0.875rem' }}>{formatCurrency(row.total)}</span>
+              <span style={{ fontWeight: 600, fontSize: '0.875rem' }}>{formatCurrency(row.netAmount)}</span>
             )
           },
           {
@@ -166,12 +166,12 @@ export function InvoicesListPage(): React.JSX.Element {
             )
           },
           {
-            key: 'issuedAt',
+            key: 'issueDate',
             title: 'Emitida em',
             width: '150px',
             render: (row) => (
               <span style={{ fontSize: '0.8rem', color: 'var(--text-soft)' }}>
-                {row.issuedAt ? formatDateTime(row.issuedAt) : '-'}
+                {row.issueDate ? formatDateTime(row.issueDate) : '-'}
               </span>
             )
           },

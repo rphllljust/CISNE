@@ -1,0 +1,3 @@
+id;name;responseTimeMinutes;resolutionTimeMinutes;warningBeforeMinutes;description;active;createdAt;updatedAt
+3bbf0ac4-0377-4a4b-a7a0-0e98af7474b0;SLA Padr�o 24h;120;1440;180;Atendimento com conclus�o em at� 24 horas;true;2026-04-10T01:56:47.905Z;2026-04-22T17:57:26.177Z
+7a3d9b62-e9dd-4c86-a30c-8db2e6a35835;SLA Demo 24h;120;1440;180;SLA default for demo data;true;2026-04-23T14:37:58.759Z;2026-04-23T14:37:58.759Z

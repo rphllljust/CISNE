@@ -1,9 +1,9 @@
 import { PrismaClient, Priority, ServiceOrderStatus, InvoiceStatus } from '@prisma/client';
 import { Decimal } from '@prisma/client/runtime/library';
 import * as bcrypt from 'bcrypt';
+import { validateInitialPassword } from './seed-password-policy';
 
 const prisma = new PrismaClient();
-
 async function main(): Promise<void> {
   console.log('🌱 Iniciando seed com 10 clientes e fluxo completo até emissão de NF...');
 
@@ -63,14 +63,21 @@ async function main(): Promise<void> {
   });
 
   // ===== Users =====
-  const adminHash = await bcrypt.hash('Admin@123', 10);
-  const techHash = await bcrypt.hash('Tech@123', 10);
+  const adminHash = await bcrypt.hash(
+    validateInitialPassword({ password: process.env.SEED_ADMIN_PASSWORD, envName: 'SEED_ADMIN_PASSWORD' }),
+    10
+  );
+  const techHash = await bcrypt.hash(
+    validateInitialPassword({ password: process.env.SEED_TECH_PASSWORD, envName: 'SEED_TECH_PASSWORD' }),
+    10
+  );
 
   const admin = await prisma.user.create({
     data: {
       email: 'admin@oms.local',
       fullName: 'Admin Master',
       passwordHash: adminHash,
+      mustChangePassword: true,
       jobTitle: 'Super Admin',
       department: 'TI',
       userRoles: { create: { roleId: superAdminRole.id } }
@@ -84,6 +91,7 @@ async function main(): Promise<void> {
         email: `tech${i}@oms.local`,
         fullName: `Técnico ${i}`,
         passwordHash: techHash,
+        mustChangePassword: true,
         jobTitle: 'Técnico de Campo',
         department: 'Operações',
         userRoles: { create: { roleId: techRole.id } }

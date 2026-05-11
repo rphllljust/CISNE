@@ -1,0 +1,13 @@
+id;code;description;createdAt;updatedAt
+b112cb42-5c48-4afc-baa8-6b1af6dd1f00;users:read;users:read;2026-04-10T01:56:47.174Z;2026-04-23T14:37:58.129Z
+20fb66bc-237a-4c20-877b-30f0b33b9ea1;users:write;users:write;2026-04-10T01:56:47.195Z;2026-04-23T14:37:58.266Z
+c583beff-352c-4d02-9486-46819d5c2b1a;users:delete;users:delete;2026-04-10T01:56:47.200Z;2026-04-23T14:37:58.273Z
+1dd2b961-003b-4fe9-a3a5-df95a52065a3;clients:read;clients:read;2026-04-10T01:56:47.203Z;2026-04-23T14:37:58.276Z
+fb00dd2f-db2f-4bfb-895e-523e7506767b;clients:write;clients:write;2026-04-10T01:56:47.208Z;2026-04-23T14:37:58.280Z
+9f1b28a2-2944-4cb1-bc92-ee9d01732ccc;service-orders:read;service-orders:read;2026-04-10T01:56:47.213Z;2026-04-23T14:37:58.284Z
+5b82e4e9-2deb-44c6-b55f-5a0ee5b8cbe6;service-orders:write;service-orders:write;2026-04-10T01:56:47.216Z;2026-04-23T14:37:58.289Z
+e2d69524-80a0-438b-acde-37e7a83833e4;service-orders:transition;service-orders:transition;2026-04-10T01:56:47.221Z;2026-04-23T14:37:58.297Z
+00c02877-c25f-42ae-9d1c-e29b3af6f92d;dashboard:read;dashboard:read;2026-04-10T01:56:47.229Z;2026-04-23T14:37:58.302Z
+b71e3242-f398-4359-aef5-4d91123cfdb4;audit:read;audit:read;2026-04-10T01:56:47.235Z;2026-04-23T14:37:58.306Z
+b8f1b9b1-7c75-48bb-9314-c541073ad13a;reports:read;reports:read;2026-04-10T01:56:47.241Z;2026-04-23T14:37:58.310Z
+fde954d5-eb9c-4263-a7d0-2a9a2def9441;notifications:manage;notifications:manage;2026-04-10T01:56:47.247Z;2026-04-23T14:37:58.314Z

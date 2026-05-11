@@ -3,35 +3,47 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { httpClient } from '@/shared/api/http-client';
 import type { PaginatedResult } from '@/shared/types/pagination';
 
-export type InvoiceStatus = 'DRAFT' | 'ISSUED' | 'CANCELLED';
+export type InvoiceStatus = 'DRAFT' | 'ISSUED' | 'CANCELED';
 
 export interface Invoice {
   id: string;
-  invoiceNumber: string;
+  invoiceNumber: number;
+  displayNumber: string;
+  series: string;
+  status: InvoiceStatus;
   serviceOrderId: string;
   clientId: string;
-  status: InvoiceStatus;
-  subtotal: number;
-  discount: number;
-  tax: number;
-  total: number;
-  notes?: string;
-  issuedAt?: string;
-  cancelledAt?: string;
-  cancelReason?: string;
-  dueDate?: string;
+  contractId: string | null;
+  issueDate: string;
+  dueDate: string | null;
+  description: string | null;
+  grossAmount: number;
+  discountAmount: number;
+  taxAmount: number;
+  netAmount: number;
+  externalReference: string | null;
+  canceledAt: string | null;
+  cancellationReason: string | null;
   createdAt: string;
   updatedAt: string;
   serviceOrder?: {
     id: string;
     orderNumber: number;
     title: string;
-  };
+    status: string;
+    completedAt: string | null;
+  } | null;
   client?: {
     id: string;
     name: string;
-    taxId?: string;
-  };
+    taxId: string;
+  } | null;
+  contract?: {
+    id: string;
+    code: string;
+    title: string;
+    status: string;
+  } | null;
 }
 
 export interface InvoicesFilter {
@@ -43,10 +55,14 @@ export interface InvoicesFilter {
 
 export interface EmitInvoiceInput {
   serviceOrderId: string;
-  discount?: number;
-  tax?: number;
-  notes?: string;
+  issueDate?: string;
   dueDate?: string;
+  description?: string;
+  grossAmount?: number;
+  discountAmount?: number;
+  taxAmount?: number;
+  series?: string;
+  externalReference?: string;
 }
 
 export interface CancelInvoiceInput {

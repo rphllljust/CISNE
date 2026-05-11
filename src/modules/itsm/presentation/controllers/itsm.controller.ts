@@ -44,6 +44,13 @@ export class ItsmController {
   @Roles('SUPER_ADMIN', 'OPERATIONS_MANAGER', 'SUPERVISOR', 'ATTENDANT')
   @ApiOperation({ summary: 'Lista problemas com filtros operacionais' })
   async listProblems(@Query() query: ListProblemRecordsQueryDto): Promise<unknown> {
+    // Validar paginação
+    if (!query.page || query.page < 1) {
+      query.page = 1;
+    }
+    if (!query.limit || query.limit < 1 || query.limit > 100) {
+      query.limit = 20;
+    }
     return this.itsmService.listProblems(query);
   }
 
@@ -79,6 +86,13 @@ export class ItsmController {
   @Roles('SUPER_ADMIN', 'OPERATIONS_MANAGER', 'SUPERVISOR', 'ATTENDANT')
   @ApiOperation({ summary: 'Lista mudancas com filtros' })
   async listChanges(@Query() query: ListChangeRequestsQueryDto): Promise<unknown> {
+    // Validar paginação
+    if (!query.page || query.page < 1) {
+      query.page = 1;
+    }
+    if (!query.limit || query.limit < 1 || query.limit > 100) {
+      query.limit = 20;
+    }
     return this.itsmService.listChanges(query);
   }
 

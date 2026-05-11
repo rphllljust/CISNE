@@ -10,18 +10,13 @@ import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 import type { EnvConfig } from './config/env.validation';
 
 function normalizeCorsOrigins(rawCorsOrigin: string): string | string[] {
-  const normalized = rawCorsOrigin.trim();
-  if (normalized === '*') {
-    return '*';
-  }
-
-  const originList = normalized
+  const originList = rawCorsOrigin
     .split(',')
     .map((origin) => origin.trim())
     .filter((origin) => origin.length > 0);
 
   if (originList.length === 0) {
-    return '*';
+    throw new Error('CORS_ORIGIN invalida: lista de origens vazia');
   }
 
   return originList.length === 1 ? originList[0] : originList;
@@ -41,7 +36,7 @@ async function bootstrap(): Promise<void> {
   }
 
   app.enableCors({
-    origin: normalizeCorsOrigins(configService.get('CORS_ORIGIN', { infer: true }) ?? '*'),
+    origin: normalizeCorsOrigins(configService.get('CORS_ORIGIN', { infer: true }) ?? ''),
     credentials: true
   });
 
@@ -66,7 +61,8 @@ async function bootstrap(): Promise<void> {
     .build();
 
   const document = SwaggerModule.createDocument(app, swaggerConfig);
-  SwaggerModule.setup('docs', app, document, {
+  const swaggerPath = configService.get('SWAGGER_PATH', { infer: true }) ?? 'docs';
+  SwaggerModule.setup(swaggerPath, app, document, {
     swaggerOptions: {
       persistAuthorization: true,
       docExpansion: 'none'

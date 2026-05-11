@@ -3,7 +3,18 @@ import { Decimal } from '@prisma/client/runtime/library';
 
 const prisma = new PrismaClient();
 
-async function createOrIgnore<T>(fn: () => Promise<T>): Promise<T | null> {
+export type PopulateAllWorkflowsStats = {
+  clients: number;
+  assets: number;
+  suppliers: number;
+  serviceOrders: number;
+  invoices: number;
+  problems: number;
+  changes: number;
+  articles: number;
+};
+
+export async function createOrIgnore<T>(fn: () => Promise<T>): Promise<T | null> {
   try {
     return await fn();
   } catch (error: any) {
@@ -14,20 +25,22 @@ async function createOrIgnore<T>(fn: () => Promise<T>): Promise<T | null> {
   }
 }
 
-async function main(): Promise<void> {
+export async function populateAllWorkflows(
+  prismaClient: PrismaClient = prisma
+): Promise<PopulateAllWorkflowsStats | null> {
   console.log('📊 Populando todos os módulos com dados dos 10 clientes...');
 
   // Buscar clientes, tipos de serviço, equipes, usuários
-  const clients = await prisma.client.findMany({ take: 10 });
-  const serviceTypes = await prisma.serviceType.findMany();
-  const teams = await prisma.team.findMany();
-  const users = await prisma.user.findMany();
-  const slas = await prisma.sLA.findMany();
-  const contracts = await prisma.contract.findMany();
+  const clients = await prismaClient.client.findMany({ take: 10 });
+  const serviceTypes = await prismaClient.serviceType.findMany();
+  const teams = await prismaClient.team.findMany();
+  const users = await prismaClient.user.findMany();
+  const slas = await prismaClient.sLA.findMany();
+  const contracts = await prismaClient.contract.findMany();
 
   if (!clients.length) {
     console.log('❌ Nenhum cliente encontrado. Execute o seed primeiro.');
-    return;
+    return null;
   }
 
   console.log(`✅ Encontrados ${clients.length} clientes`);
@@ -42,7 +55,7 @@ async function main(): Promise<void> {
 
   if (!admin || !techs.length || !team) {
     console.log('❌ Dados essenciais não encontrados');
-    return;
+    return null;
   }
 
   // ============================================================================
@@ -62,7 +75,7 @@ async function main(): Promise<void> {
 
     for (let idx = 0; idx < assets.length; idx++) {
       const assetData = assets[idx];
-      const asset = await createOrIgnore(() => prisma.asset.create({
+      const asset = await createOrIgnore(() => prismaClient.asset.create({
         data: {
           code: `AST-${client.id.slice(0, 6)}-${idx + 1}`,
           name: assetData.name,
@@ -93,7 +106,7 @@ async function main(): Promise<void> {
     ];
 
     for (const supplierData of suppliers) {
-      await createOrIgnore(() => prisma.supplier.create({
+      await createOrIgnore(() => prismaClient.supplier.create({
         data: {
           name: supplierData.name,
           taxId: supplierData.taxId,
@@ -134,9 +147,9 @@ async function main(): Promise<void> {
 
       const serviceType = serviceTypes[i % serviceTypes.length];
       const tech = techs[i % techs.length];
-      const address = await prisma.address.findFirst({ where: { clientId: client.id } });
+      const address = await prismaClient.address.findFirst({ where: { clientId: client.id } });
 
-      const order = await prisma.serviceOrder.create({
+      const order = await prismaClient.serviceOrder.create({
         data: {
           clientId: client.id,
           serviceTypeId: serviceType.id,
@@ -182,7 +195,7 @@ async function main(): Promise<void> {
         status === ServiceOrderStatus.IN_PROGRESS ||
         status === ServiceOrderStatus.COMPLETED
       ) {
-        await prisma.schedule.create({
+        await prismaClient.schedule.create({
           data: {
             serviceOrderId: order.id,
             teamId: team.id,
@@ -207,7 +220,7 @@ async function main(): Promise<void> {
 
   for (const client of clients) {
     // Pegar orders completadas sem invoice
-    const clientOrders = await prisma.serviceOrder.findMany({
+    const clientOrders = await prismaClient.serviceOrder.findMany({
       where: { clientId: client.id, status: ServiceOrderStatus.COMPLETED },
       take: 3,
       include: { invoice: true }
@@ -227,7 +240,7 @@ async function main(): Promise<void> {
           Math.round((Number(grossAmount) - Number(discountAmount) + Number(taxAmount)) * 100) / 100
         );
 
-        await createOrIgnore(() => prisma.invoice.create({
+        await createOrIgnore(() => prismaClient.invoice.create({
           data: {
             serviceOrderId: order.id,
             clientId: client.id,
@@ -269,7 +282,7 @@ async function main(): Promise<void> {
 
     for (let pIdx = 0; pIdx < problems.length; pIdx++) {
       const problemData = problems[pIdx];
-      await createOrIgnore(() => prisma.problemRecord.create({
+      await createOrIgnore(() => prismaClient.problemRecord.create({
         data: {
           code: `PRB-${client.id.slice(0, 6)}-${idx}-${pIdx}`,
           title: problemData.title,
@@ -299,7 +312,7 @@ async function main(): Promise<void> {
 
     for (let cIdx = 0; cIdx < changes.length; cIdx++) {
       const changeData = changes[cIdx];
-      await createOrIgnore(() => prisma.changeRequest.create({
+      await createOrIgnore(() => prismaClient.changeRequest.create({
         data: {
           code: `CHG-${clients[idx].id.slice(0, 6)}-${idx}-${cIdx}`,
           title: changeData.title,
@@ -334,7 +347,7 @@ async function main(): Promise<void> {
     const client = clients[idx];
     for (let cIdx = 0; cIdx < categories.length; cIdx++) {
       const category = categories[cIdx];
-      await createOrIgnore(() => prisma.knowledgeArticle.create({
+      await createOrIgnore(() => prismaClient.knowledgeArticle.create({
         data: {
           title: `${category} - ${client.name}`,
           slug: `${category.toLowerCase()}-${client.id}-${idx}-${cIdx}`.replace(/\s+/g, '-'),
@@ -379,11 +392,19 @@ async function main(): Promise<void> {
   console.log(`   Artigos (KB):          ${stats.articles}`);
   console.log('\n📈 TOTAL DE REGISTROS CRIADOS:', Object.values(stats).reduce((a, b) => a + b, 0));
   console.log('\n✅ Todos os 10 clientes estão em todos os módulos do sistema!');
+  return stats;
 }
 
-main()
-  .catch((e) => {
-    console.error('❌ Erro:', e);
-    process.exit(1);
-  })
-  .finally(() => prisma.$disconnect());
+async function main(): Promise<void> {
+  await populateAllWorkflows(prisma);
+}
+
+if (require.main === module) {
+  main()
+    .catch((e) => {
+      console.error('❌ Erro:', e);
+      process.exit(1);
+    })
+    .finally(() => prisma.$disconnect());
+}
+

@@ -42,6 +42,8 @@ export class AuthService {
     accessToken: string;
     refreshToken: string;
   }> {
+    await this.enforceProgressiveLockout(dto.email, context.ip, context.userAgent);
+
     const user = await this.prisma.user.findUnique({
       where: { email: dto.email },
       include: {
@@ -99,6 +101,7 @@ export class AuthService {
       email: user.email,
       fullName: user.fullName,
       status: user.status,
+      mustChangePassword: user.mustChangePassword,
       roles,
       permissions
     };
@@ -130,6 +133,7 @@ export class AuthService {
         email: payload.email,
         fullName: payload.fullName,
         status: payload.status,
+        mustChangePassword: payload.mustChangePassword,
         roles: payload.roles
       },
       accessToken: tokenPair.accessToken,
@@ -188,6 +192,7 @@ export class AuthService {
       email: user.email,
       fullName: user.fullName,
       status: user.status,
+      mustChangePassword: user.mustChangePassword,
       roles: user.userRoles.map((item) => item.role.name),
       permissions: [
         ...new Set(
@@ -253,11 +258,15 @@ export class AuthService {
 
     const resetToken = `${tokenRecord.id}.${secret}`;
 
+    const isDevelopment = this.configService.get('NODE_ENV') === 'development';
+    const shouldLogDevToken = this.configService.get<boolean>('ENABLE_DEV_RESET_TOKEN_LOG') === true;
+    if (isDevelopment && shouldLogDevToken) {
+      // Intencionalmente nunca retorna token na API; apenas log local opcional para debug.
+      console.info(`[DEV_PASSWORD_RESET_TOKEN] email=${user.email} token=${resetToken}`);
+    }
+
     return {
-      message:
-        this.configService.get('NODE_ENV') === 'production'
-          ? 'Instrucoes de recuperacao enviadas.'
-          : `Token de desenvolvimento: ${resetToken}`
+      message: 'Se o e-mail existir, enviaremos instrucoes de recuperacao.'
     };
   }
 
@@ -286,7 +295,7 @@ export class AuthService {
     await this.prisma.$transaction([
       this.prisma.user.update({
         where: { id: tokenRecord.userId },
-        data: { passwordHash }
+        data: { passwordHash, mustChangePassword: false }
       }),
       this.prisma.passwordResetToken.update({
         where: { id: tokenRecord.id },
@@ -429,5 +438,42 @@ export class AuthService {
         failureReason: input.failureReason
       }
     });
+  }
+
+  private async enforceProgressiveLockout(
+    email: string,
+    ip?: string,
+    userAgent?: string
+  ): Promise<void> {
+    const now = Date.now();
+    const windows = [
+      { minutes: 5, failures: 5, lockMinutes: 10 },
+      { minutes: 30, failures: 12, lockMinutes: 30 }
+    ];
+
+    for (const rule of windows) {
+      const start = new Date(now - rule.minutes * 60 * 1000);
+      const failures = await this.prisma.loginHistory.count({
+        where: {
+          email,
+          success: false,
+          createdAt: { gte: start },
+          ip: ip ?? undefined
+        }
+      });
+
+      if (failures >= rule.failures) {
+        await this.auditService.register({
+          action: 'AUTH_SUSPECTED_BRUTE_FORCE',
+          resource: 'auth',
+          ip,
+          userAgent,
+          metadata: { email, failures, windowMinutes: rule.minutes, lockMinutes: rule.lockMinutes }
+        });
+        throw new UnauthorizedException(
+          `Muitas tentativas de login. Tente novamente em ${rule.lockMinutes} minutos.`
+        );
+      }
+    }
   }
 }

@@ -1,41 +1,41 @@
-# OMS API (Operations Management System)
+Ôªø# OMS API (Operations Management System)
 
-Plataforma backend corporativa para gest„o completa de operaÁıes de serviÁos, construÌda com **NestJS + TypeScript + Prisma + PostgreSQL**, pronta para produÁ„o, escal·vel e preparada para integraÁ„o com frontend moderno.
+Plataforma backend corporativa para gest√£o completa de opera√ß√µes de servi√ßos, constru√≠da com **NestJS + TypeScript + Prisma + PostgreSQL**, pronta para produ√ß√£o, escal√°vel e preparada para integra√ß√£o com frontend moderno.
 
-## 1. Vis„o Geral da SoluÁ„o
+## 1. Vis√£o Geral da Solu√ß√£o
 
-A soluÁ„o centraliza o ciclo operacional de serviÁos em uma ˙nica API:
+A solu√ß√£o centraliza o ciclo operacional de servi√ßos em uma √∫nica API:
 
-- AutenticaÁ„o com JWT + Refresh Token rotativo
-- RBAC por perfil de negÛcio
-- Gest„o de usu·rios, clientes e ordens de serviÁo
-- Fluxo robusto de status da OS com regras de transiÁ„o
-- Agendamento, check-in/check-out e histÛrico operacional
+- Autentica√ß√£o com JWT + Refresh Token rotativo
+- RBAC por perfil de neg√≥cio
+- Gest√£o de usu√°rios, clientes e ordens de servi√ßo
+- Fluxo robusto de status da OS com regras de transi√ß√£o
+- Agendamento, check-in/check-out e hist√≥rico operacional
 - Dashboard gerencial com KPIs e produtividade
-- Auditoria imut·vel + histÛrico de login
-- NotificaÁıes internas (com base para e-mail/SMS/WhatsApp)
-- DocumentaÁ„o Swagger/OpenAPI
+- Auditoria imut√°vel + hist√≥rico de login
+- Notifica√ß√µes internas (com base para e-mail/SMS/WhatsApp)
+- Documenta√ß√£o Swagger/OpenAPI
 - Docker/Docker Compose
 - Seeds iniciais para ambiente de desenvolvimento
 
 ## 2. Arquitetura Recomendada
 
-Arquitetura modular com separaÁ„o por camadas:
+Arquitetura modular com separa√ß√£o por camadas:
 
-- `presentation`: controllers (entrada HTTP, validaÁ„o, contrato REST)
-- `application`: services e use-cases (regras de negÛcio)
-- `domain`: entidades, interfaces, polÌticas de domÌnio
-- `infrastructure`: repositÛrios Prisma e integraÁıes tÈcnicas
+- `presentation`: controllers (entrada HTTP, valida√ß√£o, contrato REST)
+- `application`: services e use-cases (regras de neg√≥cio)
+- `domain`: entidades, interfaces, pol√≠ticas de dom√≠nio
+- `infrastructure`: reposit√≥rios Prisma e integra√ß√µes t√©cnicas
 
-Padrıes aplicados:
+Padr√µes aplicados:
 
 - SOLID
 - Repository Pattern
-- Use Case Pattern (casos crÌticos)
-- Guardas para autenticaÁ„o/autorizaÁ„o
-- Filtro global de exceÁıes
+- Use Case Pattern (casos cr√≠ticos)
+- Guardas para autentica√ß√£o/autoriza√ß√£o
+- Filtro global de exce√ß√µes
 - Interceptor de logging
-- ConfiguraÁ„o centralizada por ambiente
+- Configura√ß√£o centralizada por ambiente
 
 ## 3. Estrutura de Pastas
 
@@ -98,14 +98,14 @@ Entidades principais implementadas:
 
 Modelagem inclui:
 
-- Õndices para busca/relatÛrios (`status`, `openedAt`, `slaDueAt`, `taxId`, etc.)
+- √çndices para busca/relat√≥rios (`status`, `openedAt`, `slaDueAt`, `taxId`, etc.)
 - Constraints de unicidade (`email`, `role`, `permission`, `orderNumber`, `contract.code`)
 - Soft delete (`deletedAt`) em entidades de cadastro
-- Rastreabilidade completa de transiÁıes e autoria
+- Rastreabilidade completa de transi√ß√µes e autoria
 
 Arquivo: `prisma/schema.prisma`
 
-## 5. Fluxo Operacional da Ordem de ServiÁo
+## 5. Fluxo Operacional da Ordem de Servi√ßo
 
 Status suportados:
 
@@ -122,18 +122,18 @@ Status suportados:
 - `CANCELED`
 - `REOPENED`
 
-PolÌtica de transiÁ„o implementada em:
+Pol√≠tica de transi√ß√£o implementada em:
 
 - `src/modules/service-orders/domain/services/service-order-status-policy.service.ts`
 
-Toda transiÁ„o gera histÛrico imut·vel em `ServiceOrderStatusHistory` com:
+Toda transi√ß√£o gera hist√≥rico imut√°vel em `ServiceOrderStatusHistory` com:
 
 - status de origem/destino
-- usu·rio respons·vel
+- usu√°rio respons√°vel
 - timestamp
 - motivo e metadata opcional
 
-## 6. Endpoints Principais (API `/api/v1`)
+## 6. Endpoints Principais (API Base `/api/v1`)\n\n- Base URL local: `http://localhost:3000/api/v1`\n- Swagger local: `http://localhost:3000/docs`\n- Health local: `http://localhost:3000/api/v1/health`\n- Homologacao (exemplo): `https://hmg.seudominio.com/api/v1`\n- Swagger homologacao (exemplo): `https://hmg.seudominio.com/docs`\n- Producao (exemplo): `https://app.seudominio.com/api/v1`\n- Swagger producao (exemplo): `https://app.seudominio.com/docs`
 
 ### Health
 
@@ -190,7 +190,7 @@ Toda transiÁ„o gera histÛrico imut·vel em `ServiceOrderStatusHistory` com:
 - `GET /audit-logs`
 - `GET /audit-logs/login-history`
 
-## 7. Exemplos Reais de CÛdigo (DTO/Service/Controller/Repository)
+## 7. Exemplos Reais de C√≥digo (DTO/Service/Controller/Repository)
 
 - DTO: `src/modules/service-orders/application/dto/create-service-order.dto.ts`
 - Service: `src/modules/service-orders/application/services/service-orders.service.ts`
@@ -200,34 +200,34 @@ Toda transiÁ„o gera histÛrico imut·vel em `ServiceOrderStatusHistory` com:
 Outros exemplos:
 
 - RBAC: `src/common/decorators/roles.decorator.ts` + `src/common/guards/roles.guard.ts`
-- JWT guard p˙blico/privado: `src/common/guards/jwt-auth.guard.ts`
-- ExceÁıes padronizadas: `src/common/filters/http-exception.filter.ts`
+- JWT guard p√∫blico/privado: `src/common/guards/jwt-auth.guard.ts`
+- Exce√ß√µes padronizadas: `src/common/filters/http-exception.filter.ts`
 - Logging estruturado: `nestjs-pino` em `src/app.module.ts`
 
-## 8. SeguranÁa Implementada
+## 8. Seguran√ßa Implementada
 
 - Hash de senha com `bcrypt`
 - JWT access token + refresh token rotativo
-- HistÛrico de login (sucesso/falha)
-- RecuperaÁ„o de senha com token tempor·rio
+- Hist√≥rico de login (sucesso/falha)
+- Recupera√ß√£o de senha com token tempor√°rio
 - RBAC por perfis
 - Rate limiting (`@nestjs/throttler`)
 - Helmet
-- CORS configur·vel
-- ValidaÁ„o global de payload com `ValidationPipe`
-- Auditoria de aÁıes crÌticas
+- CORS configur√°vel
+- Valida√ß√£o global de payload com `ValidationPipe`
+- Auditoria de a√ß√µes cr√≠ticas
 
 ## 9. Observabilidade e Qualidade
 
 - Logs estruturados com `nestjs-pino`
-- Interceptor global de requisiÁ„o
-- Testes unit·rios e e2e base
+- Interceptor global de requisi√ß√£o
+- Testes unit√°rios e e2e base
 - ESLint + Prettier
-- Swagger/OpenAPI em `/docs`
+- Swagger/OpenAPI em `/${SWAGGER_PATH:-docs}`
 
 ## 10. Como Executar
 
-### PrÈ-requisitos
+### Pr√©-requisitos
 
 - Node.js 22+
 - Docker + Docker Compose
@@ -244,7 +244,7 @@ cp .env.example .env
 docker compose up -d postgres
 ```
 
-### 3) Instalar dependÍncias
+### 3) Instalar depend√™ncias
 
 ```bash
 npm install
@@ -275,10 +275,12 @@ Swagger:
 
 ## 11. Credenciais Seed (desenvolvimento)
 
-- Super Admin: `admin@oms.local` / `Admin@123`
-- TÈcnico: `tecnico@oms.local` / `Tech@123`
+- Nao existem senhas padrao fixas.
+- Defina `SEED_ADMIN_PASSWORD` e `SEED_TECH_PASSWORD` antes de rodar seed.
+- Politica minima: 12+ caracteres com maiuscula, minuscula, numero e simbolo.
+- Usuarios de seed sao criados com `mustChangePassword=true`.
 
-## 12. Scripts DisponÌveis
+## 12. Scripts Dispon√≠veis
 
 - `npm run start:dev`
 - `npm run build`
@@ -306,11 +308,13 @@ Estrutura pronta para CI/CD:
 - migrations/seed
 - deploy containerizado
 
-## 14. Roadmap Recomendado (PrÛxima IteraÁ„o)
+## 14. Roadmap Recomendado (Pr√≥xima Itera√ß√£o)
 
-- mÛdulo completo de anexos com storage S3/MinIO
-- relatÛrios PDF/Excel com filtros avanÁados
-- fila assÌncrona para notificaÁıes transacionais
-- trilha avanÁada de SLA com alertas proativos
-- integraÁ„o WhatsApp/SMS
-- testes de integraÁ„o com banco real e contrato OpenAPI
+- m√≥dulo completo de anexos com storage S3/MinIO
+- relat√≥rios PDF/Excel com filtros avan√ßados
+- fila ass√≠ncrona para notifica√ß√µes transacionais
+- trilha avan√ßada de SLA com alertas proativos
+- integra√ß√£o WhatsApp/SMS
+- testes de integra√ß√£o com banco real e contrato OpenAPI
+
+

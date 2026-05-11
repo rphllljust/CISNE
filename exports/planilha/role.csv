@@ -1,0 +1,7 @@
+id;name;description;isSystem;createdAt;updatedAt
+e22d3855-92cd-47cb-988f-65e8b8f219f2;OPERATIONS_MANAGER;Gestor operacional com acesso amplo;true;2026-04-10T01:56:47.419Z;2026-04-22T17:57:24.564Z
+bd91c0ba-d71d-4d28-a2d5-e3abf35e2062;SUPERVISOR;Supervisor de equipes e execu��o;true;2026-04-10T01:56:47.501Z;2026-04-22T17:57:24.989Z
+6ba47058-7bc6-4d5a-8fd5-5b2913a19a13;ATTENDANT;Atendimento e abertura de chamados;true;2026-04-10T01:56:47.607Z;2026-04-22T17:57:25.198Z
+e7e2c4ea-fb7d-4fba-903f-f62b0f664abe;CLIENT;Acesso restrito para cliente;true;2026-04-10T01:56:47.645Z;2026-04-22T17:57:25.275Z
+9bbe0ecd-7cde-4d4a-a49b-b0ed4ba8a976;SUPER_ADMIN;Full access profile;true;2026-04-10T01:56:47.252Z;2026-04-23T14:37:58.319Z
+a67aa42f-148c-4cd0-a010-56e44a132d26;TECHNICIAN;Field technician profile;true;2026-04-10T01:56:47.572Z;2026-04-23T14:37:58.325Z

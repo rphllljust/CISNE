@@ -227,7 +227,7 @@ export class ListChangeRequestsQueryDto extends PaginationQueryDto {
   @IsEnum(ChangeStatus)
   status?: ChangeStatus;
 
-  @ApiPropertyOptional({ enum: ChangeCategory })
+  @ApiPropertyOptional({ enum: ChangeCategory, description: 'Filtro por categoria (type no frontend)' })
   @IsOptional()
   @IsEnum(ChangeCategory)
   category?: ChangeCategory;

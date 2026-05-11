@@ -1,0 +1,19 @@
+id;userId;email;ip;userAgent;success;failureReason;createdAt
+cc11dfe0-9c18-4c5b-bd65-876da7979f4e;b7be9627-c5ea-4b18-9330-0447b12227fd;admin@oms.local;::ffff:172.18.0.1;"Mozilla/5.0 (Windows NT; Windows NT 10.0; pt-BR) WindowsPowerShell/5.1.26100.7920";true;;2026-04-10T01:57:05.409Z
+6fc5daf4-c6f8-4121-bba2-5903bb80429b;b7be9627-c5ea-4b18-9330-0447b12227fd;admin@oms.local;::ffff:172.18.0.1;"Mozilla/5.0 (Windows NT; Windows NT 10.0; pt-BR) WindowsPowerShell/5.1.26100.7920";true;;2026-04-10T01:58:14.731Z
+74ee2b28-082d-46a0-86f2-b635f322632e;;22354304811@gmail.com;::ffff:172.18.0.1;"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36";false;Invalid credentials;2026-04-10T01:58:49.727Z
+20522434-dfb8-4006-bb49-5707168e71ec;b7be9627-c5ea-4b18-9330-0447b12227fd;admin@oms.local;::ffff:172.18.0.1;"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36";true;;2026-04-10T01:59:50.291Z
+8df893ab-33a1-4fcb-97c1-11c994284114;;22354304811@gmail.com;::ffff:172.18.0.1;"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36";false;Invalid credentials;2026-04-21T22:30:00.911Z
+48209019-d2f7-4a03-85dd-73f1f569688f;;22354304811@gmail.com;::ffff:172.18.0.1;"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36";false;Invalid credentials;2026-04-21T22:34:16.679Z
+36b9b8e8-c735-44ac-a6ed-ad6428056ad8;b7be9627-c5ea-4b18-9330-0447b12227fd;admin@oms.local;::ffff:172.18.0.1;"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36";true;;2026-04-21T22:37:39.893Z
+4bcc3b95-dade-4fc3-922e-b445fb7e4a40;b7be9627-c5ea-4b18-9330-0447b12227fd;admin@oms.local;::ffff:172.18.0.1;"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36";true;;2026-04-21T22:46:53.469Z
+6ce73295-53c2-45cd-b968-4cf4275cc7ed;b7be9627-c5ea-4b18-9330-0447b12227fd;admin@oms.local;127.0.0.1;"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36";true;;2026-04-22T16:39:28.346Z
+1ae49554-c88e-4429-9c98-34c0fb4eaae6;b7be9627-c5ea-4b18-9330-0447b12227fd;admin@oms.local;127.0.0.1;"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36";true;;2026-04-22T16:43:50.738Z
+a534814f-e8e6-441f-a6fb-f64dff747b41;b7be9627-c5ea-4b18-9330-0447b12227fd;admin@oms.local;::ffff:172.18.0.1;"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36";true;;2026-04-22T17:38:39.454Z
+3a10bd78-9707-43a8-8685-00212d7d56f5;b7be9627-c5ea-4b18-9330-0447b12227fd;admin@oms.local;172.18.0.1;"Mozilla/5.0 (Windows NT; Windows NT 10.0; pt-BR) WindowsPowerShell/5.1.26100.8115";true;;2026-04-23T14:26:12.581Z
+9706ae1e-62a8-4179-a1eb-1f3cae93f110;b7be9627-c5ea-4b18-9330-0447b12227fd;admin@oms.local;172.18.0.1;axios/1.15.2;true;;2026-04-23T14:37:58.829Z
+be71d708-3361-4760-9d11-af4826c07ad7;b7be9627-c5ea-4b18-9330-0447b12227fd;admin@oms.local;172.18.0.1;axios/1.15.2;true;;2026-04-23T14:39:51.268Z
+b0303a1c-105b-47e6-889d-ae4e443ee1cc;b7be9627-c5ea-4b18-9330-0447b12227fd;admin@oms.local;::ffff:127.0.0.1;;true;;2026-04-23T14:40:07.514Z
+89b6a1ba-bf27-4d80-b4e2-3b7a19ea83c4;b7be9627-c5ea-4b18-9330-0447b12227fd;admin@oms.local;172.18.0.1;axios/1.15.2;true;;2026-04-23T14:40:49.461Z
+325d03d3-3924-446f-9b7c-d5426f4e3ac3;b7be9627-c5ea-4b18-9330-0447b12227fd;admin@oms.local;::ffff:127.0.0.1;;true;;2026-04-23T14:41:22.982Z
+82713710-728c-4547-98ee-48c3eb7fdb59;b7be9627-c5ea-4b18-9330-0447b12227fd;admin@oms.local;172.18.0.1;"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36";true;;2026-05-11T14:21:13.029Z

@@ -24,6 +24,18 @@ export function LoginPage(): React.JSX.Element {
     mutation
   } = useLoginForm();
 
+  const handleCredentialStore = async (email: string, password: string): Promise<void> => {
+    try {
+      if (!('credentials' in navigator)) return;
+      const Ctor = (window as Window & { PasswordCredential?: new (data: { id: string; password: string; name?: string }) => Credential }).PasswordCredential;
+      if (!Ctor) return;
+      const credential = new Ctor({ id: email, password, name: email });
+      await navigator.credentials.store(credential);
+    } catch {
+      // Silent fallback: some browsers block credential store APIs.
+    }
+  };
+
   useEffect(() => {
     if (mutation.isSuccess) {
       pushToast({ type: 'success', message: 'Sessao iniciada com sucesso.' });
@@ -75,13 +87,35 @@ export function LoginPage(): React.JSX.Element {
 
           <form
             className="auth-form"
+            autoComplete="on"
+            method="post"
             onSubmit={(event) => {
-              void handleSubmit((values) => mutation.mutate(values))(event);
+              void handleSubmit(async (values) => {
+                await mutation.mutateAsync(values);
+                await handleCredentialStore(values.email, values.password);
+              })(event);
             }}
           >
-            <Input label="E-mail" type="email" placeholder="seu.email@empresa.com" error={errors.email?.message} {...register('email')} />
+            <Input
+              label="Credencial"
+              type="text"
+              placeholder="E-mail ou identificador corporativo"
+              error={errors.email?.message}
+              autoComplete="username"
+              autoCapitalize="none"
+              autoCorrect="off"
+              spellCheck={false}
+              {...register('email')}
+            />
 
-            <Input label="Senha" type="password" placeholder="********" error={errors.password?.message} {...register('password')} />
+            <Input
+              label="Senha"
+              type="password"
+              placeholder="********"
+              error={errors.password?.message}
+              autoComplete="current-password"
+              {...register('password')}
+            />
 
             {mutation.error ? <p className="auth-feedback auth-feedback-error">{getApiErrorMessage(mutation.error)}</p> : null}
 

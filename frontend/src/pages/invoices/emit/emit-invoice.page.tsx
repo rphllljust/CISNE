@@ -20,21 +20,21 @@ export function EmitInvoicePage(): React.JSX.Element {
   const emitMutation = useEmitInvoice();
 
   const [serviceOrderId, setServiceOrderId] = useState('');
-  const [discount, setDiscount] = useState('0');
-  const [tax, setTax] = useState('0');
+  const [discountAmount, setDiscountAmount] = useState('0');
+  const [taxAmount, setTaxAmount] = useState('0');
   const [dueDate, setDueDate] = useState('');
-  const [notes, setNotes] = useState('');
+  const [description, setDescription] = useState('');
 
   async function handleSubmit(e: React.FormEvent): Promise<void> {
     e.preventDefault();
     const invoice = await emitMutation.mutateAsync({
       serviceOrderId,
-      discount: parseFloat(discount) || 0,
-      tax: parseFloat(tax) || 0,
+      discountAmount: parseFloat(discountAmount) || 0,
+      taxAmount: parseFloat(taxAmount) || 0,
       dueDate: dueDate || undefined,
-      notes: notes || undefined
+      description: description || undefined
     });
-    void navigate(`${appRoutes.invoices}/${invoice.id}`);
+    void navigate(`/invoices/${invoice.id}/print`);
   }
 
   return (
@@ -69,16 +69,16 @@ export function EmitInvoicePage(): React.JSX.Element {
               type="number"
               min="0"
               step="0.01"
-              value={discount}
-              onChange={(e) => setDiscount(e.target.value)}
+              value={discountAmount}
+              onChange={(e) => setDiscountAmount(e.target.value)}
             />
             <Input
               label="Imposto (R$)"
               type="number"
               min="0"
               step="0.01"
-              value={tax}
-              onChange={(e) => setTax(e.target.value)}
+              value={taxAmount}
+              onChange={(e) => setTaxAmount(e.target.value)}
             />
           </div>
           <Input
@@ -92,8 +92,8 @@ export function EmitInvoicePage(): React.JSX.Element {
               Observacoes
             </label>
             <textarea
-              value={notes}
-              onChange={(e) => setNotes(e.target.value)}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
               rows={3}
               style={{
                 width: '100%',

@@ -2,9 +2,30 @@ const { PrismaClient } = require('@prisma/client');
 const bcrypt = require('bcrypt');
 
 const prisma = new PrismaClient();
+const blocked = new Set(['Admin@123', 'Tech@123', 'admin123', 'password', '123456']);
+
+function validateInitialPassword(password) {
+  if (!password) throw new Error('ADMIN_INITIAL_PASSWORD obrigatoria');
+  if (blocked.has(password)) throw new Error('ADMIN_INITIAL_PASSWORD usa senha proibida');
+  if (
+    password.length < 12 ||
+    !/[A-Z]/.test(password) ||
+    !/[a-z]/.test(password) ||
+    !/\d/.test(password) ||
+    !/[^A-Za-z0-9]/.test(password)
+  ) {
+    throw new Error(
+      'ADMIN_INITIAL_PASSWORD deve ter no minimo 12 caracteres com maiuscula, minuscula, numero e simbolo'
+    );
+  }
+  return password;
+}
 
 async function main() {
-  const passwordHash = await bcrypt.hash('Admin@123', 10);
+  const passwordHash = await bcrypt.hash(
+    validateInitialPassword(process.env.ADMIN_INITIAL_PASSWORD),
+    10
+  );
 
   const superAdminRole = await prisma.role.upsert({
     where: { name: 'SUPER_ADMIN' },
@@ -24,12 +45,14 @@ async function main() {
     update: {
       fullName: 'Administrador OMS',
       status: 'ACTIVE',
-      passwordHash
+      passwordHash,
+      mustChangePassword: true
     },
     create: {
       email: 'admin@oms.local',
       fullName: 'Administrador OMS',
       passwordHash,
+      mustChangePassword: true,
       status: 'ACTIVE',
       jobTitle: 'Super Admin',
       department: 'TI'

@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
-import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { ThrottlerModule } from '@nestjs/throttler';
 import { LoggerModule } from 'nestjs-pino';
 
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
+import { AuthThrottlerGuard } from './common/guards/auth-throttler.guard';
 import { RolesGuard } from './common/guards/roles.guard';
 import { RequestLoggingInterceptor } from './common/interceptors/request-logging.interceptor';
 import { validateEnv } from './config/env.validation';
@@ -21,12 +22,15 @@ import { InvoicesModule } from './modules/invoices/invoices.module';
 import { ItsmModule } from './modules/itsm/itsm.module';
 import { KnowledgeBaseModule } from './modules/knowledge-base/knowledge-base.module';
 import { NotificationsModule } from './modules/notifications/notifications.module';
+import { OperationsToolsModule } from './modules/operations-tools/operations-tools.module';
 import { PortalModule } from './modules/portal/portal.module';
 import { ReportsModule } from './modules/reports/reports.module';
 import { ServiceOrdersModule } from './modules/service-orders/service-orders.module';
 import { SuppliersModule } from './modules/suppliers/suppliers.module';
 import { UsersModule } from './modules/users/users.module';
 import { WebhooksModule } from './modules/webhooks/webhooks.module';
+import { NfseModule } from './modules/nfse/nfse.module';
+import { BillingModule } from './modules/billing/billing.module';
 
 @Module({
   imports: [
@@ -77,16 +81,19 @@ import { WebhooksModule } from './modules/webhooks/webhooks.module';
     DashboardModule,
     ReportsModule,
     NotificationsModule,
+    OperationsToolsModule,
     KnowledgeBaseModule,
     ItsmModule,
     WebhooksModule,
     PortalModule,
-    DocumentAutomationModule
+    DocumentAutomationModule,
+    NfseModule,
+    BillingModule
   ],
   providers: [
     {
       provide: APP_GUARD,
-      useClass: ThrottlerGuard
+      useClass: AuthThrottlerGuard
     },
     {
       provide: APP_GUARD,

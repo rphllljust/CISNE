@@ -1,0 +1,6 @@
+id;email;passwordHash;fullName;phone;avatarUrl;jobTitle;department;status;createdAt;updatedAt;deletedAt
+56ea3d13-13cf-43a5-84be-f5ca03b88d93;tecnico@oms.local;$2b$10$LFxK5ji6jF58xxmau1KxHuzcyaAnRbSbo.tJexBqjv73FxAr/Us.G;T�cnico Demo;;;T�cnico de Campo;Opera��es;ACTIVE;2026-04-10T01:56:47.888Z;2026-04-22T17:57:26.025Z;
+b7be9627-c5ea-4b18-9330-0447b12227fd;admin@oms.local;$2b$10$HQ0aitL9ZqnxbFhHUqSeOOcVCqcUnOz.ESSpkCMSHtzNZzRTUl.sO;Administrador OMS;;;Super Admin;Operations;ACTIVE;2026-04-10T01:56:47.882Z;2026-04-23T14:37:58.587Z;
+66d02d69-6227-4a59-a13d-4df9ced51066;tecnico1@oms.local;$2b$10$42u99U7zrp3lEtgvuFOQCu8uLu9cidvn8G8QQCftukTyv.Ajvr20q;Tecnico 1;;;Field Technician;Operations;ACTIVE;2026-04-23T14:37:58.680Z;2026-04-23T14:37:58.680Z;
+fad574c3-0ad3-4b2a-912a-ae4b715e6354;tecnico2@oms.local;$2b$10$42u99U7zrp3lEtgvuFOQCu8uLu9cidvn8G8QQCftukTyv.Ajvr20q;Tecnico 2;;;Field Technician;Operations;ACTIVE;2026-04-23T14:37:58.725Z;2026-04-23T14:37:58.725Z;
+6154899b-e645-49ec-830a-1c5c0b3264b3;tecnico3@oms.local;$2b$10$42u99U7zrp3lEtgvuFOQCu8uLu9cidvn8G8QQCftukTyv.Ajvr20q;Tecnico 3;;;Field Technician;Operations;ACTIVE;2026-04-23T14:37:58.745Z;2026-04-23T14:37:58.745Z;

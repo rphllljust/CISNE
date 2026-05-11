@@ -15,6 +15,9 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   }
 }

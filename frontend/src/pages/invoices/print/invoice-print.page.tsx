@@ -20,13 +20,11 @@ export function InvoicePrintPage(): React.JSX.Element {
 
   const handlePrint = (): void => {
     if (!printRef.current) return;
-
     setIsPrinting(true);
-
     setTimeout(() => {
       window.print();
       setIsPrinting(false);
-    }, 100);
+    }, 120);
   };
 
   if (invoiceQuery.isLoading) {
@@ -45,66 +43,32 @@ export function InvoicePrintPage(): React.JSX.Element {
       <div className="invoice-print-page">
         <div className="invoice-print-toolbar">
           <Button variant="secondary" onClick={() => navigate(appRoutes.invoices)}>
-            ← Voltar
+            Voltar
           </Button>
         </div>
         <Alert
           variant="danger"
-          title="Nota fiscal não encontrada"
+          title="Nota fiscal nao encontrada"
           message={getApiErrorMessage(invoiceQuery.error)}
         />
       </div>
     );
   }
 
-  // Preparar dados para o modelo NFS-e
   const serviceOrder = invoice.serviceOrder;
   const client = invoice.client;
-  const company = {
-    name: 'Empresa de Serviços Ltda',
-    taxId: '12345678000190',
-    municipalRegistration: '123456',
-    email: 'contato@empresa.com.br',
-    phone: '(11) 98765-4321',
-    address: 'Avenida Principal',
-    addressNumber: '1000',
-    neighborhood: 'Centro',
-    city: 'São Paulo',
-    state: 'SP',
-    zipCode: '01310-100'
-  };
-
-  const items = [
-    {
-      description: serviceOrder?.title || 'Serviço prestado',
-      quantity: 1,
-      unitPrice: invoice.grossAmount,
-      total: invoice.grossAmount
-    }
-  ];
-
-  const bankData = {
-    bank: 'Banco do Brasil',
-    agency: '0001',
-    account: '123456-7',
-    accountType: 'Corrente'
-  };
 
   return (
     <div className="invoice-print-page">
       <div className="invoice-print-toolbar">
         <div>
           <Button variant="secondary" onClick={() => navigate(appRoutes.invoices)}>
-            ← Voltar para Notas Fiscais
+            Voltar para notas fiscais
           </Button>
         </div>
         <div className="invoice-print-actions">
-          <Button
-            variant="primary"
-            disabled={isPrinting}
-            onClick={handlePrint}
-          >
-            {isPrinting ? '⏳ Preparando impressão...' : '🖨️ Imprimir'}
+          <Button variant="primary" disabled={isPrinting} onClick={handlePrint}>
+            {isPrinting ? 'Preparando impressao...' : 'Imprimir'}
           </Button>
         </div>
       </div>
@@ -113,52 +77,42 @@ export function InvoicePrintPage(): React.JSX.Element {
         <NFSeModel
           ref={printRef}
           invoiceNumber={invoice.invoiceNumber}
-          seriesNumber="1"
-          rps={`RPS-${invoice.id.substring(0, 6).toUpperCase()}`}
-          issueDate={new Date(invoice.issuedAt)}
-          dueDate={invoice.dueDate ? new Date(invoice.dueDate) : undefined}
-          company={company}
-          client={{
-            name: client?.name || '-',
-            taxId: client?.taxId || '',
-            email: client?.email || '',
-            phone: client?.phone || '',
-            address: client?.mainAddress?.street || '',
-            addressNumber: client?.mainAddress?.number || '',
-            addressComplement: client?.mainAddress?.complement || '',
-            neighborhood: client?.mainAddress?.neighborhood || '',
-            city: client?.mainAddress?.city || '',
-            state: client?.mainAddress?.state || '',
-            zipCode: client?.mainAddress?.zipCode || ''
+          series="A"
+          issueDate={invoice.issuedAt ? new Date(invoice.issuedAt) : new Date()}
+          accessKey="1122 3344 5566 7788 9900 1122 3344 5566 7788 9900 1122"
+          issuer={{
+            name: 'Cisne Rondonia Comercio e Servicos Ltda',
+            taxId: '11897171000108',
+            stateRegistration: '___________________',
+            address: 'Rua ________________________, No _____',
+            city: 'Porto Velho',
+            state: 'RO'
           }}
-          items={items}
-          subtotal={invoice.grossAmount}
-          deduction={0}
-          discount={invoice.discountAmount}
-          tax={invoice.taxAmount}
+          recipient={{
+            name: client?.name ?? '_____________________________________________',
+            taxId: client?.taxId,
+            address: '_____________________________________________',
+            city: '__________________',
+            state: '____'
+          }}
+          items={[
+            {
+              code: serviceOrder?.orderNumber ? String(serviceOrder.orderNumber) : '',
+              description: serviceOrder?.title ?? 'Servico prestado',
+              quantity: 1,
+              unit: 'UN',
+              unitPrice: invoice.subtotal,
+              total: invoice.subtotal
+            }
+          ]}
+          subtotal={invoice.subtotal}
+          discount={invoice.discount}
+          tax={invoice.tax}
           total={invoice.total}
           notes={invoice.notes}
-          bankData={bankData}
-          serviceDescription={serviceOrder?.description}
+          transport={{}}
         />
       </div>
-
-      {/* Estilos de impressão - ocultos até print */}
-      <style>{`
-        @media print {
-          .invoice-print-toolbar {
-            display: none !important;
-          }
-          body {
-            background: white;
-            margin: 0;
-            padding: 0;
-          }
-          .invoice-print-page {
-            background: white;
-          }
-        }
-      `}</style>
     </div>
   );
 }

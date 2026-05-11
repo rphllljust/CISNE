@@ -1,0 +1,6 @@
+id;serviceOrderId;matchedRuleId;priority;category;subcategory;reason;createdAt
+00006c6c-e153-4340-a275-e7854f0395d7;768234ae-35a9-4b76-adf0-420056500dc4;;MEDIUM;;;Sem regra de classificação automática aplicável;2026-04-23T14:37:59.617Z
+1268c3a5-b0b0-48d6-b815-7bd653701e13;b3032c72-dda9-4e0b-a4e7-113190a54abe;;MEDIUM;;;Sem regra de classificação automática aplicável;2026-04-23T14:39:52.101Z
+72902521-2c04-42c8-bb7a-59b5f1e4662c;3511dcf2-5a48-4b20-9431-05d195db2e22;;MEDIUM;;;Sem regra de classificação automática aplicável;2026-04-23T14:40:08.065Z
+12fb8d07-4447-40b0-b79d-878208d9db3c;4e0cf0a4-f9b1-4d01-91d8-9f48fc1d1950;;MEDIUM;;;Sem regra de classificação automática aplicável;2026-04-23T14:40:50.326Z
+8cb52280-9d25-4e65-ab89-bdea92713a19;80df57e9-b944-4c6c-b676-9bfa77ecda50;;MEDIUM;;;Sem regra de classificação automática aplicável;2026-04-23T14:41:23.654Z

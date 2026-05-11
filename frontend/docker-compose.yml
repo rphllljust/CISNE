@@ -8,5 +8,5 @@ services:
       args:
         API_UPSTREAM: http://host.docker.internal:3000
     ports:
-      - '8080:80'
+      - '80:80'
 

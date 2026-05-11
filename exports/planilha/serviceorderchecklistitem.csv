@@ -1,0 +1,20 @@
+id;serviceOrderId;itemKey;description;required;checked;checkedAt;checkedById;evidenceAttachmentId;createdAt;updatedAt
+42ba3aca-a1bf-4663-97ee-6707f151fb56;63b37f40-1182-487c-bdea-68a9e30c7b26;isolar-area;Isolar a �rea de trabalho;true;false;;;;2026-04-10T01:56:47.960Z;2026-04-10T01:56:47.960Z
+04c44498-045a-4ad5-a6a7-b0dd588c7e26;63b37f40-1182-487c-bdea-68a9e30c7b26;epi;Validar uso de EPI;true;false;;;;2026-04-10T01:56:47.960Z;2026-04-10T01:56:47.960Z
+60f2fc4f-6ef7-4b2d-a976-1fd01e782878;3103e9d7-ed26-4804-9e27-c8a45f901e1f;isolar-area;Isolar a �rea de trabalho;true;false;;;;2026-04-22T17:57:26.490Z;2026-04-22T17:57:26.490Z
+327d7bcf-e269-4905-b0d7-d42305a182f4;3103e9d7-ed26-4804-9e27-c8a45f901e1f;epi;Validar uso de EPI;true;false;;;;2026-04-22T17:57:26.490Z;2026-04-22T17:57:26.490Z
+d4edb0aa-2b6a-4cf7-af15-25c928f7648e;768234ae-35a9-4b76-adf0-420056500dc4;isolar-area;Isolar a �rea de trabalho;true;false;;;;2026-04-23T14:37:59.537Z;2026-04-23T14:37:59.537Z
+ae46ae8f-c132-4608-8ba2-7bf8211f820e;768234ae-35a9-4b76-adf0-420056500dc4;epi;Validar uso de EPI;true;false;;;;2026-04-23T14:37:59.537Z;2026-04-23T14:37:59.537Z
+4a00222c-9dd4-4e4b-adb6-eed732764b4b;768234ae-35a9-4b76-adf0-420056500dc4;foto-antes;Registrar foto antes da execu��o;false;false;;;;2026-04-23T14:37:59.537Z;2026-04-23T14:37:59.537Z
+a7e84e37-c8f2-4e14-91ac-b93d3f63c493;b3032c72-dda9-4e0b-a4e7-113190a54abe;isolar-area;Isolar a �rea de trabalho;true;false;;;;2026-04-23T14:39:52.048Z;2026-04-23T14:39:52.048Z
+d0bc0557-403e-423e-a750-6e61ed179b51;b3032c72-dda9-4e0b-a4e7-113190a54abe;epi;Validar uso de EPI;true;false;;;;2026-04-23T14:39:52.048Z;2026-04-23T14:39:52.048Z
+a7e6037f-d92f-448f-bf90-f016a189fe9b;b3032c72-dda9-4e0b-a4e7-113190a54abe;foto-antes;Registrar foto antes da execu��o;false;false;;;;2026-04-23T14:39:52.048Z;2026-04-23T14:39:52.048Z
+c7e6d1aa-285c-4de5-97ca-a39d1a93787f;3511dcf2-5a48-4b20-9431-05d195db2e22;isolar-area;Isolar a �rea de trabalho;true;false;;;;2026-04-23T14:40:07.939Z;2026-04-23T14:40:07.939Z
+15523c3c-8c6a-4fc5-ba42-2aa3d3c2820d;3511dcf2-5a48-4b20-9431-05d195db2e22;epi;Validar uso de EPI;true;false;;;;2026-04-23T14:40:07.939Z;2026-04-23T14:40:07.939Z
+5fdd0b04-4327-4d0d-81c9-f9db027a6456;3511dcf2-5a48-4b20-9431-05d195db2e22;foto-antes;Registrar foto antes da execu��o;false;false;;;;2026-04-23T14:40:07.939Z;2026-04-23T14:40:07.939Z
+5835d15e-c0f2-4122-a842-02913caebc31;4e0cf0a4-f9b1-4d01-91d8-9f48fc1d1950;isolar-area;Isolar a �rea de trabalho;true;false;;;;2026-04-23T14:40:50.245Z;2026-04-23T14:40:50.245Z
+876e1a9a-1dca-41f1-8400-689b043ee94d;4e0cf0a4-f9b1-4d01-91d8-9f48fc1d1950;epi;Validar uso de EPI;true;false;;;;2026-04-23T14:40:50.245Z;2026-04-23T14:40:50.245Z
+2d1b2115-4c41-486d-82e9-19d9769e6f31;4e0cf0a4-f9b1-4d01-91d8-9f48fc1d1950;foto-antes;Registrar foto antes da execu��o;false;false;;;;2026-04-23T14:40:50.245Z;2026-04-23T14:40:50.245Z
+aa61b321-537a-469b-8454-e0ceef8b0796;80df57e9-b944-4c6c-b676-9bfa77ecda50;isolar-area;Isolar a �rea de trabalho;true;false;;;;2026-04-23T14:41:23.465Z;2026-04-23T14:41:23.465Z
+88965f5f-68a9-4ec1-973e-a3acfe6a5d64;80df57e9-b944-4c6c-b676-9bfa77ecda50;epi;Validar uso de EPI;true;false;;;;2026-04-23T14:41:23.465Z;2026-04-23T14:41:23.465Z
+973eb8fa-1d4c-49f3-b9bc-6d5ccaa70087;80df57e9-b944-4c6c-b676-9bfa77ecda50;foto-antes;Registrar foto antes da execu��o;false;false;;;;2026-04-23T14:41:23.465Z;2026-04-23T14:41:23.465Z

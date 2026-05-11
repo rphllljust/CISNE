@@ -31,6 +31,8 @@ services:
         condition: service_healthy
     env_file:
       - .env
+    environment:
+      DATABASE_URL: postgresql://oms:oms@postgres:5432/oms?schema=public
     command: npx prisma migrate deploy
 
   api:
@@ -47,10 +49,12 @@ services:
         condition: service_completed_successfully
     env_file:
       - .env
+    environment:
+      DATABASE_URL: postgresql://oms:oms@postgres:5432/oms?schema=public
     ports:
       - '3000:3000'
     healthcheck:
-      test: ["CMD-SHELL", "wget -qO- http://localhost:3000/api/v1/health || exit 1"]
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:3000/api/v1/health || exit 1"]
       interval: 15s
       timeout: 5s
       retries: 5

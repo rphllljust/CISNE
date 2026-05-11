@@ -18,8 +18,8 @@ import {
 
 import '../../pages.css';
 
-const statusLabel = { DRAFT: 'Rascunho', ISSUED: 'Emitida', CANCELLED: 'Cancelada' };
-const statusTone = { DRAFT: 'gray', ISSUED: 'green', CANCELLED: 'red' } as const;
+const statusLabel = { DRAFT: 'Rascunho', ISSUED: 'Emitida', CANCELED: 'Cancelada' };
+const statusTone = { DRAFT: 'gray', ISSUED: 'green', CANCELED: 'red' } as const;
 
 function formatCurrency(value: number): string {
   return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
@@ -93,7 +93,7 @@ export function InvoiceDetailPage(): React.JSX.Element {
                 </Button>
               </Link>
             )}
-            {invoice.status !== 'CANCELLED' && (
+            {invoice.status !== 'CANCELED' && (
               <Button variant="danger" size="sm" onClick={() => setShowCancel(true)}>
                 Cancelar Nota Fiscal
               </Button>
@@ -126,22 +126,22 @@ export function InvoiceDetailPage(): React.JSX.Element {
           <dl style={{ display: 'grid', gap: '0.5rem' }}>
             <div>
               <dt style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Emitida em</dt>
-              <dd>{invoice.issuedAt ? formatDateTime(invoice.issuedAt) : '-'}</dd>
+              <dd>{invoice.issueDate ? formatDateTime(invoice.issueDate) : '-'}</dd>
             </div>
             <div>
               <dt style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Vencimento</dt>
               <dd>{invoice.dueDate ? formatDateTime(invoice.dueDate) : '-'}</dd>
             </div>
-            {invoice.cancelledAt && (
+            {invoice.canceledAt && (
               <div>
                 <dt style={{ fontSize: '0.75rem', color: 'var(--danger)' }}>Cancelada em</dt>
-                <dd style={{ color: 'var(--danger)' }}>{formatDateTime(invoice.cancelledAt)}</dd>
+                <dd style={{ color: 'var(--danger)' }}>{formatDateTime(invoice.canceledAt)}</dd>
               </div>
             )}
-            {invoice.cancelReason && (
+            {invoice.cancellationReason && (
               <div>
                 <dt style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Motivo do cancelamento</dt>
-                <dd style={{ color: 'var(--text-soft)' }}>{invoice.cancelReason}</dd>
+                <dd style={{ color: 'var(--text-soft)' }}>{invoice.cancellationReason}</dd>
               </div>
             )}
           </dl>
@@ -154,10 +154,10 @@ export function InvoiceDetailPage(): React.JSX.Element {
         </h3>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1.5rem' }}>
           {[
-            { label: 'Subtotal', value: invoice.subtotal },
-            { label: 'Desconto', value: invoice.discount },
-            { label: 'Imposto', value: invoice.tax },
-            { label: 'Total', value: invoice.total, highlight: true }
+            { label: 'Valor Bruto', value: invoice.grossAmount },
+            { label: 'Desconto', value: invoice.discountAmount },
+            { label: 'Imposto', value: invoice.taxAmount },
+            { label: 'Valor Liquido', value: invoice.netAmount, highlight: true }
           ].map(({ label, value, highlight }) => (
             <div key={label} style={{ textAlign: 'center', padding: '1rem', background: highlight ? 'var(--primary-subtle)' : 'var(--surface-raised)', borderRadius: '0.5rem' }}>
               <div style={{ fontSize: '0.75rem', color: highlight ? 'var(--primary)' : 'var(--text-muted)', marginBottom: 4 }}>{label}</div>
@@ -169,10 +169,10 @@ export function InvoiceDetailPage(): React.JSX.Element {
         </div>
       </Card>
 
-      {invoice.notes && (
+      {invoice.description && (
         <Card>
-          <h3 style={{ fontSize: '0.875rem', fontWeight: 600, marginBottom: '0.5rem', color: 'var(--text-muted)' }}>OBSERVACOES</h3>
-          <p style={{ color: 'var(--text-soft)', lineHeight: 1.6 }}>{invoice.notes}</p>
+          <h3 style={{ fontSize: '0.875rem', fontWeight: 600, marginBottom: '0.5rem', color: 'var(--text-muted)' }}>DESCRICAO</h3>
+          <p style={{ color: 'var(--text-soft)', lineHeight: 1.6 }}>{invoice.description}</p>
         </Card>
       )}
 

@@ -1,0 +1,5 @@
+id;teamId;userId;specialty;isLead;availability;regionCoverage;active;createdAt;updatedAt
+8a98ad01-12f1-4a14-9223-5ba9d4049212;3919e2e0-e0bf-4c55-adb4-2f854df21081;56ea3d13-13cf-43a5-84be-f5ca03b88d93;El�trica;true;;Zona Sul;true;2026-04-10T01:56:47.917Z;2026-04-22T17:57:26.239Z
+4b00e0eb-29ea-443f-b6d8-8bdc2e39745e;ed46a64e-f582-4178-acde-91e2d1b29bb1;66d02d69-6227-4a59-a13d-4df9ced51066;Specialty-1;true;;Centro;true;2026-04-23T14:37:58.829Z;2026-04-23T14:37:58.829Z
+77809897-1eb3-4b05-81a4-b86c5b15b98a;ed46a64e-f582-4178-acde-91e2d1b29bb1;fad574c3-0ad3-4b2a-912a-ae4b715e6354;Specialty-2;false;;Centro;true;2026-04-23T14:37:58.845Z;2026-04-23T14:37:58.845Z
+1775ff50-e054-41b5-a2f9-5ab07797adee;ed46a64e-f582-4178-acde-91e2d1b29bb1;6154899b-e645-49ec-830a-1c5c0b3264b3;Specialty-3;false;;Centro;true;2026-04-23T14:37:58.850Z;2026-04-23T14:37:58.850Z

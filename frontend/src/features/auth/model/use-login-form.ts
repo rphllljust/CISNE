@@ -6,7 +6,7 @@ import { z } from 'zod';
 import { useAuthStore } from '@/features/auth/model/auth.store';
 
 const loginSchema = z.object({
-  email: z.string().email('Informe um e-mail valido.'),
+  email: z.string().trim().min(3, 'Informe sua credencial corporativa.'),
   password: z.string().min(8, 'A senha deve ter no minimo 8 caracteres.')
 });
 

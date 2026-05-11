@@ -43,6 +43,9 @@ const NotificationsPage = lazy(() => import('@/pages/notifications/notifications
 const AuditPage = lazy(() => import('@/pages/audit/audit.page').then((m) => ({ default: m.AuditPage })));
 const SettingsPage = lazy(() => import('@/pages/settings/settings.page').then((m) => ({ default: m.SettingsPage })));
 const ProfilePage = lazy(() => import('@/pages/profile/profile.page').then((m) => ({ default: m.ProfilePage })));
+const NfseEmitPage = lazy(() => import('@/pages/nfse/nfse-emit.page').then((m) => ({ default: m.default })));
+const NfseDetailPage = lazy(() => import('@/pages/nfse/nfse-detail.page').then((m) => ({ default: m.default })));
+const ContractsListPage = lazy(() => import('@/pages/contracts/contracts-list.page').then((m) => ({ default: m.default })));
 const NotFoundPage = lazy(() => import('@/pages/not-found.page').then((m) => ({ default: m.NotFoundPage })));
 
 function Lazy({ children }: { children: React.ReactNode }): React.JSX.Element {
@@ -264,6 +267,20 @@ export const appRouter = createBrowserRouter([
           {
             path: `${appRoutes.knowledgeBase}/:id`,
             element: <Lazy><ArticleDetailPage /></Lazy>
+          },
+          // NFS-e (Fiscal)
+          {
+            path: '/nfse/emitir/:serviceOrderId/:invoiceId',
+            element: <Lazy><NfseEmitPage /></Lazy>
+          },
+          {
+            path: '/nfse/:nfseId',
+            element: <Lazy><NfseDetailPage /></Lazy>
+          },
+          // Contracts (Recurring Billing)
+          {
+            path: '/contracts',
+            element: <Lazy><ContractsListPage /></Lazy>
           },
           {
             path: '*',

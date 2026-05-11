@@ -1,9 +1,9 @@
 import { PrismaClient, Priority, ServiceOrderStatus } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
+import { validateInitialPassword } from './seed-password-policy';
 
 
 const prisma = new PrismaClient();
-
 const permissionsSeed = [
   'users:read',
   'users:write',
@@ -119,20 +119,28 @@ async function main(): Promise<void> {
     select: { id: true }
   });
 
-  const passwordHash = await bcrypt.hash('Admin@123', 10);
-  const techPasswordHash = await bcrypt.hash('Tech@123', 10);
+  const passwordHash = await bcrypt.hash(
+    validateInitialPassword({ password: process.env.SEED_ADMIN_PASSWORD, envName: 'SEED_ADMIN_PASSWORD' }),
+    10
+  );
+  const techPasswordHash = await bcrypt.hash(
+    validateInitialPassword({ password: process.env.SEED_TECH_PASSWORD, envName: 'SEED_TECH_PASSWORD' }),
+    10
+  );
 
   const admin = await prisma.user.upsert({
     where: { email: 'admin@oms.local' },
     update: {
       fullName: 'Administrador OMS',
       status: 'ACTIVE',
-      passwordHash
+      passwordHash,
+      mustChangePassword: true
     },
     create: {
       email: 'admin@oms.local',
       fullName: 'Administrador OMS',
       passwordHash,
+      mustChangePassword: true,
       jobTitle: 'Super Admin',
       department: 'TI'
     }
@@ -142,12 +150,14 @@ async function main(): Promise<void> {
     where: { email: 'tecnico@oms.local' },
     update: {
       fullName: 'T�cnico Demo',
-      passwordHash: techPasswordHash
+      passwordHash: techPasswordHash,
+      mustChangePassword: true
     },
     create: {
       email: 'tecnico@oms.local',
       fullName: 'T�cnico Demo',
       passwordHash: techPasswordHash,
+      mustChangePassword: true,
       jobTitle: 'T�cnico de Campo',
       department: 'Opera��es'
     }

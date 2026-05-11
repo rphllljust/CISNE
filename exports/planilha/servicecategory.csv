@@ -1,0 +1,3 @@
+id;code;name;description;active;createdAt;updatedAt
+8bf0c9c9-9d31-4ae9-8c05-7ee1adfc79b3;MANUTENCAO;Manuten��o;Servi�os de manuten��o em campo;true;2026-04-10T01:56:47.943Z;2026-04-22T17:57:26.406Z
+6e9e449e-2b84-46d2-80b2-0dcff9b94291;DEMO-MANUT;Demo Maintenance;Demo category for seeded flows;true;2026-04-23T14:37:58.793Z;2026-04-23T14:37:58.793Z

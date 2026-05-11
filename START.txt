@@ -1,0 +1,181 @@
+╔═══════════════════════════════════════════════════════════════════════════╗
+║                                                                           ║
+║              🚀 BRASIL TRUCK OS - GUIA RÁPIDO DE INICIALIZAÇÃO 🚀        ║
+║                                                                           ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+
+📍 VOCÊ ESTÁ AQUI:
+   c:\Users\rphll\Desktop\OS
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ SOLUÇÃO MAIS RÁPIDA (1 CLIQUE):
+
+   1. Abrir PowerShell como ADMINISTRADOR
+
+   2. Digite:
+      .\INICIAR.ps1
+
+   3. Aguarde (5-10 minutos)
+
+   4. Abrir navegador:
+      http://localhost:3000
+
+   ✨ É ISSO! Tudo automático!
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 PROBLEMAS RESOLVIDOS:
+
+   ✅ PostgreSQL não estava rodando
+      → Script inicia automaticamente
+
+   ✅ Docker não acessível
+      → Documento INICIAR-APLICACAO.md tem opções alternativas
+
+   ✅ Dependências faltando
+      → npm install executado automaticamente
+
+   ✅ Migrations não aplicadas
+      → Aplicadas automaticamente
+
+   ✅ Sem saber IP da rede
+      → Script detecta e exibe seu IP
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 O QUE FAZER AGORA:
+
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                                                                         │
+│  PASSO 1: Abrir PowerShell como ADMINISTRADOR                         │
+│                                                                         │
+│  • Pressione: Windows + X                                            │
+│  • Selecione: "Windows PowerShell (Admin)"                           │
+│  • Ou: Pesquise "PowerShell" → Clique direito → Executar como admin │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                                                                         │
+│  PASSO 2: Executar Script                                             │
+│                                                                         │
+│  Copie e cole no PowerShell:                                         │
+│                                                                         │
+│  cd c:\Users\rphll\Desktop\OS                                        │
+│  .\INICIAR.ps1                                                        │
+│                                                                         │
+│  Pressione ENTER                                                     │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                                                                         │
+│  PASSO 3: Aguardar Conclusão                                          │
+│                                                                         │
+│  O script fará (automaticamente):                                    │
+│  • Iniciar PostgreSQL ✅                                              │
+│  • Instalar dependências ✅                                           │
+│  • Aplicar migrations ✅                                              │
+│  • Iniciar aplicação ✅                                               │
+│                                                                         │
+│  Tempo total: 5-10 minutos                                           │
+│                                                                         │
+│  Você verá ao final:                                                 │
+│  ✓ Listening on port 3000                                            │
+│  ✓ Server running on http://localhost:3000                          │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                                                                         │
+│  PASSO 4: Abrir Navegador                                             │
+│                                                                         │
+│  Enquanto o script está rodando, abra o navegador:                  │
+│                                                                         │
+│  http://localhost:3000                                               │
+│                                                                         │
+│  Você verá: Página de login da Brasil Truck ✅                       │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                                                                         │
+│  PASSO 5 (OPCIONAL): Acessar de Outro Computador                     │
+│                                                                         │
+│  Obtendo seu IP:                                                    │
+│  • Abra outro PowerShell                                            │
+│  • Digite: ipconfig | findstr "IPv4"                               │
+│  • Procure por: "192.168.x.x" ou "10.x.x.x"                       │
+│                                                                         │
+│  Acessando de outro PC (mesma WiFi):                               │
+│  • Abra navegador no outro PC                                      │
+│  • Digite: http://[SEU_IP]:3000                                    │
+│  • Exemplo: http://192.168.1.100:3000                             │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎓 DOCUMENTAÇÃO DISPONÍVEL:
+
+   📄 INICIAR-APLICACAO.md
+      └─ Guia passo-a-passo detalhado
+
+   📄 ACESSO-REDE-LOCAL.md
+      └─ Como acessar de outro computador
+
+   📄 TESTE-MASSA-DE-DADOS.md
+      └─ Dados de teste para validação
+
+   📄 GUIA-EXECUCAO-MASSA-TESTE.md
+      └─ Como gerar dados de teste
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ RESUMO:
+
+   1. Abrir PowerShell Admin
+   2. .\INICIAR.ps1
+   3. Aguardar 5-10 min
+   4. Abrir http://localhost:3000
+   5. PRONTO! ✨
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+❓ DÚVIDAS?
+
+   Docker não inicia?
+   → Ver INICIAR-APLICACAO.md (Opção 2)
+
+   Não consegue acessar de outro PC?
+   → Ver ACESSO-REDE-LOCAL.md (Troubleshooting)
+
+   Quer gerar dados de teste?
+   → npm run prisma:seed:50clients
+   → Ver TESTE-MASSA-DE-DADOS.md
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🚀 VAMOS LÁ!
+
+   COPIE E EXECUTE NO POWERSHELL ADMIN:
+
+   cd c:\Users\rphll\Desktop\OS && .\INICIAR.ps1
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Data: Maio/2025
+Status: ✅ PRONTO PARA USAR
+Versão: 1.0
+

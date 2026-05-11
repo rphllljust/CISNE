@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -95,6 +95,7 @@ model User {
   avatarUrl             String?
   jobTitle              String?
   department            String?
+  mustChangePassword    Boolean                     @default(false)
   status                UserStatus                  @default(ACTIVE)
   supervisedTeams       Team[]                      @relation("TeamSupervisor")
   teamMemberships       TeamMember[]
@@ -234,25 +235,36 @@ model SLA {
 }
 
 model Contract {
-  id            String         @id @default(uuid())
-  clientId      String
-  slaId         String?
-  code          String         @unique
-  title         String
-  status        ContractStatus @default(DRAFT)
-  startDate     DateTime
-  endDate       DateTime?
-  serviceScope  String?
-  monthlyQuota  Int?
-  client        Client         @relation(fields: [clientId], references: [id])
-  sla           SLA?           @relation(fields: [slaId], references: [id])
-  serviceOrders ServiceOrder[]
-  invoices      Invoice[]
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
+  id                        String            @id @default(uuid())
+  clientId                  String
+  slaId                     String?
+  code                      String            @unique
+  title                     String
+  status                    ContractStatus    @default(DRAFT)
+  startDate                 DateTime
+  endDate                   DateTime?
+  serviceScope              String?
+  monthlyQuota              Int?
+  // Recurring billing fields
+  billingFrequency          BillingFrequency?
+  billingDayOfMonth         Int?              // Day of month (1-31)
+  billingMonth              Int?              // For annual: 1-12
+  monthlyValue              Decimal?          @db.Decimal(12, 2)
+  nextBillingDate           DateTime?
+  lastBilledAt              DateTime?
+  generateNfse              Boolean           @default(false)
+  generateBoleto            Boolean           @default(false)
+  defaultTechnicianId       String?
+  client                    Client            @relation(fields: [clientId], references: [id])
+  sla                       SLA?              @relation(fields: [slaId], references: [id])
+  serviceOrders             ServiceOrder[]
+  invoices                  Invoice[]
+  createdAt                 DateTime          @default(now())
+  updatedAt                 DateTime          @updatedAt
 
   @@index([clientId])
   @@index([status])
+  @@index([nextBillingDate])
 }
 
 model ServiceCategory {
@@ -536,6 +548,7 @@ model Invoice {
   serviceOrderId     String        @unique
   clientId           String
   contractId         String?
+  nfseId             String?       // Reference to NFS-e
   issueDate          DateTime      @default(now())
   dueDate            DateTime?
   description        String?
@@ -551,6 +564,7 @@ model Invoice {
   serviceOrder       ServiceOrder  @relation(fields: [serviceOrderId], references: [id])
   client             Client        @relation(fields: [clientId], references: [id])
   contract           Contract?     @relation(fields: [contractId], references: [id])
+  nfse               Nfse?         @relation(fields: [nfseId], references: [id])
   createdBy          User?         @relation("InvoiceCreatedBy", fields: [createdById], references: [id])
   issuedBy           User?         @relation("InvoiceIssuedBy", fields: [issuedById], references: [id])
   createdAt          DateTime      @default(now())
@@ -559,6 +573,7 @@ model Invoice {
   @@index([status, issueDate])
   @@index([clientId, issueDate])
   @@index([contractId])
+  @@index([nfseId])
 }
 
 model AuditLog {
@@ -709,6 +724,21 @@ enum ChangeRiskLevel {
   MEDIUM
   HIGH
   CRITICAL
+}
+
+enum BillingFrequency {
+  MONTHLY
+  BIMONTHLY
+  QUARTERLY
+  ANNUAL
+}
+
+enum NfseStatus {
+  RASCUNHO
+  EMITIDA
+  CANCELADA
+  REJEITADA_SEFAZ
+  PENDENTE_SEFAZ
 }
 
 model Supplier {
@@ -1142,4 +1172,55 @@ model DocumentExtraction {
   @@index([manuallyCorrectd])
   @@index([serviceOrderId])
   @@index([createdAt])
+}
+
+model Nfse {
+  id                      String     @id @default(uuid())
+  // NFS-e identification
+  numero                  Int?       // Assigned by SEFAZ
+  serie                   String     @default("1")
+  codigoVerificacao       String?    // DV from SEFAZ
+  statusNfse              NfseStatus @default(RASCUNHO)
+  // Fiscal data
+  serviceOrderId          String
+  invoices                Invoice[]  // One NFS-e can reference multiple invoices (for recurrence)
+  tomadorCpfCnpj          String     // Client tax ID
+  tomadorRazaoSocial      String?    // Client legal name
+  prestadorCnpj           String     // Company CNPJ
+  inscricaoMunicipal      String?    // Municipal tax inscription
+  codigoServico           String     // LC 116/2003 code
+  discriminacao           String     // Service description
+  // Values
+  valorServicos           Decimal    @db.Decimal(12, 2)
+  valorDeducoes           Decimal    @default(0) @db.Decimal(12, 2)
+  aliquotaIss             Decimal    @db.Decimal(5, 4) // 0-0.05 (0-5%)
+  valorIss                Decimal    @db.Decimal(12, 2)
+  // Retencoes federais
+  retencaoIrrf            Decimal    @default(0) @db.Decimal(12, 2)
+  retencaoPis             Decimal    @default(0) @db.Decimal(12, 2)
+  retencaoCofins          Decimal    @default(0) @db.Decimal(12, 2)
+  retencaoCsll            Decimal    @default(0) @db.Decimal(12, 2)
+  retencaoInss            Decimal    @default(0) @db.Decimal(12, 2)
+  // Integration with SEFAZ
+  xmlAssinado             String?    @db.Text // Signed XML
+  urlNfse                 String?    // URL for verification/download
+  dataEmissao             DateTime   @default(now())
+  dataCancelamento        DateTime?
+  motivoCancelamento      String?
+  // SEFAZ response
+  mensagensSefaz          String[]   @default([])
+  certificadoA1UsadoEm    DateTime?
+  // Audit
+  criadoPor               String
+  atualizadoPor           String?
+  createdAt               DateTime   @default(now())
+  updatedAt               DateTime   @updatedAt
+  deletedAt               DateTime?
+
+  @@unique([serviceOrderId])
+  @@index([numero])
+  @@index([statusNfse])
+  @@index([dataEmissao])
+  @@index([tomadorCpfCnpj])
+  @@index([codigoServico])
 }

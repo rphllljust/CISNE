@@ -1,0 +1,3 @@
+id;code;name;region;supervisorId;active;createdAt;updatedAt
+3919e2e0-e0bf-4c55-adb4-2f854df21081;EQ-CAMPO-01;Equipe Campo 01;Zona Sul;b7be9627-c5ea-4b18-9330-0447b12227fd;true;2026-04-10T01:56:47.911Z;2026-04-22T17:57:26.208Z
+ed46a64e-f582-4178-acde-91e2d1b29bb1;EQ-DEMO-50;Equipe Demo 50;Centro;b7be9627-c5ea-4b18-9330-0447b12227fd;true;2026-04-23T14:37:58.773Z;2026-04-23T14:37:58.773Z

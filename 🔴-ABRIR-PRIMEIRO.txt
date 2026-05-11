@@ -1,0 +1,101 @@
+╔═══════════════════════════════════════════════════════════════════════════╗
+║                                                                           ║
+║                    ⚠️  PARAR E LER ISTO ⚠️                              ║
+║                                                                           ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+
+🔴 PROBLEMA IDENTIFICADO:
+   PostgreSQL não está rodando na porta 5432
+
+
+✅ SOLUÇÃO RÁPIDA (3 passos):
+
+┌────────────────────────────────────────────────────────────────────────┐
+│                                                                        │
+│  PASSO 1: Abrir Docker Desktop                                        │
+│  ─────────────────────────────────                                    │
+│                                                                        │
+│  • Pressione Windows                                                  │
+│  • Pesquise: "Docker Desktop"                                         │
+│  • Clique para abrir                                                  │
+│  • Aguarde aparecer ícone na bandeja do sistema                       │
+│  • Pode levar 2-3 minutos                                             │
+│                                                                        │
+│  ✅ Docker está pronto quando aparecer: Docker Desktop is running     │
+│                                                                        │
+└────────────────────────────────────────────────────────────────────────┘
+
+┌────────────────────────────────────────────────────────────────────────┐
+│                                                                        │
+│  PASSO 2: Abrir PowerShell                                            │
+│  ───────────────────────────                                          │
+│                                                                        │
+│  • Abrir PowerShell (Windows + R → powershell)                       │
+│  • Copiar e colar:                                                   │
+│                                                                        │
+│    docker run -d --name postgres-oms -e POSTGRES_USER=postgres       │
+│    -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=oms -p 5432:5432     │
+│    postgres:15-alpine                                                 │
+│                                                                        │
+│  • Pressionar ENTER                                                   │
+│                                                                        │
+│  ✅ Você verá um ID longo (container iniciado)                        │
+│                                                                        │
+└────────────────────────────────────────────────────────────────────────┘
+
+┌────────────────────────────────────────────────────────────────────────┐
+│                                                                        │
+│  PASSO 3: Iniciar Aplicação                                           │
+│  ────────────────────────                                             │
+│                                                                        │
+│  OPÇÃO A - Duplo clique:                                             │
+│  👉 c:\Users\rphll\Desktop\OS\START-APP.cmd                         │
+│                                                                        │
+│  OPÇÃO B - Terminal:                                                 │
+│  cd c:\Users\rphll\Desktop\OS && npm run start:dev                   │
+│                                                                        │
+│  ✅ Aguarde aparecer: "Listening on port 3000"                        │
+│                                                                        │
+└────────────────────────────────────────────────────────────────────────┘
+
+
+🌐 DEPOIS ACESSE NO NAVEGADOR:
+
+   http://localhost:3000
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+⏱️  TEMPO TOTAL:
+
+   • Docker Desktop: 2-3 min para iniciar
+   • PostgreSQL: 10 seg para iniciar
+   • Aplicação: 20-30 seg para iniciar
+   ──────────
+   TOTAL: ~5-7 minutos
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+✨ RESUMO:
+
+   1. Abrir Docker Desktop (aguarde inicializar)
+   2. PowerShell: docker run -d --name postgres-oms ... (copiar de cima)
+   3. START-APP.cmd (duplo clique)
+   4. Abrir: http://localhost:3000
+
+   PRONTO! ✅
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+📞 PRECISA DE AJUDA?
+
+   Consulte: INICIAR-APLICACAO.md
+   Consulte: ACESSO-REDE-LOCAL.md
+
+

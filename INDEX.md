@@ -54,6 +54,52 @@ ROLE:     SUPER_ADMIN
    - Arquitetura
    - Como executar
 
+### 7. 🔗 **ANALISE-INTEGRACAO-SUMARIO.md** ⭐ NOVO
+   - **Comece aqui!** Sumário executivo de integração
+   - 5 validações críticas do sistema
+   - Quick reference de operações
+   - Diagrama visual do fluxo
+   - Checklist pré-deployment
+   - Links para documentação detalhada
+
+### 8. 📖 **FLUXO-INTEGRACAO-ANALISE.md** ⭐ NOVO
+   - Análise detalhada do fluxo de integração
+   - 18 módulos do sistema
+   - 3 fluxos principais (SO → Invoice)
+   - Validações obrigatórias com pseudocódigo
+   - 10 integrações entre módulos (tabela matriz)
+   - Debugging de 7 erros críticos
+   - **Para: Entender arquitetura + implementar features**
+
+### 9. 🏗️ **PADROES-INTEGRACAO.md** ⭐ NOVO
+   - Padrões arquiteturais FSD
+   - Exemplo completo: Service com validação
+   - Padrão de repositório (Prisma)
+   - Validadores reutilizáveis
+   - Service de notificações (multi-canal)
+   - Auditoria com rastreamento
+   - Custom exceptions
+   - Transações e segurança (RBAC, rate limiting)
+   - 10 práticas + 8 proibições
+   - **Para: Code review + novos módulos + onboarding**
+
+### 10. 🔧 **TROUBLESHOOTING-INTEGRACAO.md** ⭐ NOVO
+   - Guia prático de debugging
+   - 15+ erros comuns com solução
+   - Queries SQL para verificação
+   - Health check completo do banco
+   - Monitoramento contínuo
+   - Rollback de operações
+   - Checklist rápido de validação
+   - **Para: Produção + resolução de erros + support**
+
+### 11. 📋 **INTEGRATION-RULES.md**
+   - Regras de integração entre módulos
+   - Dependências hierárquicas
+   - Validações obrigatórias por operação
+   - Fluxos de integração
+   - Resolução de erros
+
 ---
 
 ## 🎯 Por Onde Começar?
@@ -64,16 +110,33 @@ ROLE:     SUPER_ADMIN
 3. Inicie o sistema seguindo QUICK-REFERENCE
 4. Faça login
 
-### Se você é um **desenvolvedor:**
-1. Leia `ADMIN_SETUP.md` para entender o setup
-2. Leia `DESIGN-IMPLEMENTATION.md` para entender o design
-3. Consulte `IMPLEMENTATION-CHECKLIST.md` para saber o que foi feito
-4. Explore o código
+### Se você quer **entender a integração do sistema:**
+1. ⭐ Leia `ANALISE-INTEGRACAO-SUMARIO.md` (overview)
+2. Consulte `FLUXO-INTEGRACAO-ANALISE.md` (detalhado)
+3. Use `TROUBLESHOOTING-INTEGRACAO.md` para debugging
 
-### Se você quer **detalhes técnicos:**
+### Se você é um **desenvolvedor (novembro implementação):**
+1. Leia `ANALISE-INTEGRACAO-SUMARIO.md` (visão geral)
+2. Consulte `PADROES-INTEGRACAO.md` (padrões de código)
+3. Refira-se a `FLUXO-INTEGRACAO-ANALISE.md` durante implementação
+4. Use `TROUBLESHOOTING-INTEGRACAO.md` para problemas
+
+### Se você é um **desenvolvedor (experiência):**
+1. Leia `FLUXO-INTEGRACAO-ANALISE.md` - Arquitetura
+2. Consulte `PADROES-INTEGRACAO.md` - Consistência de código
+3. Revise `INTEGRATION-RULES.md` - Validações
+
+### Se você quer **detalhes técnicos & deployment:**
 1. `ADMIN_SETUP.md` - Database e migrations
 2. `DESIGN-IMPLEMENTATION.md` - CSS e components
 3. `IMPLEMENTATION-CHECKLIST.md` - Arquitetura completa
+4. `TROUBLESHOOTING-INTEGRACAO.md` - Monitoramento & debugging
+
+### Se você é **DevOps/Oncall (em produção):**
+1. ⭐ Leia `TROUBLESHOOTING-INTEGRACAO.md` primeiro
+2. Use o checklist rápido para validações
+3. Execute queries SQL para debugging
+4. Consulte [ANALISE-INTEGRACAO-SUMARIO.md](ANALISE-INTEGRACAO-SUMARIO.md) para contexto
 
 ---
 
@@ -242,9 +305,10 @@ Components:      ✅ 20+ UI COMPONENTS
 
 ## 📝 Última Atualização
 
-**Data:** 2026-04-12
-**Status:** ✅ Production Ready
+**Data:** 2026-04-21
+**Status:** ✅ Production Ready + Integração Documentada
 **Desenvolvedor:** Claude Code
+**Novidades:** +5 documentos de integração (FLUXO, PADRÕES, TROUBLESHOOTING, SUMÁRIO, RULES)
 
 ---
 

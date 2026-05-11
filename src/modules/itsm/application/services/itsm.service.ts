@@ -65,6 +65,10 @@ export class ItsmService {
     items: Record<string, unknown>[];
     meta: { page: number; limit: number; total: number; totalPages: number };
   }> {
+    // Validar paginação
+    const page = Math.max(1, query.page || 1);
+    const limit = Math.min(100, Math.max(1, query.limit || 20));
+
     const where: Prisma.ProblemRecordWhereInput = {
       ...(query.status ? { status: query.status } : {}),
       ...(query.priority ? { priority: query.priority } : {}),
@@ -91,8 +95,8 @@ export class ItsmService {
             }
           }
         },
-        skip: (query.page - 1) * query.limit,
-        take: query.limit,
+        skip: (page - 1) * limit,
+        take: limit,
         orderBy: this.buildProblemsOrderBy(query.sort)
       }),
       this.prisma.problemRecord.count({ where })
@@ -101,10 +105,10 @@ export class ItsmService {
     return {
       items,
       meta: {
-        page: query.page,
-        limit: query.limit,
+        page,
+        limit,
         total,
-        totalPages: Math.ceil(total / query.limit)
+        totalPages: Math.ceil(total / limit)
       }
     };
   }
@@ -230,6 +234,10 @@ export class ItsmService {
         : {})
     };
 
+    // Validar paginação
+    const page = Math.max(1, query.page || 1);
+    const limit = Math.min(100, Math.max(1, query.limit || 20));
+
     const [items, total] = await this.prisma.$transaction([
       this.prisma.changeRequest.findMany({
         where,
@@ -243,20 +251,23 @@ export class ItsmService {
             }
           }
         },
-        skip: (query.page - 1) * query.limit,
-        take: query.limit,
+        skip: (page - 1) * limit,
+        take: limit,
         orderBy: this.buildChangesOrderBy(query.sort)
       }),
       this.prisma.changeRequest.count({ where })
     ]);
 
     return {
-      items,
+      items: items.map(item => ({
+        ...item,
+        type: item.category // Alias para compatibilidade com frontend
+      })),
       meta: {
-        page: query.page,
-        limit: query.limit,
+        page,
+        limit,
         total,
-        totalPages: Math.ceil(total / query.limit)
+        totalPages: Math.ceil(total / limit)
       }
     };
   }

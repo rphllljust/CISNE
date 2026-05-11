@@ -37,7 +37,7 @@ export function ChangesListPage(): React.JSX.Element {
   const [type, setType] = useState('');
   const [page, setPage] = useState(1);
 
-  const filter = useMemo(() => ({ page, limit: 20, search: search || undefined, status: status || undefined, type: type || undefined }), [page, search, status, type]);
+  const filter = useMemo(() => ({ page, limit: 20, search: search || undefined, status: status || undefined, category: type || undefined }), [page, search, status, type]);
   const changesQuery = useChanges(filter);
   const rows = changesQuery.data?.items ?? [];
   const meta = changesQuery.data?.meta;
